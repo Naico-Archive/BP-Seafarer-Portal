@@ -9,6 +9,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 platforms/
+node_modules/
 
 # Windows Installer files
 *.cab
