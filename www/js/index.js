@@ -2489,5 +2489,6 @@ function win(r) {
 
 function fail(error) {
     alert("fail");
+    alert(error);
     alert("An error has occurred: Code = " = error.code);
 }
