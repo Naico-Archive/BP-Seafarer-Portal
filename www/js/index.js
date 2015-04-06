@@ -2470,7 +2470,7 @@ function uploadImg (argument) {
         alert(ft);
 
         ft.upload(imageURI, url, win, fail, options);
-        
+
         alert("end");
     }
     catch(err){
@@ -2479,6 +2479,7 @@ function uploadImg (argument) {
 }
 
 function win(r) {
+    alert("win");
     console.log("Code = " + r.responseCode);
     console.log("Response = " + r.response);
     console.log("Sent = " + r.bytesSent);
@@ -2486,5 +2487,6 @@ function win(r) {
 }
 
 function fail(error) {
+    alert("fail");
     alert("An error has occurred: Code = " = error.code);
 }
