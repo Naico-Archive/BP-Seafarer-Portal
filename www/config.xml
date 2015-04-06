@@ -6,10 +6,10 @@
         id        = "com.seafarer.mybsm"
         version   = "1.0.3">
 
-    <name>MyBSM</name>
+    <name>MySeafarer</name>
 
     <description>
-        MyBSM Seafarer application that responds to the deviceready event.
+        My Seafarer application that responds to the deviceready event.
     </description>
 
     <author href="http://phonegap.com" email="support@phonegap.com">

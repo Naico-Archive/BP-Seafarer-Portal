@@ -461,7 +461,7 @@ $(document).ready(function() {
     }
 });
 
-var prefilurl = "https://getVesselTracker.com/seafarer_dev/";
+var prefilurl = "https://getVesselTracker.com/seafarer_dev_bp/";
 /*$.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
     options.url = 'https://getVesselTracker.com/seafarer_dev/'+ options.url ;//+ options.url + "&pal_user_email=" + $.jStorage.get("pal_user_name");
 });
@@ -2316,7 +2316,7 @@ function expense_details (argument) {
     results_array.push('</li>');
 
     results_array.push('<li class="topcoat-list__item">');
-    results_array.push('<button class="topcoat-button" id="btnExpSave" onclick="openCamera(1)" style="display:inline-block" ">' +
+    results_array.push('<button class="topcoat-button" id="btnExpSave" onclick="expSave()" style="display:inline-block" ">' +
         '<span class="topcoat-icon png-checkmark png-header pagename-icon"/>Save</button>')
     results_array.push('<button class="topcoat-button" id="btnExpCancel" onclick="expDiscard()" style="display:inline-block; float:right; margin-right:0" ">' +
         '<span class="topcoat-icon png-cancel png-header pagename-icon"/>Discard</button>')
@@ -2419,7 +2419,7 @@ function onPhotoDataSuccess(imageData) {
   // alert('Outside try');
   try{
         // alert('Inside try');
-        var url = prefilurl+"upload_image.php?email="+$.jStorage.get("username")+"&empid="+$.jStorage.get("empid");
+        // var url = prefilurl+"upload_image.php?email="+$.jStorage.get("username")+"&empid="+$.jStorage.get("empid");
         // alert(url);
         // alert(imageData);
         // $.post( url, {data: imageData}, function(data) {
@@ -2437,18 +2437,47 @@ function onFail(message) {
   alert('Failed because: ' + message);
 }
 
+function expSave(){
+    uploadImg();
+}
+
 function uploadImg (argument) {
     try{
         var url = prefilurl+"upload_image.php?email="+$.jStorage.get("username")+"&empid="+$.jStorage.get("empid");
         alert(url);
         alert(lastImageData);
+        var imageURI = lastImageData;
         // $.post( url, {data: lastImageData}, function(data) {
         //     alert("Image uploaded!");
         // });
+
+        var options = new FileUploadOptions();
+        options.fileKey="file";
+        options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+        options.mimeType="image/jpeg";
+
+        var params = new Object();
+        params.value1 = "test";
+        params.value2 = "param";
+
+        options.params = params;
+        options.chunkedMode = false;
+
         var ft = new FileTransfer();
-        ft.upload(uri, serverUrl, successCallback, errorCallback, options);
+        ft.upload(imageURI, url, win, fail, options);
     }
     catch(err){
         alert(err);
     }
+}
+
+function win(r) {
+    console.log("Code = " + r.responseCode);
+    console.log("Response = " + r.response);
+    console.log("Sent = " + r.bytesSent);
+    alert(r.response);
+}
+
+function fail(error) {
+    alert("An error has occurred: Code = " = error.code);
 }

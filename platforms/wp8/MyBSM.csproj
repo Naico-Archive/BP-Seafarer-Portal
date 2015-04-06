@@ -1320,4 +1320,10 @@
     <ItemGroup>
         <Compile Include="Plugins\org.apache.cordova.camera\Camera.cs" />
     </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\org.apache.cordova.file\File.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\org.apache.cordova.file-transfer\FileTransfer.cs" />
+    </ItemGroup>
 </Project>
