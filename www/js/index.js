@@ -2463,8 +2463,15 @@ function uploadImg (argument) {
         options.params = params;
         options.chunkedMode = false;
 
+        alert(options);
+
         var ft = new FileTransfer();
+
+        alert(ft);
+
         ft.upload(imageURI, url, win, fail, options);
+        
+        alert("end");
     }
     catch(err){
         alert(err);
