@@ -2480,6 +2480,7 @@ function uploadImg (argument) {
 
 function win(r) {
     alert("win");
+    alert(r);
     console.log("Code = " + r.responseCode);
     console.log("Response = " + r.response);
     console.log("Sent = " + r.bytesSent);
