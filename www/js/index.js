@@ -2122,7 +2122,7 @@ function bottm_buttons(page, results_array) {
         //     results_array.push('<div class="png-mail button-icon grey"></div>');
         // }
         
-        results_array.push('<div class="png-mail button-icon"></div>');
+        // results_array.push('<div class="png-mail button-icon"></div>');
         results_array.push('</a>');
     }
     if(page == "P" || page == "C") {
@@ -2306,6 +2306,7 @@ function expense_details (argument) {
                         '</select> </li>');
     
     results_array.push('<li class="topcoat-list__item">Description<input size="15" type="text" class="topcoat-text-input" id="expDesc"> </li>');
+    results_array.push('<li class="topcoat-list__item">Amount<input size="15" type="text" class="topcoat-text-input" id="expDesc"> </li>');
 
     results_array.push('<li class="topcoat-list__item">Reciept</br>');
     results_array.push('<button class="topcoat-button" id="btnCamera" onclick="openCamera(1)" style="display:inline-block" ">' +
@@ -2490,5 +2491,5 @@ function win(r) {
 function fail(error) {
     alert("fail");
     alert(error);
-    alert("An error has occurred: Code = " = error.code);
+    alert("An error has occurred: Code = " + error.code);
 }
