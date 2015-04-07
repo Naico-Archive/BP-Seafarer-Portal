@@ -84,7 +84,7 @@
 	width: 25px;
 }
 .png-plus{	
-	background-image: url("png/plus.png");
+	background-image: url("png/plus_white.png");
 	background-size: 50%;
 	height: 100%;
 	background-repeat: no-repeat;
@@ -122,10 +122,11 @@
 }
 .png-clock{	
 	background-image: url("png/clock.png");
-	background-size: 50%;
+	background-size: 83% !important;
 	height: 100%;
 	background-repeat: no-repeat;
 	top: 3px !important;
+	left: 0px !important;
 }
 .png-airplane{	
 	background-image: url("png/airplane.png");
@@ -141,10 +142,11 @@
 }
 .png-cross{	
 	background-image: url("png/cross.png");
-	background-size: 50%;
+	background-size: 67% !important;
 	height: 100%;
 	background-repeat: no-repeat;
-	top: 3px !important;
+	top: 6px !important;
+	left: 2px !important;
 }
 .png-automobile{	
 	background-image: url("png/automobile.png");
