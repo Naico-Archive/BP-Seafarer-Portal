@@ -1337,7 +1337,8 @@ input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
   width: 1.62rem;
   height: 1.62rem;
   vertical-align: middle;
-  top: -1px;
+  top: -5px;
+  left: -3px;
 }
 
 .topcoat-icon--large {

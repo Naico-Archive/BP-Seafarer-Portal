@@ -2331,7 +2331,7 @@ function expense_details (argument) {
     results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
 
     results_array.push('<li class="topcoat-list__item" style="padding:0">');
-    results_array.push('<div style="text-align:right;   background-color: #CBCCCB;">March 31, 2015</div>')
+    results_array.push('<div style="text-align:right;   background-color: #E5E9E8;">March 31, 2015</div>')
     
     results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
     results_array.push('<li class="topcoat-list__item exp-rejected">');
@@ -2355,7 +2355,7 @@ function expense_details (argument) {
     results_array.push('</li>');
 
     results_array.push('<li class="topcoat-list__item" style="padding:0">');
-    results_array.push('<div style="text-align:right;   background-color: #CBCCCB;">March 30, 2015</div>')
+    results_array.push('<div style="text-align:right;   background-color: #E5E9E8;">March 30, 2015</div>')
     
     results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
     results_array.push('<li class="topcoat-list__item exp-pending">');
