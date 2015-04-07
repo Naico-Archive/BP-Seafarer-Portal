@@ -2453,7 +2453,7 @@ function uploadImg (argument) {
         // });
 
         var options = new FileUploadOptions();
-        options.fileKey="file";
+        options.fileKey="photoPath";
         options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
         options.mimeType="image/jpeg";
         
