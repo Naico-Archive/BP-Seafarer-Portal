@@ -2347,11 +2347,26 @@ function fillExpenseList (argument) {
                 for (var j = 0; j <= exp[i].expensePerDate.length-1; j++) {
                     var objExpPerDate = exp[i].expensePerDate[j];
 
-                    results_array.push('<li class="topcoat-list__item exp-rejected">');
+                    results_array.push('<li class="topcoat-list__item exp-pending">');
                     results_array.push('<div style="width: 100%;">'+
-                                        '<div class="topcoat-icon png-help png-header pagename-icon" style="margin-right: 10px;"/>' +
-                                        '<div style="font-size: x-large; margin-right:5px; display: inline-block">'+ objExpPerDate.expDesc +'</div>' +
-                                        '<div class="topcoat-icon png-cross png-header pagename-icon" style="float: right; margin-left:15px"/>' +
+                                        '<div class="topcoat-icon ');
+                    switch(objExpPerDate.expType) {
+                        case 'Food':
+                            results_array.push(' png-spoon-knife ');
+                            break;
+                        case 'Air fare':
+                            results_array.push(' png-airplane ');
+                            break;
+                        case 'Transport':
+                            results_array.push(' png-automobile ');
+                            break;
+                        case 'Other':
+                            results_array.push(' png-help ');
+                            break;
+                    }
+                    results_array.push('png-header pagename-icon" style="margin-right: 10px;"/>' +
+                                        '<div style="font-size: x-large; margin-right:10px; display: inline-block">'+ objExpPerDate.expDesc +'</div>' +
+                                        //'<div class="topcoat-icon png-cross png-header pagename-icon" style="float: right; margin-left:15px"/>' +
                                         '<div style="display: inline-block;float: right;font-size: x-large;">$'+objExpPerDate.amount+'</div>' +
                                         '</div>')
                     results_array.push('</li>');
