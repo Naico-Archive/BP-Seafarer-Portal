@@ -372,9 +372,9 @@ function route(event) {
         return;
     }
 
-    // hide_all();
-    // expense_details();
-    // return;
+    hide_all();
+    expense_details();
+    return;
 
     if (hash === "#plan") {
         show_plan_details();
@@ -2298,7 +2298,7 @@ function expense_details (argument) {
     
     results_array.push('<li class="topcoat-list__item">Date<input size="15" type="date" class="topcoat-text-input" id="expDate"> </li>');
     
-    results_array.push('<li class="topcoat-list__item">Expense Type<select id="expType" class="topcoat-select" onchange="owner_vessel_selected()">'+
+    results_array.push('<li class="topcoat-list__item">Expense Type<select id="expType" class="topcoat-select" >'+
                         '<option value="-1">Food</option>);' +
                         '<option value="-1">Air fare</option>);' +
                         '<option value="-1">Transport</option>);' +
@@ -2306,7 +2306,7 @@ function expense_details (argument) {
                         '</select> </li>');
     
     results_array.push('<li class="topcoat-list__item">Description<input size="15" type="text" class="topcoat-text-input" id="expDesc"> </li>');
-    results_array.push('<li class="topcoat-list__item">Amount<input size="15" type="text" class="topcoat-text-input" id="expDesc"> </li>');
+    results_array.push('<li class="topcoat-list__item">Amount<input size="15" type="text" class="topcoat-text-input" id="expAmount"> </li>');
 
     results_array.push('<li class="topcoat-list__item">Reciept</br>');
     results_array.push('<button class="topcoat-button" id="btnCamera" onclick="openCamera(1)" style="display:inline-block" ">' +
@@ -2327,62 +2327,43 @@ function expense_details (argument) {
     results_array.push('</div>');
 
     results_array.push('<div class = "footer" style="margin-top:5px; border:0px;" id="divExpList" >');
-    
-    results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
-
-    results_array.push('<li class="topcoat-list__item" style="padding:0">');
-    results_array.push('<div style="text-align:right;   background-color: #E5E9E8;">March 31, 2015</div>')
-    
-    results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
-    results_array.push('<li class="topcoat-list__item exp-rejected">');
-    results_array.push('<div style="width: 100%;">'+
-                        '<div class="topcoat-icon png-help png-header pagename-icon" style="margin-right: 10px;"/>' +
-                        '<div style="font-size: x-large; margin-right:5px; display: inline-block">Gift to Office</div>' +
-                        '<div class="topcoat-icon png-cross png-header pagename-icon" style="float: right; margin-left:15px"/>' +
-                        '<div style="display: inline-block;float: right;font-size: x-large;">$25</div>' +
-                        '</div>')
-    results_array.push('</li>');
-    results_array.push('<li class="topcoat-list__item exp-approved">');
-    results_array.push('<div style="width: 100%;">'+
-                        '<div class="topcoat-icon png-automobile png-header pagename-icon" style="margin-right: 10px;"/>' +
-                        '<div style="font-size: x-large; margin-right:5px; display: inline-block">Travel to office</div>' +
-                        '<div class="topcoat-icon png-checkmark png-header pagename-icon" style="float: right; margin-left:15px"/>' +
-                        '<div style="display: inline-block; float: right;font-size: x-large;">$12</div>' +
-                        '</div>')
-    results_array.push('</li>');
-    results_array.push('</ul>');
-
-    results_array.push('</li>');
-
-    results_array.push('<li class="topcoat-list__item" style="padding:0">');
-    results_array.push('<div style="text-align:right;   background-color: #E5E9E8;">March 30, 2015</div>')
-    
-    results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
-    results_array.push('<li class="topcoat-list__item exp-pending">');
-    results_array.push('<div style="width: 100%;">'+
-                        '<div class="topcoat-icon png-spoon-knife png-header pagename-icon" style="margin-right: 10px;"/>' +
-                        '<div style="font-size: x-large; margin-right:5px; display: inline-block">Dinner at airport</div>' +
-                        '<div class="topcoat-icon png-clock png-header pagename-icon" style="float: right; margin-left:15px"/>' +
-                        '<div style="display: inline-block;float: right;font-size: x-large;">$15</div>' +
-                        '</div>')
-    results_array.push('</li>');
-    results_array.push('<li class="topcoat-list__item exp-approved">');
-    results_array.push('<div style="width: 100%;">'+
-                        '<div class="topcoat-icon png-airplane png-header pagename-icon" style="margin-right: 10px;"/>' +
-                        '<div style="font-size: x-large; margin-right:5px; display: inline-block">Flight to India</div>' +
-                        '<div class="topcoat-icon png-checkmark png-header pagename-icon" style="float: right; margin-left:15px"/>' +
-                        '<div style="display: inline-block; float: right;font-size: x-large;">$1200</div>' +
-                        '</div>')
-    results_array.push('</li>');
-    results_array.push('</ul>');
-
-    results_array.push('</li>');
-    results_array.push('</ul>');
-
     results_array.push('</div>');
 
-
     $('#expense_details').html(results_array.join(""));
+
+    fillExpenseList();
+}
+
+function fillExpenseList (argument) {
+    $('#divExpList').html("");
+    var results_array = new Array();
+    var exp = $.jStorage.get("exp");
+    if (exp !=null && exp.length > 0) {
+        for (var i = 0; i <= exp.length - 1; i++) {
+            results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
+                results_array.push('<li class="topcoat-list__item" style="padding:0">');
+                results_array.push('<div style="text-align:right;   background-color: #E5E9E8;">'+exp[i].date+'</div>')
+                results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
+                for (var j = 0; j <= exp[i].expensePerDate.length-1; j++) {
+                    var objExpPerDate = exp[i].expensePerDate[j];
+
+                    results_array.push('<li class="topcoat-list__item exp-rejected">');
+                    results_array.push('<div style="width: 100%;">'+
+                                        '<div class="topcoat-icon png-help png-header pagename-icon" style="margin-right: 10px;"/>' +
+                                        '<div style="font-size: x-large; margin-right:5px; display: inline-block">'+ objExpPerDate.expDesc +'</div>' +
+                                        '<div class="topcoat-icon png-cross png-header pagename-icon" style="float: right; margin-left:15px"/>' +
+                                        '<div style="display: inline-block;float: right;font-size: x-large;">$'+objExpPerDate.amount+'</div>' +
+                                        '</div>')
+                    results_array.push('</li>');
+                };
+                results_array.push('</ul>');
+                results_array.push('</li>');
+            results_array.push('</ul>');
+        };        
+    };
+
+    $('#divExpList').html(results_array.join(""));
+
 }
 
 function expDiscard (argument) {
@@ -2439,7 +2420,54 @@ function onFail(message) {
 }
 
 function expSave(){
-    uploadImg();
+    var exp = $.jStorage.get("exp");
+    if (exp == null) {
+        exp = [];
+        var expPerDate =[];
+        var objExpPerDate = {  date : $('#expDate').val(),
+                               expType : $( "#expType option:selected" ).text(),
+                               expDesc : $('#expDesc').val(),
+                               amount : $('#expAmount').val(),
+                               image : lastImageData  };
+        expPerDate.push(objExpPerDate);
+
+        var objExp = { date: $('#expDate').val(), expensePerDate : expPerDate};
+        exp.push(objExp);        
+    }else{
+        var datePresent = $.grep(exp, function(a) { 
+                                if (a.date==$('#expDate').val()) {
+                                var objExpPerDate = {  date : $('#expDate').val(),
+                                                       expType : $( "#expType option:selected" ).text(),
+                                                       expDesc : $('#expDesc').val(),
+                                                       amount : $('#expAmount').val(),
+                                                       image : lastImageData  };
+
+                                a.expensePerDate.push(objExpPerDate);
+                                };
+                                return a.date==$('#expDate').val();
+                            });
+        if (datePresent.length==0) {
+            var expPerDate =[];
+            var objExpPerDate = {  date : $('#expDate').val(),
+                                   expType : $( "#expType option:selected" ).text(),
+                                   expDesc : $('#expDesc').val(),
+                                   amount : $('#expAmount').val(),
+                                   image : lastImageData  };
+            expPerDate.push(objExpPerDate);
+
+            var objExp = { date: $('#expDate').val(), expensePerDate : expPerDate};
+            exp.push(objExp);
+        };
+    }    
+    exp.sort(function(a,b){
+      // Turn your strings into dates, and then subtract them
+      // to get a value that is either negative, positive, or zero.
+      return new Date(b.date) - new Date(a.date);
+    });
+    $.jStorage.set("exp", exp);
+    // uploadImg();
+    fillExpenseList();
+    $('#divNewExp').hide();    
 }
 
 function uploadImg (argument) {
