@@ -2456,14 +2456,17 @@ function uploadImg (argument) {
         options.fileKey="file";
         options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
         options.mimeType="image/jpeg";
-
+        
         var params = new Object();
         params.value1 = "test";
         params.value2 = "param";
 
         options.params = params;
         options.chunkedMode = false;
-
+        options.headers = {
+          Connection: "close"
+        };
+        
         alert(options);
 
         var ft = new FileTransfer();
