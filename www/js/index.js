@@ -2350,7 +2350,7 @@ function fillExpenseList (argument) {
                     var objExpPerDate = exp[i].expensePerDate[j];
 
                     results_array.push('<li class="topcoat-list__item" style="padding:0px">');
-                    results_array.push('<a href="javascript:showExpEdit(this, '+ objExpPerDate.id +')"><div class="exp-pending" ">'+
+                    results_array.push('<a href="javascript:showExpEdit('+ objExpPerDate.id +')"><div class="exp-pending" ">'+
                                         '<div class="topcoat-icon ');
                     switch(objExpPerDate.expType) {
                         case 'Food':
@@ -2412,7 +2412,7 @@ function showExpEdit (argument, id) {
         $('#divNewExp').show();
     }   
     catch(err){
-        // alert(err);
+        alert(err);
     }
 }
 
