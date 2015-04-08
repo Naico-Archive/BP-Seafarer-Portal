@@ -2382,13 +2382,14 @@ function fillExpenseList (argument) {
 }
 
 function showExpEdit (argument, id) {
+    return;
     try{
         var exp = $.jStorage.get("exp");
         $('#divNewExp').insertAfter(argument);
         for (var i = 0; i < exp.length; i++) {
             $.grep(exp[i].expensePerDate, function(a){
                 if (a.id == id) {
-                    
+
                     var now = new Date(a.date); 
                     var day = ("0" + now.getDate()).slice(-2);
                     var month = ("0" + (now.getMonth() + 1)).slice(-2);
@@ -2410,7 +2411,7 @@ function showExpEdit (argument, id) {
         $('#divNewExp').show();
     }   
     catch(err){
-        alert(err);
+        // alert(err);
     }
 }
 
