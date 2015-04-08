@@ -30,6 +30,11 @@ var contentlayer;
 //     return true;
 // }
 
+function capitalize(str) {
+    if (str)
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
 var app = {
     // Application Constructor
     myLog: document.getElementById("log"),
@@ -303,7 +308,7 @@ function onBackKeyDown() {
 }
 
 function toTitleCase(str){
-    return str;
+    // return str;
     if(str)
     return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
@@ -883,7 +888,7 @@ function show_plan_details() {
                     // results_array.push("<span> Flag : "++"</span><br/>");
                     results_array.push('<div style="margin-left:5px">');
                     results_array.push("<span><b> Vessel type :</b> "+data['vessel_type']+"</span><br/>");
-                    results_array.push("<span><b> Rank :</b> "+data['rank_name'].toUpperCase()+"</span><br/>");
+                    results_array.push("<span><b> Rank :</b> "+toTitleCase(data['rank_name'])+"</span><br/>");
                     results_array.push("<span><b> Manager :</b> "+data['emp_sdc_name'].toUpperCase()+"</span><br/>");
                     results_array.push("<span><b> Exp. Joining Date :</b> "+dateformat(data['from_date'], "dd-mon-yyyy")+"</span><br/>");
                     results_array.push("<span><b> Exp. Join Port :</b> "+toTitleCase(port)+"</span><br/>");
@@ -1008,8 +1013,8 @@ function show_training_details() {
                 var tr_content = course+", "+status+", "+from_date+", "+to_date+", "+institution;
 
                 //training_res_array.push("<li class='topcoat-list__item'>");                
-                training_res_array.push("<span><b>Course :</b> "+course.toUpperCase()+"</span>");
-                training_res_array.push("<br/><span><b>Status :</b> "+status+"</span>");
+                training_res_array.push("<span><b>Course :</b> "+capitalize(course)+"</span>");
+                training_res_array.push("<br/><span><b>Status :</b> "+capitalize(status)+"</span>");
                 training_res_array.push("<br/><span><b>From :</b> "+from_date+"</span>");
                 training_res_array.push("<br/><span><b>To :</b> "+to_date+"</span>");
                 training_res_array.push("<br/><span><b>Venue :</b> "+institution+"</span>");
@@ -1237,7 +1242,7 @@ function allotment_details() {
             results_array.push('<div class = "footer" style="margin-top: 0px;">');
             if(data[0] != null) {
                 var pro_date = new Date(data[0]['processed_on']);
-                results_array.push("<span> Amount is processed on <b>"+pro_date.getDate() +", "+getMonthName(pro_date.getMonth()) +", "+pro_date.getFullYear() +"</b></span><br/>");
+                results_array.push("<span> Amount is processed on <b>"+pro_date.getDate() +", "+capitalize(getMonthName(pro_date.getMonth())) +", "+pro_date.getFullYear() +"</b></span><br/>");
                 results_array.push("Balance amount is ");
                 var balamnt=0;
                 if(data[0] != null) {
@@ -1779,11 +1784,11 @@ function documentdetails(){
                     results_array.push("<li class='topcoat-list__item'>");
 
                     if((Date.parse(data[i]['expiry_date'])) < Date.parse(new Date())) {
-                        results_array.push("<span style='color:red'>"+data[i]['name'].toUpperCase());
+                        results_array.push("<span style='color:red'>"+capitalize(data[i]['name']));
                     } else if((((Date.parse(data[i]['expiry_date']))-20) < Date.parse(new Date())) && (Date.parse(new Date()<(Date.parse(data[i]['expiry_date']))))) {
-                        results_array.push("<span style='color:green'>"+data[i]['name'].toUpperCase());
+                        results_array.push("<span style='color:green'>"+capitalize(data[i]['name']));
                     } else {
-                        results_array.push("<span>"+data[i]['name'].toUpperCase());
+                        results_array.push("<span>"+capitalize(data[i]['name']));
                     }
 
                     if(data[i]['document_no']!=null && data[i]['document_no']!='' ) 
@@ -1801,14 +1806,14 @@ function documentdetails(){
                 for (var i = 0; i < expired_docs.length; i++) {
                     if ( i==0 ) {
                         expired_array.push('<a href="javascript:visible_expired_docs()"><div class = "footer">');
-                        doc_type = " EXPIRED ("+ expired_docs.length +")";
+                        doc_type = " Expired ("+ expired_docs.length +")";
                         expired_array.push("<b><div class='header_text' style='color:red'>"+toTitleCase(doc_type.slice(1))+"</div></b><br>");                                                
                         expired_array.push("<ul class='topcoat-list__container'>");
                         expired_array.push('</a><div id="exp_docs">'); 
                     }
 
                     expired_array.push("<li class='topcoat-list__item'>");
-                    expired_array.push("<span style='color:red'>"+expired_docs[i]['name'].toUpperCase());
+                    expired_array.push("<span style='color:red'>"+capitalize(expired_docs[i]['name']));
                     if(expired_docs[i]['document_no']!=null && expired_docs[i]['document_no']!='' ) 
                             expired_array.push("("+expired_docs[i]['document_no']+")");
                     if(expired_docs[i]['expiry_date']!=null && expired_docs[i]['expiry_date']!='' ) 
@@ -1942,7 +1947,7 @@ function getempdetails(username, password) {
 
                 emp_det_array.push(nullcheck(toTitleCase(data[0]['sur_name']))+" "+nullcheck(toTitleCase(data[0]['first_name'])));//+nullcheck(toTitleCase(data[0]['last_name']))+" "
                 // emp_det_array.push("<br>"+toTitleCase(data[0]['nationality']));
-                emp_det_array.push("<br>"+data[0]['rank_grp_name'].toUpperCase());
+                emp_det_array.push("<br>"+toTitleCase(data[0]['rank_grp_name']));
 
                 login_success();
                 $('#login_password').blur();
@@ -2370,7 +2375,7 @@ function fillExpenseList (argument) {
                                         '<div style="font-size: x-large; margin-right:10px; display: inline-block">'+ objExpPerDate.expDesc +'</div>' +
                                         //'<div class="topcoat-icon png-cross png-header pagename-icon" style="float: right; margin-left:15px"/>' +
                                         '<div style="display: inline-block;float: right;font-size: x-large;">$'+objExpPerDate.amount+'</div>' +
-                                        '</div></a>')
+                                        '</div>')
                     results_array.push('</li>');
                 };
                 results_array.push('</ul>');
