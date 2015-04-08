@@ -2350,7 +2350,7 @@ function fillExpenseList (argument) {
                     var objExpPerDate = exp[i].expensePerDate[j];
 
                     results_array.push('<li class="topcoat-list__item" style="padding:0px">');
-                    results_array.push('<a href="javascript:showExpEdit('+ objExpPerDate.id +')"><div class="exp-pending" ">'+
+                    results_array.push('<a href="javascript:showExpEdit('+ objExpPerDate.id +')"><div class="exp-pending" id='+objExpPerDate.id+'>'+
                                         '<div class="topcoat-icon ');
                     switch(objExpPerDate.expType) {
                         case 'Food':
@@ -2382,11 +2382,10 @@ function fillExpenseList (argument) {
     $('#divExpList').html(results_array.join(""));
 }
 
-function showExpEdit (argument, id) {
-    return;
+function showExpEdit (id) {
     try{
         var exp = $.jStorage.get("exp");
-        $('#divNewExp').insertAfter(argument);
+        $('#divNewExp').insertAfter($('#'+id));
         for (var i = 0; i < exp.length; i++) {
             $.grep(exp[i].expensePerDate, function(a){
                 if (a.id == id) {
@@ -2417,16 +2416,14 @@ function showExpEdit (argument, id) {
 }
 
 function expDiscard (argument) {
-    $('#divNewExp').hide();    
+    $('#divNewExp').hide();
+    clearExpEdit();
 }
 
 function addNewExp (argument) {
     $('#divNewExp').insertAfter('#btnAddNew');
 
-    $('#expDate').val("");
-    $('#expType').val("");
-    $('#expDesc').val("");
-    $('#expAmount').val("");
+    clearExpEdit();
     
     $('#divNewExp li:last').show();
     $("#divNewExp :input").attr("disabled", false);
@@ -2434,8 +2431,15 @@ function addNewExp (argument) {
 
 }
 
-function clearExpEdit (argument) {
-    // body...
+function clearExpEdit () {
+
+    $('#expDate').val("");
+    $('#expType').val("");
+    $('#expDesc').val("");
+    $('#expAmount').val("");
+
+    $('#imgCam').attr('src',"").css({'background-size':  '100%', 'background-repeat': 'no-repeat'});
+
 }
 
 function openCamera (sourceType) {
