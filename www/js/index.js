@@ -2493,7 +2493,7 @@ function onPhotoDataSuccess(imageData) {
 // Called if something bad happens.
 // 
 function onFail(message) {
-  alert('Failed because: ' + message);
+  // alert('Failed because: ' + message);
 }
 
 function expSave(){

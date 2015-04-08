@@ -1136,10 +1136,13 @@ hr.style-four {
 
 .exp-approved{
   background-color: rgb(176, 255, 176);
+  padding: 5px 10px;
 }
 .exp-pending{
   background-color: rgb(255, 253, 147);
+  padding: 5px 10px;
 }
 .exp-rejected{
   background-color: rgb(255, 176, 176);
+  padding: 5px 10px;
 }
