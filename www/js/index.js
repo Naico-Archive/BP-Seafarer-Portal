@@ -2300,10 +2300,10 @@ function expense_details (argument) {
     results_array.push('<li class="topcoat-list__item">Date<input size="15" type="date" class="topcoat-text-input" id="expDate"> </li>');
     
     results_array.push('<li class="topcoat-list__item">Expense Type<select id="expType" class="topcoat-select" >'+
-                        '<option value="-1">Food</option>);' +
-                        '<option value="-1">Air fare</option>);' +
-                        '<option value="-1">Transport</option>);' +
-                        '<option value="-1">Other</option>);' +
+                        '<option value="Food">Food</option>);' +
+                        '<option value="Air fare">Air fare</option>);' +
+                        '<option value="Transport">Transport</option>);' +
+                        '<option value="Other">Other</option>);' +
                         '</select> </li>');
     
     results_array.push('<li class="topcoat-list__item">Description<input size="15" type="text" class="topcoat-text-input" id="expDesc"> </li>');
@@ -2381,8 +2381,31 @@ function fillExpenseList (argument) {
     $('#divExpList').html(results_array.join(""));
 }
 
-function showExpEdit (argument, id) {
+function showExpEdit (argument, id) {    
+    var exp = $.jStorage.get("exp");
     $('#divNewExp').insertAfter(argument);
+    for (var i = 0; i < exp.length; i++) {
+        $.grep(exp[i].expensePerDate, function(a){
+            if (a.id == id) {
+
+                var now = new Date(a.date); 
+                var day = ("0" + now.getDate()).slice(-2);
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var today = now.getFullYear()+"-"+(month)+"-"+(day);
+
+                $('#expDate').val(today);
+
+                $('#expType').val(a.expType);
+                $('#expDesc').val(a.expDesc);
+                $('#expAmount').val(a.amount);
+
+                $('#imgCam').attr('src',a.image).css({'background-size':  '100%', 'background-repeat': 'no-repeat'});
+            };
+            return a.id==id
+        });
+    };
+    $('#divNewExp li:last').hide();
+    $("#divNewExp :input").attr("disabled", true);
     $('#divNewExp').show();
 }
 
@@ -2392,7 +2415,16 @@ function expDiscard (argument) {
 
 function addNewExp (argument) {
     $('#divNewExp').insertAfter('#btnAddNew');
+
+    $('#expDate').val("");
+    $('#expType').val("");
+    $('#expDesc').val("");
+    $('#expAmount').val("");
+    
+    $('#divNewExp li:last').show();
+    $("#divNewExp :input").attr("disabled", false);
     $('#divNewExp').show();
+
 }
 
 function clearExpEdit (argument) {
@@ -2463,7 +2495,7 @@ function expSave(){
         var datePresent = $.grep(exp, function(a) { 
                                 if (a.date==$('#expDate').val()) {
                                 var objExpPerDate = {   id : idGen.getId(),
-                                                        date : $('#expDate').val(),
+                                                        date : new Date($('#expDate').val()),
                                                         expType : $( "#expType option:selected" ).text(),
                                                         expDesc : $('#expDesc').val(),
                                                         amount : $('#expAmount').val(),
