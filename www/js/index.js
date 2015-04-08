@@ -2384,6 +2384,10 @@ function fillExpenseList (argument) {
 
 function showExpEdit (id) {
     try{
+        if ($('#'+id).siblings('#divNewExp').length > 0 ) { 
+            $('#'+id).siblings('#divNewExp').hide().insertAfter('#btnAddNew');
+            return;
+        };
         var exp = $.jStorage.get("exp");
         $('#divNewExp').insertAfter($('#'+id));
         for (var i = 0; i < exp.length; i++) {
