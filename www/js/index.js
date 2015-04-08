@@ -2381,32 +2381,38 @@ function fillExpenseList (argument) {
     $('#divExpList').html(results_array.join(""));
 }
 
-function showExpEdit (argument, id) {    
-    var exp = $.jStorage.get("exp");
-    $('#divNewExp').insertAfter(argument);
-    for (var i = 0; i < exp.length; i++) {
-        $.grep(exp[i].expensePerDate, function(a){
-            if (a.id == id) {
+function showExpEdit (argument, id) {
+    alert("hi");
+    try{
+        var exp = $.jStorage.get("exp");
+        $('#divNewExp').insertAfter(argument);
+        for (var i = 0; i < exp.length; i++) {
+            $.grep(exp[i].expensePerDate, function(a){
+                if (a.id == id) {
 
-                var now = new Date(a.date); 
-                var day = ("0" + now.getDate()).slice(-2);
-                var month = ("0" + (now.getMonth() + 1)).slice(-2);
-                var today = now.getFullYear()+"-"+(month)+"-"+(day);
+                    var now = new Date(a.date); 
+                    var day = ("0" + now.getDate()).slice(-2);
+                    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                    var today = now.getFullYear()+"-"+(month)+"-"+(day);
 
-                $('#expDate').val(today);
+                    $('#expDate').val(today);
 
-                $('#expType').val(a.expType);
-                $('#expDesc').val(a.expDesc);
-                $('#expAmount').val(a.amount);
+                    $('#expType').val(a.expType);
+                    $('#expDesc').val(a.expDesc);
+                    $('#expAmount').val(a.amount);
 
-                $('#imgCam').attr('src',a.image).css({'background-size':  '100%', 'background-repeat': 'no-repeat'});
-            };
-            return a.id==id
-        });
-    };
-    $('#divNewExp li:last').hide();
-    $("#divNewExp :input").attr("disabled", true);
-    $('#divNewExp').show();
+                    $('#imgCam').attr('src',a.image).css({'background-size':  '100%', 'background-repeat': 'no-repeat'});
+                };
+                return a.id==id
+            });
+        };
+        $('#divNewExp li:last').hide();
+        $("#divNewExp :input").attr("disabled", true);
+        $('#divNewExp').show();
+    }   
+    catch(err){
+        alert(err);
+    }
 }
 
 function expDiscard (argument) {
