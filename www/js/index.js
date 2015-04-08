@@ -372,9 +372,9 @@ function route(event) {
         return;
     }
 
-    // hide_all();
-    // expense_details();
-    // return;
+    hide_all();
+    expense_details();
+    return;
 
     if (hash === "#plan") {
         show_plan_details();
@@ -2282,7 +2282,7 @@ function expense_details (argument) {
     index_page_call();
     hide_all();
     $("#index_content").show();
-    
+
     $('#expense_details').html("");
     $('#expense_details').show();
 
@@ -2348,8 +2348,8 @@ function fillExpenseList (argument) {
                 for (var j = 0; j <= exp[i].expensePerDate.length-1; j++) {
                     var objExpPerDate = exp[i].expensePerDate[j];
 
-                    results_array.push('<li class="topcoat-list__item exp-pending">');
-                    results_array.push('<div style="width: 100%;">'+
+                    results_array.push('<li class="topcoat-list__item" style="padding:0px">');
+                    results_array.push('<div class="exp-pending" onClick="showExpEdit(this, '+ objExpPerDate.id +')">'+
                                         '<div class="topcoat-icon ');
                     switch(objExpPerDate.expType) {
                         case 'Food':
@@ -2379,7 +2379,11 @@ function fillExpenseList (argument) {
     };
 
     $('#divExpList').html(results_array.join(""));
+}
 
+function showExpEdit (argument, id) {
+    $('#divNewExp').insertAfter(argument);
+    $('#divNewExp').show();
 }
 
 function expDiscard (argument) {
@@ -2387,7 +2391,12 @@ function expDiscard (argument) {
 }
 
 function addNewExp (argument) {
+    $('#divNewExp').insertAfter('#btnAddNew');
     $('#divNewExp').show();
+}
+
+function clearExpEdit (argument) {
+    // body...
 }
 
 function openCamera (sourceType) {
@@ -2440,11 +2449,12 @@ function expSave(){
     if (exp == null) {
         exp = [];
         var expPerDate =[];
-        var objExpPerDate = {  date : $('#expDate').val(),
-                               expType : $( "#expType option:selected" ).text(),
-                               expDesc : $('#expDesc').val(),
-                               amount : $('#expAmount').val(),
-                               image : lastImageData  };
+        var objExpPerDate = {   id : idGen.getId(),
+                                date : $('#expDate').val(),
+                                expType : $( "#expType option:selected" ).text(),
+                                expDesc : $('#expDesc').val(),
+                                amount : $('#expAmount').val(),
+                                image : lastImageData  };
         expPerDate.push(objExpPerDate);
 
         var objExp = { date: $('#expDate').val(), expensePerDate : expPerDate};
@@ -2452,11 +2462,12 @@ function expSave(){
     }else{
         var datePresent = $.grep(exp, function(a) { 
                                 if (a.date==$('#expDate').val()) {
-                                var objExpPerDate = {  date : $('#expDate').val(),
-                                                       expType : $( "#expType option:selected" ).text(),
-                                                       expDesc : $('#expDesc').val(),
-                                                       amount : $('#expAmount').val(),
-                                                       image : lastImageData  };
+                                var objExpPerDate = {   id : idGen.getId(),
+                                                        date : $('#expDate').val(),
+                                                        expType : $( "#expType option:selected" ).text(),
+                                                        expDesc : $('#expDesc').val(),
+                                                        amount : $('#expAmount').val(),
+                                                        image : lastImageData  };
 
                                 a.expensePerDate.push(objExpPerDate);
                                 };
@@ -2464,11 +2475,12 @@ function expSave(){
                             });
         if (datePresent.length==0) {
             var expPerDate =[];
-            var objExpPerDate = {  date : $('#expDate').val(),
-                                   expType : $( "#expType option:selected" ).text(),
-                                   expDesc : $('#expDesc').val(),
-                                   amount : $('#expAmount').val(),
-                                   image : lastImageData  };
+            var objExpPerDate = {   id : idGen.getId(),
+                                    date : $('#expDate').val(),
+                                    expType : $( "#expType option:selected" ).text(),
+                                    expDesc : $('#expDesc').val(),
+                                    amount : $('#expAmount').val(),
+                                    image : lastImageData  };
             expPerDate.push(objExpPerDate);
 
             var objExp = { date: $('#expDate').val(), expensePerDate : expPerDate};
@@ -2540,3 +2552,12 @@ function fail(error) {
     alert(error);
     alert("An error has occurred: Code = " + error.code);
 }
+
+function Generator() {};
+
+Generator.prototype.rand =  Math.floor(Math.random() * 26) + Date.now();
+
+Generator.prototype.getId = function() {
+return this.rand++;
+};
+var idGen =new Generator();
