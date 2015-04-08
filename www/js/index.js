@@ -2349,7 +2349,7 @@ function fillExpenseList (argument) {
                     var objExpPerDate = exp[i].expensePerDate[j];
 
                     results_array.push('<li class="topcoat-list__item" style="padding:0px">');
-                    results_array.push('<div class="exp-pending" onclick="showExpEdit(this, '+ objExpPerDate.id +')">'+
+                    results_array.push('<a href="javascript:showExpEdit(this, '+ objExpPerDate.id +')"><div class="exp-pending" ">'+
                                         '<div class="topcoat-icon ');
                     switch(objExpPerDate.expType) {
                         case 'Food':
@@ -2369,7 +2369,7 @@ function fillExpenseList (argument) {
                                         '<div style="font-size: x-large; margin-right:10px; display: inline-block">'+ objExpPerDate.expDesc +'</div>' +
                                         //'<div class="topcoat-icon png-cross png-header pagename-icon" style="float: right; margin-left:15px"/>' +
                                         '<div style="display: inline-block;float: right;font-size: x-large;">$'+objExpPerDate.amount+'</div>' +
-                                        '</div>')
+                                        '</div></a>')
                     results_array.push('</li>');
                 };
                 results_array.push('</ul>');
@@ -2382,14 +2382,13 @@ function fillExpenseList (argument) {
 }
 
 function showExpEdit (argument, id) {
-    alert("hi");
     try{
         var exp = $.jStorage.get("exp");
         $('#divNewExp').insertAfter(argument);
         for (var i = 0; i < exp.length; i++) {
             $.grep(exp[i].expensePerDate, function(a){
                 if (a.id == id) {
-
+                    
                     var now = new Date(a.date); 
                     var day = ("0" + now.getDate()).slice(-2);
                     var month = ("0" + (now.getMonth() + 1)).slice(-2);
