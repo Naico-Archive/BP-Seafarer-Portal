@@ -872,7 +872,7 @@ function show_plan_details() {
                     emp_csc_id = data['csc_id'];
 
                     $.jStorage.set("csc_contact_det", csc_contact_det);
-                    setheadername(results_array, '<span class="icon-briefcase pagename-icon"></span><span class="icon-boat"></span>  '+data['vessel_name'] + '(' + data['flag_name'] + ')', "pic");
+                    setheadername(results_array, '<span class="icon-briefcase pagename-icon"></span><span class="icon-boat"></span>  '+toTitleCase(data['vessel_name']) + '(' + data['flag_name'].toUpperCase() + ')', "pic");
                     
                     results_array.push('<div class="ship_image">');
                     results_array.push("<img src="+vessel_type+" class='dip_img'>");
@@ -883,10 +883,10 @@ function show_plan_details() {
                     // results_array.push("<span> Flag : "++"</span><br/>");
                     results_array.push('<div style="margin-left:5px">');
                     results_array.push("<span><b> Vessel type :</b> "+data['vessel_type']+"</span><br/>");
-                    results_array.push("<span><b> Rank :</b> "+data['rank_name']+"</span><br/>");
-                    results_array.push("<span><b> Manager :</b> "+data['emp_sdc_name']+"</span><br/>");
-                    results_array.push("<span><b> Exp. join date :</b> "+dateformat(data['from_date'], "dd-mon-yyyy")+"</span><br/>");
-                    results_array.push("<span><b> Exp. join port :</b> "+port+"</span><br/>");
+                    results_array.push("<span><b> Rank :</b> "+data['rank_name'].toUpperCase()+"</span><br/>");
+                    results_array.push("<span><b> Manager :</b> "+data['emp_sdc_name'].toUpperCase()+"</span><br/>");
+                    results_array.push("<span><b> Exp. Joining Date :</b> "+dateformat(data['from_date'], "dd-mon-yyyy")+"</span><br/>");
+                    results_array.push("<span><b> Exp. Join Port :</b> "+toTitleCase(port)+"</span><br/>");
                     results_array.push('</div>');
                     results_array.push('</div>');
                     results_array.push('&nbsp;');
@@ -902,7 +902,7 @@ function show_plan_details() {
 
             bottm_buttons("P" ,results_array);
             $('#show_plan_details').html(results_array.join(""));
-            fixCapitalsNode ($('#show_plan_details')[0]);
+            // fixCapitalsNode ($('#show_plan_details')[0]);
            /* if(cscemail != null) {
                 document.getElementById("cscemail").href="mailto:"+cscemail;
             }*/
@@ -1008,7 +1008,7 @@ function show_training_details() {
                 var tr_content = course+", "+status+", "+from_date+", "+to_date+", "+institution;
 
                 //training_res_array.push("<li class='topcoat-list__item'>");                
-                training_res_array.push("<span><b>Course :</b> "+course+"</span>");
+                training_res_array.push("<span><b>Course :</b> "+course.toUpperCase()+"</span>");
                 training_res_array.push("<br/><span><b>Status :</b> "+status+"</span>");
                 training_res_array.push("<br/><span><b>From :</b> "+from_date+"</span>");
                 training_res_array.push("<br/><span><b>To :</b> "+to_date+"</span>");
@@ -1026,7 +1026,7 @@ function show_training_details() {
         //training_res_array.push("</ul>");
         //$('#foot_training').html(training_res_array.join(""));
         $('#show_training_details').html(training_res_array.join(""));
-        fixCapitalsNode ($('#show_training_details')[0]);
+        // fixCapitalsNode ($('#show_training_details')[0]);
         if(alllalerts.indexOf("TRAINING") > -1){
             update_alert_seen("TRAINING");
             alllalerts.replace('TRAINING','');
@@ -1779,11 +1779,11 @@ function documentdetails(){
                     results_array.push("<li class='topcoat-list__item'>");
 
                     if((Date.parse(data[i]['expiry_date'])) < Date.parse(new Date())) {
-                        results_array.push("<span style='color:red'>"+toTitleCase(data[i]['name']));
+                        results_array.push("<span style='color:red'>"+data[i]['name'].toUpperCase());
                     } else if((((Date.parse(data[i]['expiry_date']))-20) < Date.parse(new Date())) && (Date.parse(new Date()<(Date.parse(data[i]['expiry_date']))))) {
-                        results_array.push("<span style='color:green'>"+toTitleCase(data[i]['name']));
+                        results_array.push("<span style='color:green'>"+data[i]['name'].toUpperCase());
                     } else {
-                        results_array.push("<span>"+toTitleCase(data[i]['name']));
+                        results_array.push("<span>"+data[i]['name'].toUpperCase());
                     }
 
                     if(data[i]['document_no']!=null && data[i]['document_no']!='' ) 
@@ -1801,14 +1801,14 @@ function documentdetails(){
                 for (var i = 0; i < expired_docs.length; i++) {
                     if ( i==0 ) {
                         expired_array.push('<a href="javascript:visible_expired_docs()"><div class = "footer">');
-                        doc_type = " Expired ("+ expired_docs.length +")";
+                        doc_type = " EXPIRED ("+ expired_docs.length +")";
                         expired_array.push("<b><div class='header_text' style='color:red'>"+toTitleCase(doc_type.slice(1))+"</div></b><br>");                                                
                         expired_array.push("<ul class='topcoat-list__container'>");
                         expired_array.push('</a><div id="exp_docs">'); 
                     }
 
                     expired_array.push("<li class='topcoat-list__item'>");
-                    expired_array.push("<span style='color:red'>"+toTitleCase(expired_docs[i]['name']));
+                    expired_array.push("<span style='color:red'>"+expired_docs[i]['name'].toUpperCase());
                     if(expired_docs[i]['document_no']!=null && expired_docs[i]['document_no']!='' ) 
                             expired_array.push("("+expired_docs[i]['document_no']+")");
                     if(expired_docs[i]['expiry_date']!=null && expired_docs[i]['expiry_date']!='' ) 
@@ -1837,7 +1837,7 @@ function documentdetails(){
             results_array_new.push('</div>');
 
             $('#document_details').html(results_array_new.join(""));
-            fixCapitalsNode ($('#document_details')[0]);
+            // fixCapitalsNode ($('#document_details')[0]);
             $("#exp_docs").hide();        
         },
         error: function (request, status, error) {
@@ -1942,7 +1942,7 @@ function getempdetails(username, password) {
 
                 emp_det_array.push(nullcheck(toTitleCase(data[0]['sur_name']))+" "+nullcheck(toTitleCase(data[0]['first_name'])));//+nullcheck(toTitleCase(data[0]['last_name']))+" "
                 // emp_det_array.push("<br>"+toTitleCase(data[0]['nationality']));
-                emp_det_array.push("<br>"+toTitleCase(data[0]['rank_grp_name']));
+                emp_det_array.push("<br>"+data[0]['rank_grp_name'].toUpperCase());
 
                 login_success();
                 $('#login_password').blur();
@@ -1952,7 +1952,7 @@ function getempdetails(username, password) {
             }
             hide_spinner();
             $('#empprof').html(emp_det_array.join(""));
-            fixCapitalsNode ($('#empprof')[0]);
+            // fixCapitalsNode ($('#empprof')[0]);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             hide_spinner();
@@ -2111,12 +2111,13 @@ function bottm_buttons(page, results_array) {
         results_array.push('</a>');
     }
     if(page == "P" || page == "C") {
-        if(page == "C")
-            results_array.push('<div style="float: left; padding-top: 15px;">Contact CSC </div>');
-        if( csc_contact_Phone1!=null && csc_contact_Phone1!='' ) {
-            results_array.push('<a class="footer-button" id="cscemail" href=\"'+csc_contact_email_id+'\">');
-        	results_array.push('<div class="png-mail button-icon"></div>');
-        }
+        // For now, disable email and phone
+        // if(page == "C")
+        //     results_array.push('<div style="float: left; padding-top: 15px;">Contact CSC </div>');
+        // if( csc_contact_Phone1!=null && csc_contact_Phone1!='' ) {
+        //     results_array.push('<a class="footer-button" id="cscemail" href=\"'+csc_contact_email_id+'\">');
+        // 	results_array.push('<div class="png-mail button-icon"></div>');
+        // }
         // else {
         //     results_array.push('<a class="footer-button" id="cscemail">');
         //     results_array.push('<div class="png-mail button-icon grey"></div>');
