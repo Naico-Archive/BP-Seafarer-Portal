@@ -2282,9 +2282,7 @@ function expense_details (argument) {
     index_page_call();
     hide_all();
     $("#index_content").show();
-    if ($('#expense_details').html().length>0) { 
-        showShortCenter('message')
-    };
+    
     $('#expense_details').html("");
     $('#expense_details').show();
 
