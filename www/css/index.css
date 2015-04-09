@@ -1150,7 +1150,7 @@ hr.style-four {
 .ps-item{
   display: inline-block;
   /*float: left;*/
-  width: 200px;
+  /*width: 200px;*/
 }
 .ps-value{
   display: inline-block;
