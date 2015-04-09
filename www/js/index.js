@@ -2316,13 +2316,13 @@ function expense_details (argument) {
                         '<option value="Other">Other</option>)' +
                         '</select> </li>');
 
+    results_array.push('<li class="topcoat-list__item">Description<input size="15" type="text" class="topcoat-text-input" id="expDesc"> </li>');
     results_array.push('<li class="topcoat-list__item">Currency<select id="expCur" class="topcoat-select" >');
     for (var i = 0; i < expCur.length; i++) {
          results_array.push('<option value="'+expCur[i].cur+'">'+expCur[i].cur+'</option>)');
     };
     results_array.push('</select> </li>');
     
-    results_array.push('<li class="topcoat-list__item">Description<input size="15" type="text" class="topcoat-text-input" id="expDesc"> </li>');
     results_array.push('<li class="topcoat-list__item">Amount<input size="15" type="text" class="topcoat-text-input" id="expAmount"> </li>');
 
     results_array.push('<li class="topcoat-list__item">Reciept</br>');
