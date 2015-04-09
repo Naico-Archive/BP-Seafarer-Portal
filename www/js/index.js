@@ -2384,7 +2384,7 @@ function fillExpenseList (argument) {
                     results_array.push('png-header pagename-icon" style="margin-right: 10px;"/>' +
                                         '<div style="font-size: x-large; margin-right:10px; display: inline-block">'+ objExpPerDate.expDesc +'</div>' +
                                         //'<div class="topcoat-icon png-cross png-header pagename-icon" style="float: right; margin-left:15px"/>' +
-                                        '<div style="display: inline-block;float: right;font-size: x-large;">'+objExpPerDate.amount+'</div>' +
+                                        '<div style="display: inline-block;float: right;font-size: x-large;">'+objExpPerDate.amount+' '+ objExpPerDate.cur +'</div>' +
                                         '</div>')
                     results_array.push('</li>');
                 };
