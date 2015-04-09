@@ -2645,8 +2645,8 @@ function payslip_details (argument) {
     for (var i = 0; i < payslipData.length; i++) {
         var objPaySlipData = payslipData[i];
         results_array.push('<li class="topcoat-list__item"> ');
-        results_array.push('<div class="ps-item">'+ objPaySlipData.item +'</div>');
-        results_array.push('<div class="ps-value">'+ objPaySlipData.value +'</div>');
+        results_array.push('<div><div class="ps-item">'+ objPaySlipData.item +'</div>');
+        results_array.push('<div class="ps-value">'+ objPaySlipData.value +'</div></div>');
         results_array.push('</li>');
     };
 
@@ -2666,9 +2666,9 @@ function payslip_details (argument) {
 }
 
 var payslipData = new Array();
-payslipData.push({item:'Vessel', value:'FPSO SERPENTINA'});
+payslipData.push({item:'Vessel', value:'Fpso Serpentina'});
 payslipData.push({item:'Basic Salary(31 days)', value:'6,103'});
-payslipData.push({item:'Balance brought forward from previous month', value:'0'});
+payslipData.push({item:'Balance brought forward ', value:'0'}); //from previous month
 
 payslipData.push({item:'Last month\'s overtime', value:'0'});
 payslipData.push({item:'Loyalty Bonus', value:'257'});
