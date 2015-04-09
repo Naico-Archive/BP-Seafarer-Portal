@@ -378,7 +378,7 @@ function route(event) {
     }
 
     // hide_all();
-    // expense_details();
+    // payslip_details();
     // return;
 
     if (hash === "#plan") {
@@ -395,6 +395,9 @@ function route(event) {
     } else if (hash === "#expense") {
         hide_all();
         expense_details();
+    } else if (hash === "#payslip") {
+        hide_all();
+        payslip_details();
     } else if (hash === "#correspondance") {
         hide_all();
         show_correspondance(window.location.hash.split('/')[1]);
@@ -2183,7 +2186,8 @@ function hide_all() {
     $('#doa_content').hide();
     $('#document_details').hide(); 
     $('#expense_details').hide();
-    
+    $('#payslip_details').hide();
+
     $('body').scrollTop(0);
 }
 
@@ -2306,11 +2310,17 @@ function expense_details (argument) {
     results_array.push('<li class="topcoat-list__item">Date<input size="15" type="date" class="topcoat-text-input" id="expDate"> </li>');
     
     results_array.push('<li class="topcoat-list__item">Expense Type<select id="expType" class="topcoat-select" >'+
-                        '<option value="Food">Food</option>);' +
-                        '<option value="Air fare">Air fare</option>);' +
-                        '<option value="Transport">Transport</option>);' +
-                        '<option value="Other">Other</option>);' +
+                        '<option value="Food">Food</option>)' +
+                        '<option value="Air fare">Air fare</option>)' +
+                        '<option value="Transport">Transport</option>)' +
+                        '<option value="Other">Other</option>)' +
                         '</select> </li>');
+
+    results_array.push('<li class="topcoat-list__item">Currency<select id="expCur" class="topcoat-select" >');
+    for (var i = 0; i < expCur.length; i++) {
+         results_array.push('<option value="'+expCur[i].cur+'">'+expCur[i].cur+'</option>)');
+    };
+    results_array.push('</select> </li>');
     
     results_array.push('<li class="topcoat-list__item">Description<input size="15" type="text" class="topcoat-text-input" id="expDesc"> </li>');
     results_array.push('<li class="topcoat-list__item">Amount<input size="15" type="text" class="topcoat-text-input" id="expAmount"> </li>');
@@ -2374,7 +2384,7 @@ function fillExpenseList (argument) {
                     results_array.push('png-header pagename-icon" style="margin-right: 10px;"/>' +
                                         '<div style="font-size: x-large; margin-right:10px; display: inline-block">'+ objExpPerDate.expDesc +'</div>' +
                                         //'<div class="topcoat-icon png-cross png-header pagename-icon" style="float: right; margin-left:15px"/>' +
-                                        '<div style="display: inline-block;float: right;font-size: x-large;">$'+objExpPerDate.amount+'</div>' +
+                                        '<div style="display: inline-block;float: right;font-size: x-large;">'+objExpPerDate.amount+'</div>' +
                                         '</div>')
                     results_array.push('</li>');
                 };
@@ -2409,6 +2419,7 @@ function showExpEdit (id) {
                     $('#expType').val(a.expType);
                     $('#expDesc').val(a.expDesc);
                     $('#expAmount').val(a.amount);
+                    $('#expCur').val(a.cur);
 
                     $('#imgCam').attr('src',a.image).css({'background-size':  '100%', 'background-repeat': 'no-repeat'});
                 };
@@ -2446,6 +2457,7 @@ function clearExpEdit () {
     $('#expType').val("");
     $('#expDesc').val("");
     $('#expAmount').val("");
+    $('#expCur').val("");
 
     $('#imgCam').attr('src',"").css({'background-size':  '100%', 'background-repeat': 'no-repeat'});
 
@@ -2503,9 +2515,10 @@ function expSave(){
         var expPerDate =[];
         var objExpPerDate = {   id : idGen.getId(),
                                 date : $('#expDate').val(),
-                                expType : $( "#expType option:selected" ).text(),
+                                expType : $("#expType option:selected" ).text(),
                                 expDesc : $('#expDesc').val(),
                                 amount : $('#expAmount').val(),
+                                cur: $('#expCur').val(),
                                 image : lastImageData  };
         expPerDate.push(objExpPerDate);
 
@@ -2519,6 +2532,7 @@ function expSave(){
                                                         expType : $( "#expType option:selected" ).text(),
                                                         expDesc : $('#expDesc').val(),
                                                         amount : $('#expAmount').val(),
+                                                        cur: $('#expCur').val(),
                                                         image : lastImageData  };
 
                                 a.expensePerDate.push(objExpPerDate);
@@ -2532,6 +2546,7 @@ function expSave(){
                                     expType : $( "#expType option:selected" ).text(),
                                     expDesc : $('#expDesc').val(),
                                     amount : $('#expAmount').val(),
+                                    cur: $('#expCur').val(),
                                     image : lastImageData  };
             expPerDate.push(objExpPerDate);
 
@@ -2613,3 +2628,137 @@ Generator.prototype.getId = function() {
 return this.rand++;
 };
 var idGen =new Generator();
+
+function payslip_details (argument) {
+    index_page_call();
+    hide_all();
+    $("#index_content").show();
+
+    $('#payslip_details').html("");
+    $('#payslip_details').show();
+    var results_array = new Array();
+    setheadername(results_array, 'Payslip (March 2015)', "pic");
+
+    results_array.push('<div class = "footer" style="margin-top: 5px; border:0px; text-align:center">');
+    results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
+
+    for (var i = 0; i < payslipData.length; i++) {
+        var objPaySlipData = payslipData[i];
+        results_array.push('<li class="topcoat-list__item"> ');
+        results_array.push('<div class="ps-item">'+ objPaySlipData.item +'</div>');
+        results_array.push('<div class="ps-value">'+ objPaySlipData.value +'</div>');
+        results_array.push('</li>');
+    };
+
+    results_array.push('<li class="topcoat-list__item">');    
+    results_array.push('Notes');
+    results_array.push('</li>');
+
+    results_array.push('<li class="topcoat-list__item">');    
+    results_array.push('December loyalty Bonus for 21 day\'s sea service USD 119 and Feb\'s USD 170.00.');
+    results_array.push('</li>');
+
+    results_array.push('</ul>');
+    results_array.push('</div>');
+
+    $('#payslip_details').html(results_array.join(""));
+
+}
+
+var payslipData = new Array();
+payslipData.push({item:'Vessel', value:'FPSO SERPENTINA'});
+payslipData.push({item:'Basic Salary(31 days)', value:'6,103'});
+payslipData.push({item:'Balance brought forward from previous month', value:'0'});
+
+payslipData.push({item:'Last month\'s overtime', value:'0'});
+payslipData.push({item:'Loyalty Bonus', value:'257'});
+payslipData.push({item:'Conversion bonus', value:'0'});
+payslipData.push({item:'2013 SBM Bonus', value:'0'});
+payslipData.push({item:'Reimbursed expenses', value:'0'});
+payslipData.push({item:'Cashed in leave', value:'0'});
+payslipData.push({item:'Sick pay', value:'0'});
+payslipData.push({item:'<b>Total earnings</b>', value:'<b>6,103</b>'});
+
+payslipData.push({item:'', value:''});
+
+payslipData.push({item:'Pension', value:'0'});
+payslipData.push({item:'Radio account', value:'0'});
+payslipData.push({item:'Slop chest', value:'9.87'});
+payslipData.push({item:'Cash advance', value:'24.1'});
+payslipData.push({item:'Special allotment', value:'0'});
+payslipData.push({item:'Miscellaneous', value:'0'});
+payslipData.push({item:'<b>Total deductions</b>', value:'<b>33.97</b>'});
+
+payslipData.push({item:'<b>Salary paid</b>', value:'<b>6,447</b>'});
+
+// payslipData.push({item:'', value:''});
+// payslipData.push({item:'Notes', value:''});
+// payslipData.push({item:'December loyalty Bonus for 21 day\'s sea service USD 119 and Feb\'s USD 170.00.', value:''});
+
+var expCur = new Array();
+// expCur.push({cur:'N/A'});
+expCur.push({cur:'NAD'});
+expCur.push({cur:'EUR'});
+expCur.push({cur:'USD'});
+expCur.push({cur:'SGD'});
+expCur.push({cur:'BOL'});
+expCur.push({cur:'AUD'});
+expCur.push({cur:'PHP'});
+expCur.push({cur:'GRD'});
+expCur.push({cur:'GBP'});
+expCur.push({cur:'ZAR'});
+expCur.push({cur:'DEM'});
+expCur.push({cur:'NZD'});
+expCur.push({cur:'JPY'});
+expCur.push({cur:'CAD'});
+expCur.push({cur:'TWD'});
+expCur.push({cur:'CHF'});
+expCur.push({cur:'NOK'});
+expCur.push({cur:'INR'});
+expCur.push({cur:'BMD'});
+expCur.push({cur:'PLN'});
+expCur.push({cur:'CNY'});
+expCur.push({cur:'HKD'});
+expCur.push({cur:'AED'});
+expCur.push({cur:'BRL'});
+expCur.push({cur:'DKK'});
+expCur.push({cur:'MYR'});
+expCur.push({cur:'SEK'});
+expCur.push({cur:'THB'});
+expCur.push({cur:'BHD'});
+expCur.push({cur:'EEK'});
+expCur.push({cur:'KRW'});
+expCur.push({cur:'KWD'});
+expCur.push({cur:'QAR'});
+expCur.push({cur:'RUB'});
+expCur.push({cur:'UAH'});
+expCur.push({cur:'VEF'});
+expCur.push({cur:'AFA'});
+expCur.push({cur:'BAM'});
+expCur.push({cur:'BBD'});
+expCur.push({cur:'ECS'});
+expCur.push({cur:'ESP'});
+expCur.push({cur:'ETB'});
+expCur.push({cur:'FKP'});
+expCur.push({cur:'GEL'});
+expCur.push({cur:'MAD'});
+expCur.push({cur:'MDL'});
+expCur.push({cur:'SDG'});
+expCur.push({cur:'STD'});
+expCur.push({cur:'UAK'});
+expCur.push({cur:'UGS'});
+expCur.push({cur:'UYU'});
+expCur.push({cur:'CDZ'});
+expCur.push({cur:'ZWD'});
+expCur.push({cur:'ADP'});
+expCur.push({cur:'CLP'});
+expCur.push({cur:'BAD'});
+expCur.push({cur:'GEK'});
+expCur.push({cur:'ZRZ'});
+expCur.push({cur:'MXN'});
+expCur.push({cur:'IDR'});
+expCur.push({cur:'SAR'});
+expCur.push({cur:'SLL'});
+expCur.push({cur:'PGK'});
+expCur.push({cur:'TRY'});
+expCur.push({cur:'CYP'});

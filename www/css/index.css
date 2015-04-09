@@ -1146,3 +1146,13 @@ hr.style-four {
   background-color: rgb(255, 176, 176);
   padding: 5px 10px;
 }
+
+.ps-item{
+  display: inline-block;
+  /*float: left;*/
+  width: 200px;
+}
+.ps-value{
+  display: inline-block;
+  float: right;
+}
