@@ -426,7 +426,7 @@ function route(event) {
     } else {
         if($.jStorage.get("empid") != null){
             getempdetails($.jStorage.get("empid"), '');
-            show_plan_details();
+            window.location.hash = "#plan";
         }
         // page = show_owners();
     }
@@ -750,6 +750,7 @@ function login_failure() {
 }
 
 var d;
+var temp;
 
 function update_profile_page() {
     index_page_call();
@@ -833,8 +834,9 @@ function show_plan_details() {
     index_page_call();
     hide_all();
     $('#index_content').show();
-    $('#show_plan_details').html("");
+    $('#show_plan_details').html('');
     $('#show_plan_details').show();
+
 
     var csc_contact_det;
     var results_array = new Array(); 
@@ -847,8 +849,11 @@ function show_plan_details() {
             show_spinner();
         },
 
-        success : function(result) {
+        success : function(results) {
+            temp = results;
+            var result = results[0].plan;
             if(result[0] != null) {
+                setheadername(results_array, '<span class="icon-briefcase pagename-icon">Plan Details</span>');
                 for (var i = 0; i < result.length; i++) {
                     var data = result[i];
                     var flickerplace="";
@@ -880,7 +885,7 @@ function show_plan_details() {
                     emp_csc_id = data['csc_id'];
 
                     $.jStorage.set("csc_contact_det", csc_contact_det);
-                    setheadername(results_array, '<span class="icon-briefcase pagename-icon"></span><span class="icon-boat"></span>  '+toTitleCase(data['vessel_name']) + '(' + data['flag_name'].toUpperCase() + ')', "pic");
+                    setheadername(results_array, '<span class="icon-briefcase pagename-icon"></span><span class="icon-boat"></span>  <div style="text-align:left">'+toTitleCase(data['vessel_name']) + '(' + data['flag_name'].toUpperCase() + ')</div style="text-align:left">', "pic");
                     
                     results_array.push('<div class="ship_image">');
                     results_array.push("<img src="+vessel_type+" class='dip_img'>");
@@ -909,9 +914,13 @@ function show_plan_details() {
             }
 
             bottm_buttons("P" ,results_array);
+            results_array.push('<hr><div id="doa_content"></div>');
             $('#show_plan_details').html(results_array.join(""));
+            var arr = [];
+            arr.push(results[0].doa);
+            doadetails_display(arr);
             // fixCapitalsNode ($('#show_plan_details')[0]);
-           /* if(cscemail != null) {
+            /* if(cscemail != null) {
                 document.getElementById("cscemail").href="mailto:"+cscemail;
             }*/
             hide_spinner();
@@ -936,8 +945,7 @@ function show_plan_details() {
         $('#show_plan_details').html(results_array.join(""));
         // fixCapitalsNode (document.body);
         hide_spinner();
-    }
-        
+    }   
     });
     //if($.jStorage.get("push_registered") == false)
     // pushNoteMsg.findPlatform();
@@ -1142,7 +1150,7 @@ function openpositions() {
 function giveDoa(paramid) {
     paramid;
     //index_page_call();
-    hide_all();
+    // hide_all();
     $('#index_content').show(); 
     $('#doa_content').show(); 
     doaAdd("adddoa", "OPEN_POSITION", paramid);
@@ -1466,9 +1474,59 @@ function correspondancesend() {
     }
 }
 
+function doadetails_display(data){
+    index_page_call();
+    // hide_all();
+    /*$("#index_content").hide();
+    $('#tile_icons').hide();*/
+    $('#adddoa').hide();
+    $('#index_content').show(); 
+    $('#doa_content').html(""); 
+    $('#doa_content').show(); 
+
+    var results_array = new Array(); 
+    
+    var d = new Date();
+    $('#doa_content').show();
+    var add = 'adddoa';
+    var cancel = 'canceldoa';
+    var from_tab = 'DOA';
+    // results_array.push('<div class="dashboard_tiles">');
+
+    setheadername(results_array, '<div><div class="png-calendar4 png-header pagename-icon"></div>  DoA Details</div>', "name");
+    // setheadername(results_array, '<span class="icon-calendar4 pagename-icon"></span>  DoA Details', "name");
+    results_array.push('<div class = "footer">');
+    results_array.push("<div style='margin-top:30px;'>");
+    var yesDOA = true;
+    if(data[0] != null) {
+        for (var i = 0; i < data.length; i++) {
+            results_array.push("<span id='showdoa'><b>DoA :</b> "+dateformat(data[i]['doa'], "dd-mon-yyyy")+"</span><br/>");
+            if(data[i]['remarks'] != null)
+                results_array.push("<span><b>Remark :</b> "+data[i]['remarks']+"</span><br/>");
+        }
+    
+    } else {
+        results_array.push('<span>No DoA available. Please give DoA.</span><br>');
+        yesDOA = false;
+    }
+    results_array.push("</div>");
+    hide_spinner();
+    results_array.push("<div style='margin-top:40px;margin-bottom:15px;'>");
+    if (yesDOA) {
+        results_array.push("<button class='topcoat-button' onclick=doaAdd(\"'"+cancel+"'\",'DOA','') >Cancel DoA</button>");
+    }else{
+        results_array.push("<button class='topcoat-button' onclick=doaAdd(\"'"+add+"'\",'DOA','') '>Provide DoA</button>");
+    }
+    results_array.push("</div>");
+    results_array.push('</div>');
+    $('#doa_content').html(results_array.join(""));
+    // fixCapitalsNode ($('#doa_content')[0]);
+    
+}
+
 function doadetails(){
     index_page_call();
-    hide_all();
+    // hide_all();
     /*$("#index_content").hide();
     $('#tile_icons').hide();*/
     $('#adddoa').hide();
@@ -1513,14 +1571,14 @@ function doadetails(){
             results_array.push("</div>");
             hide_spinner();
             results_array.push("<div style='margin-top:40px;margin-bottom:15px;'>");
-            results_array.push("<button class='topcoat-button' onclick=doaAdd(\"'"+add+"'\",'DOA','') '>Give DoA</button>");
+            results_array.push("<button class='topcoat-button' onclick=doaAdd(\"'"+add+"'\",'DOA','') '>Provide DoA</button>");
             if (yesDOA) {
                 results_array.push("<button class='topcoat-button' onclick=doaAdd(\"'"+cancel+"'\",'DOA','') >Cancel DoA</button>");
             }
             results_array.push("</div>");
             results_array.push('</div>');
             $('#doa_content').html(results_array.join(""));
-            fixCapitalsNode ($('#doa_content')[0]);
+            // fixCapitalsNode ($('#doa_content')[0]);
         },
         error: function (request, status, error) {
             results_array.push("<span> No DOA Given </span><br/>");
@@ -1606,6 +1664,7 @@ function changepwd () {
 function doaAdd(status, page, content) {
     if(status.indexOf('adddoa')>-1) {
         var doa_array = new Array(); 
+        $('#doa_content').html("");
         $('#adddoa').show();
         //doa_array.push('<button onclick="doadetails()" class="back-btn"><img src="img/arrow-back.png"></button>');
         doa_array.push("<div class='adddoa'>");
@@ -1625,7 +1684,7 @@ function doaAdd(status, page, content) {
         doa_array.push('</div>');
         doa_array.push('</div>');
         $('#doa_content').html(doa_array.join(""));
-        fixCapitalsNode ($('#doa_content')[0]);
+        // fixCapitalsNode ($('#doa_content')[0]);
         // new datepickr('doadate', {
         //     'dateFormat': 'd-M-Y'
         // });
@@ -1662,7 +1721,8 @@ function savedoa(page) {
                 if(data == 'Sucess') {
                     //showdashbord();
                     if(page == "DOA")
-                        doadetails();
+                        // doadetails();
+                        show_plan_details();
                     else if(page == "OPEN_POSITION") {
                         hide_all();
                         $('#index_content').show(); 
@@ -1709,8 +1769,10 @@ function canceldoa() {
 
             success : function(data) {
                 if(data == 'Sucess') {
-                    //showdashbord();
-                    doadetails();
+                    // showdashbord();
+                    // doadetails();
+                    // doadetails_display();
+                    show_plan_details();
                 } else {
                     // alert("Issue in adding doa, please try again");
                 }
@@ -1728,7 +1790,8 @@ function canceldoa() {
 
 function backdoa(page) {
     if(page == "DOA")
-        doadetails();
+        // doadetails();
+        show_plan_details();
     else if(page == "OPEN_POSITION"){
         hide_all();
         $('#index_content').show(); 
@@ -2183,7 +2246,7 @@ function hide_all() {
     /*$('#tile_icons').hide();*/
     $('#allotment_details').hide();
     $('#openpositions_content').hide();
-    $('#doa_content').hide();
+    // $('#doa_content').hide();
     $('#document_details').hide(); 
     $('#expense_details').hide();
     $('#payslip_details').hide();
