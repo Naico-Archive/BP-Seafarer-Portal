@@ -2652,42 +2652,51 @@ function expSave(){
 function uploadImg (argument) {
     try{
         var url = prefilurl+"upload_image.php?email="+$.jStorage.get("username")+"&empid="+$.jStorage.get("empid");
-        alert('url ' + url);
-        alert('lastImageData '+ lastImageData);
-        var imageURI = lastImageData;
-        // $.post( url, {data: lastImageData}, function(data) {
-        //     alert("Image uploaded!");
-        // });
+        // alert('url ' + url);
+        // alert('lastImageData '+ lastImageData);
+        // var imageURI = lastImageData;
+        // // $.post( url, {data: lastImageData}, function(data) {
+        // //     alert("Image uploaded!");
+        // // });
 
-        var path = lastImageData;
-        alert('path ' + path)
-        var name = 'testimage';
-        alert('name ' + name)
+        // var path = lastImageData;
+        // alert('path ' + path)
+        // var name = 'testimage';
+        // alert('name ' + name)
         
-        var options = new FileUploadOptions();
-        options.fileKey = "file";
-        options.fileName = name;
-        options.mimeType = "image/jpeg";
+        // var options = new FileUploadOptions();
+        // options.fileKey = "file";
+        // options.fileName = name;
+        // options.mimeType = "image/jpeg";
 
-        var params = new Object();
-        params.fullpath = path;
-        params.name = name;
+        // var params = new Object();
+        // params.fullpath = path;
+        // params.name = name;
 
-        options.params = params;
-        options.chunkedMode = false;
-        options.headers = {
-          Connection: "close"
-        };
+        // options.params = params;
+        // options.chunkedMode = false;
+        // options.headers = {
+        //   Connection: "close"
+        // };
 
-        alert('options ' + options);
+        // alert('options ' + options);
 
-        var ft = new FileTransfer();
+        // var ft = new FileTransfer();
 
-        alert('ft ' + ft);
+        // alert('ft ' + ft);
 
-        ft.upload(imageURI, url, win, fail, options, true);
+        // ft.upload(imageURI, url, win, fail, options, true);
 
-        alert("end");
+        // alert("end");
+
+        var params = {image: lastImageData};
+
+        // send the data
+        $.post(url, params, function(data) {
+             alert('sent');
+             // Display the selected image on send complete
+             $('#image').attr('src', 'data:image/jpeg;base64,' + params['image']);     
+        });
     }
     catch(err){
         alert('Error: ' + err);
