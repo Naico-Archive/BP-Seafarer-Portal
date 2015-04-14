@@ -77,9 +77,9 @@ function route(event) {
         return;
     }
 
-    // hide_all();
-    // payslip_details();
-    // return;
+    hide_all();
+    expense_details();
+    return;
 
     if (hash === "#plan") {
         show_plan_details();
