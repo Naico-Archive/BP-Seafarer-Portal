@@ -2661,6 +2661,7 @@ function uploadImg (argument) {
 
         var options = new FileUploadOptions();
         options.fileKey="file";
+        options.fileName=imageURI;
         options.mimeType="image/jpeg";
 
         var params = new Object();
