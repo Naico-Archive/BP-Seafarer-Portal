@@ -2644,7 +2644,7 @@ function expSave(){
       return new Date(b.date) - new Date(a.date);
     });
     $.jStorage.set("exp", exp);
-    // uploadImg();
+    uploadImg();
     fillExpenseList();
     $('#divNewExp').hide();    
 }
@@ -2660,19 +2660,15 @@ function uploadImg (argument) {
         // });
 
         var options = new FileUploadOptions();
-        options.fileKey="photoPath";
-        options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+        options.fileKey="file";
         options.mimeType="image/jpeg";
-        
+
         var params = new Object();
-        params.value1 = "test";
-        params.value2 = "param";
+        params.fullpath = path;
+        params.name = name;
 
         options.params = params;
         options.chunkedMode = false;
-        options.headers = {
-          Connection: "close"
-        };
         
         alert(options);
 
