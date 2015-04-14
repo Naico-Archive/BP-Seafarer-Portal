@@ -30,6 +30,175 @@ var contentlayer;
 //     return true;
 // }
 
+// var slider = new PageSlider($("#container"));
+
+
+$(window).on('hashchange', route);
+$(window).on('load', route_to_dashboard);
+var step_back = function() {window.history.back();};
+
+function route_to_dashboard (event) {
+    window.location.replace("#");
+}
+
+// Basic page routing
+function route(event) {
+    var page,
+        hash = window.location.hash.split('/')[0];
+
+   /* $('#bg').css('background-image', 'none');
+    $('#bg').css('background', 'black');*/
+
+    // if (hash === "#correspondance1") {
+    //     return;
+    // }
+    if (hash === "#signup") {
+        hide_all();
+        signup();
+        return;
+    }
+
+    if (hash === "#forgotpass"){
+        hide_all();
+        show_forgotpass();
+        return;
+    }
+
+    if (hash.indexOf("#signin_check")>=0) {
+        // hide_all();
+        signin_check();
+        return;
+    }
+
+    if($.jStorage.get("empid") == null){
+        window.location.replace("#");
+        hide_all();
+        $('.login').show();
+        return;
+    }
+
+    // hide_all();
+    // payslip_details();
+    // return;
+
+    if (hash === "#plan") {
+        show_plan_details();
+    } else if (hash === "#training") {
+        hide_all();
+        show_training_details();
+    } else if (hash === "#flight") {
+        hide_all();
+        show_flight_details();
+    } else if (hash === "#allotment") {
+        hide_all();
+        allotment_details();
+    } else if (hash === "#expense") {
+        hide_all();
+        expense_details();
+    } else if (hash === "#payslip") {
+        hide_all();
+        payslip_details();
+    } else if (hash === "#correspondance") {
+        hide_all();
+        show_correspondance(window.location.hash.split('/')[1]);
+    } else if (hash === "#openpositions") {
+        hide_all();
+        openpositions();
+    } else if (hash === "#updatecontact") {
+        hide_all();
+        update_profile_page();
+    } else if (hash === "#doa") {
+        hide_all();
+        doadetails();
+    } else if (hash === "#expirydocs") {
+        hide_all();
+        documentdetails();
+    } else if (hash === "#alert") {
+        hide_all();
+        alllalerts="";
+        alerts();
+    } else if (hash === "#changepwd"){
+        hide_all();
+        show_changepwd();
+    }else if (hash === "#logout") {
+        hide_all();
+        logout();
+    } else {
+        if($.jStorage.get("empid") != null){
+            getempdetails($.jStorage.get("empid"), '');
+            before_route("#plan");
+        }
+        // page = show_owners();
+    }
+    // slider.slidePage($(page));
+    
+    // $('#bg').css('background-image', 'none');
+    // $('#bg').css('background', 'lightblue');
+    
+    // $('#content').css('background-image', 'none');
+    // $('#content').css('background', 'lightblue');
+}
+
+function before_route (hash) {
+    var curhash = window.location.hash.split('/')[0];
+    if (hash == curhash) {
+        if($("#container").hasClass( "opened" )) {
+            var containr = $('#container');
+            var slidemenu = $('#sidemenu');
+            var contnt = $('#content');
+            var contentlayer = $('#contentLayer');
+
+            containr.toggleClass('opened');
+            slidemenu.toggleClass('sidemenu--opened');
+            // contnt.style.height = "auto";
+            contentlayer.toggleClass('contentlayer-opened');
+        }
+        return;
+    };
+    location.href = hash;
+}
+
+function hide_all() {
+    // if($("#contentLayer:visible").length>0){
+    //     $('#contentLayer').trigger('click');
+    // }
+    if($("#container").hasClass( "opened" )) {
+        var containr = $('#container');
+        var slidemenu = $('#sidemenu');
+        var contnt = $('#content');
+        var contentlayer = $('#contentLayer');
+
+        containr.toggleClass('opened');
+        slidemenu.toggleClass('sidemenu--opened');
+        // contnt.style.height = "auto";
+        contentlayer.toggleClass('contentlayer-opened');
+    }
+
+    $('#btnBack').hide();
+    // $('#navbar').hide(); 
+    hide_spinner();
+    //$('#index_content').hide();
+    $('#signup_content').hide();
+    $('#correspondance_content').hide();
+    $('#ajax_error').hide();
+    $('#view_title').hide();
+    $('#show_plan_details').hide();
+    $('#show_training_details').hide();   
+    $('#show_flight_details').hide();
+    $('#change_password').hide();
+    $('#update_profile').hide();
+    //$("#alert_content").hide();
+    /*$('#tile_icons').hide();*/
+    $('#allotment_details').hide();
+    $('#openpositions_content').hide();
+    // $('#doa_content').hide();
+    $('#document_details').hide(); 
+    $('#expense_details').hide();
+    $('#payslip_details').hide();
+
+    $('body').scrollTop(0);
+}
+
 function capitalize(str) {
     if (str)
         return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -332,114 +501,6 @@ Number.prototype.formatMoney = function(c, d, t){
     j = (j = i.length) > 3 ? j % 3 : 0;
     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
-
-// var slider = new PageSlider($("#container"));
-$(window).on('hashchange', route);
-$(window).on('load', route_to_dashboard);
-
-function route_to_dashboard (event) {
-    window.location.replace("#");
-}
-
-// Basic page routing
-function route(event) {
-    var page,
-        hash = window.location.hash.split('/')[0];
-
-   /* $('#bg').css('background-image', 'none');
-    $('#bg').css('background', 'black');*/
-
-    // if (hash === "#correspondance1") {
-    //     return;
-    // }
-    if (hash === "#signup") {
-        hide_all();
-        signup();
-        return;
-    }
-
-    if (hash === "#forgotpass"){
-        hide_all();
-        show_forgotpass();
-        return;
-    }
-
-    if (hash.indexOf("#signin_check")>=0) {
-        // hide_all();
-        signin_check();
-        return;
-    }
-
-    if($.jStorage.get("empid") == null){
-        window.location.replace("#");
-        hide_all();
-        $('.login').show();
-        return;
-    }
-
-    // hide_all();
-    // payslip_details();
-    // return;
-
-    if (hash === "#plan") {
-        show_plan_details();
-    } else if (hash === "#training") {
-        hide_all();
-        show_training_details();
-    } else if (hash === "#flight") {
-        hide_all();
-        show_flight_details();
-    } else if (hash === "#allotment") {
-        hide_all();
-        allotment_details();
-    } else if (hash === "#expense") {
-        hide_all();
-        expense_details();
-    } else if (hash === "#payslip") {
-        hide_all();
-        payslip_details();
-    } else if (hash === "#correspondance") {
-        hide_all();
-        show_correspondance(window.location.hash.split('/')[1]);
-    } else if (hash === "#openpositions") {
-        hide_all();
-        openpositions();
-    } else if (hash === "#updatecontact") {
-        hide_all();
-        update_profile_page();
-    } else if (hash === "#doa") {
-        hide_all();
-        doadetails();
-    } else if (hash === "#expirydocs") {
-        hide_all();
-        documentdetails();
-    } else if (hash === "#alert") {
-        hide_all();
-        alllalerts="";
-        alerts();
-    } else if (hash === "#changepwd"){
-        hide_all();
-        show_changepwd();
-    }else if (hash === "#logout") {
-        hide_all();
-        logout();
-    } else {
-        if($.jStorage.get("empid") != null){
-            getempdetails($.jStorage.get("empid"), '');
-            window.location.hash = "#plan";
-        }
-        // page = show_owners();
-    }
-    // slider.slidePage($(page));
-    
-    // $('#bg').css('background-image', 'none');
-    // $('#bg').css('background', 'lightblue');
-    
-    // $('#content').css('background-image', 'none');
-    // $('#content').css('background', 'lightblue');
-}
-
-var step_back = function() {window.history.back();};
 
 window.addEventListener('load', function () {
     FastClick.attach(document.body);
@@ -853,7 +914,7 @@ function show_plan_details() {
             temp = results;
             var result = results[0].plan;
             if(result[0] != null) {
-                setheadername(results_array, '<span class="icon-briefcase pagename-icon">Plan Details</span>');
+                setheadername(results_array, '<span class="icon-briefcase pagename-icon">Planned Voyages</span>');
                 for (var i = 0; i < result.length; i++) {
                     var data = result[i];
                     var flickerplace="";
@@ -908,7 +969,7 @@ function show_plan_details() {
                 
                 }
             } else {
-                setheadername(results_array, '<div><div class="png-briefcase png-header pagename-icon"></div>  Plan Details</div>', "pic");
+                setheadername(results_array, '<div><div class="png-briefcase png-header pagename-icon"></div>  Planed Voyages</div>', "pic");
                 results_array.push('<div style="margin-top: 100px;font-size: large;">You have not been planned for a vessel yet. <br/> Please click icon on right top to open the menu.</div>')
                 getCurrCompanyDt(results_array);
             }
@@ -1343,7 +1404,7 @@ function show_correspondance (page) {
     var content = corr_content;
     var results_array = new Array(); 
 
-    setheadername(results_array, '<div><div class="png-bubbles png-header pagename-icon"></div>Correspondence</div>', "name");
+    setheadername(results_array, '<div><div class="png-bubbles png-header pagename-icon"></div>Chat with office</div>', "name");
     results_array.push('<div class = "hambrgrdetails">');
 
     results_array.push('<form onsubmit="return false" >');
@@ -1493,7 +1554,7 @@ function doadetails_display(data){
     var from_tab = 'DOA';
     // results_array.push('<div class="dashboard_tiles">');
 
-    setheadername(results_array, '<div><div class="png-calendar4 png-header pagename-icon"></div>  DoA Details</div>', "name");
+    setheadername(results_array, '<div><div class="png-calendar4 png-header pagename-icon"></div>  DoA </div>', "name");
     // setheadername(results_array, '<span class="icon-calendar4 pagename-icon"></span>  DoA Details', "name");
     results_array.push('<div class = "footer">');
     results_array.push("<div style='margin-top:30px;'>");
@@ -1506,7 +1567,7 @@ function doadetails_display(data){
         }
     
     } else {
-        results_array.push('<span>No DoA available. Please give DoA.</span><br>');
+        results_array.push('<span>No DoA available. Please provide DoA.</span><br>');
         yesDOA = false;
     }
     results_array.push("</div>");
@@ -1679,7 +1740,7 @@ function doaAdd(status, page, content) {
             doa_array.push("<br><span>Remark:</span><br><textarea class='topcoat-text-input--large' id='coaremark' style='width: 100%;height: 250px;line-height: 1.5rem;'></textarea></br>");
         doa_array.push("<span id='error_doa' style='color:red'></span><br>");
         doa_array.push("<button class='topcoat-button' onclick=\"savedoa('"+page+"')\" >Save DoA</button>");
-        doa_array.push("<button class='topcoat-button' onclick=\"backdoa('"+page+"')\" >Back</button>");
+        doa_array.push("<button class='topcoat-button' onclick=\"backdoa('"+page+"')\" >Cancel</button>");
         doa_array.push('</form>');
         doa_array.push('</div>');
         doa_array.push('</div>');
@@ -1871,11 +1932,12 @@ function documentdetails(){
 
                 for (var i = 0; i < expired_docs.length; i++) {
                     if ( i==0 ) {
-                        expired_array.push('<a href="javascript:visible_expired_docs()"><div class = "footer">');
+                        // expired_array.push('<a href="javascript:visible_expired_docs()"><div class = "footer">');
+                        expired_array.push('<div class = "footer">');
                         doc_type = " Expired ("+ expired_docs.length +")";
-                        expired_array.push("<b><div class='header_text' style='color:red'>"+toTitleCase(doc_type.slice(1))+"</div></b><br>");                                                
+                        expired_array.push("<b><div class='header_text' style='color:red; text-align:left;'>"+toTitleCase(doc_type.slice(1))+"</div></b><br>");                                                
                         expired_array.push("<ul class='topcoat-list__container'>");
-                        expired_array.push('</a><div id="exp_docs">'); 
+                        expired_array.push('<div id="exp_docs">'); 
                     }
 
                     expired_array.push("<li class='topcoat-list__item'>");
@@ -1909,7 +1971,7 @@ function documentdetails(){
 
             $('#document_details').html(results_array_new.join(""));
             // fixCapitalsNode ($('#document_details')[0]);
-            $("#exp_docs").hide();        
+            // $("#exp_docs").hide();        
         },
         error: function (request, status, error) {
             results_array.push("<span>No expiry documents details available</span><br/>");
@@ -2211,47 +2273,6 @@ function bottm_buttons(page, results_array) {
         results_array.push('</a>');
     }
     results_array.push('</div>');
-}
-
-function hide_all() {
-    // if($("#contentLayer:visible").length>0){
-    //     $('#contentLayer').trigger('click');
-    // }
-    if($("#container").hasClass( "opened" )) {
-        var containr = $('#container');
-        var slidemenu = $('#sidemenu');
-        var contnt = $('#content');
-        var contentlayer = $('#contentLayer');
-
-        containr.toggleClass('opened');
-        slidemenu.toggleClass('sidemenu--opened');
-        // contnt.style.height = "auto";
-        contentlayer.toggleClass('contentlayer-opened');
-    }
-
-    $('#btnBack').hide();
-    // $('#navbar').hide(); 
-    hide_spinner();
-    //$('#index_content').hide();
-    $('#signup_content').hide();
-    $('#correspondance_content').hide();
-    $('#ajax_error').hide();
-    $('#view_title').hide();
-    $('#show_plan_details').hide();
-    $('#show_training_details').hide();   
-    $('#show_flight_details').hide();
-    $('#change_password').hide();
-    $('#update_profile').hide();
-    //$("#alert_content").hide();
-    /*$('#tile_icons').hide();*/
-    $('#allotment_details').hide();
-    $('#openpositions_content').hide();
-    // $('#doa_content').hide();
-    $('#document_details').hide(); 
-    $('#expense_details').hide();
-    $('#payslip_details').hide();
-
-    $('body').scrollTop(0);
 }
 
 // window.onerror = function(msg, url, linenumber) {
