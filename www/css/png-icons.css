@@ -190,5 +190,45 @@
 	background-image: url("png/icon-logout.png");
 }
 
+/******************BLACK ICONS*********************/
+
+
+.plan_black{
+	background-image: url("png/icon-plan_black.png");
+}
+
+.training_black{
+	background-image: url("png/icon-training_black.png");
+}
+
+.flight_black{
+	background-image: url("png/icon-flight_black.png");
+}
+
+.accounts_black{
+	background-image: url("png/icon-accounts_black.png");
+}
+
+.payslip_black{
+	background-image: url("png/icon-payslip_black.png");
+}
+
+.expense_black{
+	background-image: url("png/icon-expense_black.png");
+}
+
+.docs_black{
+	background-image: url("png/icon-docs_black.png");
+}
+
+.chatwoffice_black{
+	background-image: url("png/icon-chatwoffice_black.png");
+}
+
+.logout_black{
+	background-image: url("png/icon-logout_black.png");
+}
+
+
 
 
