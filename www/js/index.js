@@ -2659,14 +2659,14 @@ function uploadImg (argument) {
         //     alert("Image uploaded!");
         // });
 
-        var path = lastImageData.fullPath;
+        var path = lastImageData;
         alert('path ' + path)
-        var name = lastImageData.name;
+        var name = 'testimage';
         alert('name ' + name)
         
         var options = new FileUploadOptions();
         options.fileKey = "file";
-        options.fileName = lastImageData.name;
+        options.fileName = name;
         options.mimeType = "image/jpeg";
 
         var params = new Object();
