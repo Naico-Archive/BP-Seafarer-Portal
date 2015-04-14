@@ -25,10 +25,10 @@ var contnt;
 var contentlayer;
 
 // ALERT JAVASCRIPT ERRORS
-// window.onerror = function(msg, url, linenumber) {
-//     alert('Error message: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
-//     return true;
-// }
+window.onerror = function(msg, url, linenumber) {
+    alert('Error message: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
+    return true;
+}
 
 // var slider = new PageSlider($("#container"));
 
@@ -2558,7 +2558,7 @@ var lastImageData
 function onPhotoDataSuccess(imageData) {
   // alert("onPhotoDataSuccess start")
   $('#imgCam').attr('src',imageData).css({'background-size':  '100%', 'background-repeat': 'no-repeat'});
-  lastImageData = imageData;
+  lastImageData = imageData[0];
   // // Get image handle
   // //
   // var smallImage = document.getElementById('smallImage');
@@ -2659,9 +2659,12 @@ function uploadImg (argument) {
         //     alert("Image uploaded!");
         // });
 
+        var path = lastImageData.fullPath;
+        var name = lastImageData.name;
+        
         var options = new FileUploadOptions();
         options.fileKey="file";
-        options.fileName=imageURI;
+        options.fileName=lastImageData.name;
         options.mimeType="image/jpeg";
 
         var params = new Object();
@@ -2682,7 +2685,7 @@ function uploadImg (argument) {
         alert("end");
     }
     catch(err){
-        alert(err);
+        alert('Error: ' + err);
     }
 }
 
