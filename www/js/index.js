@@ -2685,7 +2685,7 @@ function uploadImg (argument) {
 
         alert('ft ' + ft);
 
-        ft.upload(imageURI, url, win, fail, options);
+        ft.upload(imageURI, url, win, fail, options, true);
 
         alert("end");
     }
