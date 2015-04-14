@@ -2428,7 +2428,9 @@ function expense_details (argument) {
     results_array.push('</div>');
 
     results_array.push('<div class = "footer" style="margin-top:5px; border:0px;" id="divExpList" >');
-    results_array.push('</div>');
+    results_array.push('</div></br>');
+
+    results_array.push('<form action="https://getvesseltracker.com/seafarer_dev_bp/upload_image.php" method="post" enctype="multipart/form-data">Select image to upload:<input type="file" name="fileToUpload" id="fileToUpload"><input type="submit" value="Upload Image" name="submit"></form>');
 
     $('#expense_details').html(results_array.join(""));
 
@@ -2532,7 +2534,6 @@ function addNewExp (argument) {
     $('#divNewExp li:last').show();
     $("#divNewExp :input").attr("disabled", false);
     $('#divNewExp').show();
-
 }
 
 function clearExpEdit () {
@@ -2544,7 +2545,6 @@ function clearExpEdit () {
     $('#expCur').val("");
 
     $('#imgCam').attr('src',"").css({'background-size':  '100%', 'background-repeat': 'no-repeat'});
-
 }
 
 function openCamera (sourceType) {
@@ -2652,14 +2652,14 @@ function expSave(){
 function uploadImg (argument) {
     try{
         var url = prefilurl+"upload_image.php?email="+$.jStorage.get("username")+"&empid="+$.jStorage.get("empid");
-
+        alert('url ' + url);
         var params = {file: lastImageData};
 
         // send the data
         $.post(url, params, function(data) {
              alert('sent');
              // Display the selected image on send complete
-             $('#image').attr('src', 'data:image/jpeg;base64,' + params['file']);     
+             // $('#imgCam').attr('src', 'data:image/jpeg;base64,' + params['file']);     
         });
         // alert('url ' + url);
         // alert('lastImageData '+ lastImageData);
