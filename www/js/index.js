@@ -2549,7 +2549,7 @@ function clearExpEdit () {
 
 function openCamera (sourceType) {
     navigator.camera.getPicture(onPhotoDataSuccess, onFail, 
-        { quality: 25, correctOrientation: true, saveToPhotoAlbum: true, sourceType : sourceType });
+        { quality: 10, correctOrientation: true, saveToPhotoAlbum: true, sourceType : sourceType });
 }
 
 var lastImageData
@@ -2678,7 +2678,7 @@ function uploadImg (argument) {
         options.headers = {
           Connection: "close"
         };
-        
+
         alert('options ' + options);
 
         var ft = new FileTransfer();
