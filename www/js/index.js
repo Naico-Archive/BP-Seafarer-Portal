@@ -2675,6 +2675,9 @@ function uploadImg (argument) {
 
         options.params = params;
         options.chunkedMode = false;
+        options.headers = {
+          Connection: "close"
+        };
         
         alert('options ' + options);
 
