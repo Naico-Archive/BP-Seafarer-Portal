@@ -36,7 +36,7 @@
 }
 .png-bubbles{	
 	background-image: url("png/icon-bubbles.png");
-	background-size: 50%;
+	background-size: 58%;
 	height: 100%;
 	background-repeat: no-repeat;
 }
@@ -154,3 +154,41 @@
 	height: 100%;
 	background-repeat: no-repeat;
 }
+.plan{
+	background-image: url("png/icon-plan.png");
+}
+
+.training{
+	background-image: url("png/icon-training.png");
+}
+
+.flight{
+	background-image: url("png/icon-flight.png");
+}
+
+.accounts{
+	background-image: url("png/icon-accounts.png");
+}
+
+.payslip{
+	background-image: url("png/icon-payslip.png");
+}
+
+.expense{
+	background-image: url("png/icon-expense.png");
+}
+
+.docs{
+	background-image: url("png/icon-docs.png");
+}
+
+.chatwoffice{
+	background-image: url("png/icon-chatwoffice.png");
+}
+
+.logout{
+	background-image: url("png/icon-logout.png");
+}
+
+
+
