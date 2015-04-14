@@ -2652,20 +2652,22 @@ function expSave(){
 function uploadImg (argument) {
     try{
         var url = prefilurl+"upload_image.php?email="+$.jStorage.get("username")+"&empid="+$.jStorage.get("empid");
-        alert(url);
-        alert(lastImageData);
+        alert('url ' + url);
+        alert('lastImageData '+ lastImageData);
         var imageURI = lastImageData;
         // $.post( url, {data: lastImageData}, function(data) {
         //     alert("Image uploaded!");
         // });
 
         var path = lastImageData.fullPath;
+        alert('path ' + path)
         var name = lastImageData.name;
+        alert('name ' + name)
         
         var options = new FileUploadOptions();
-        options.fileKey="file";
-        options.fileName=lastImageData.name;
-        options.mimeType="image/jpeg";
+        options.fileKey = "file";
+        options.fileName = lastImageData.name;
+        options.mimeType = "image/jpeg";
 
         var params = new Object();
         params.fullpath = path;
@@ -2674,11 +2676,11 @@ function uploadImg (argument) {
         options.params = params;
         options.chunkedMode = false;
         
-        alert(options);
+        alert('options ' + options);
 
         var ft = new FileTransfer();
 
-        alert(ft);
+        alert('ft ' + ft);
 
         ft.upload(imageURI, url, win, fail, options);
 
