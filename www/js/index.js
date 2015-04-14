@@ -2558,7 +2558,7 @@ var lastImageData
 function onPhotoDataSuccess(imageData) {
   // alert("onPhotoDataSuccess start")
   $('#imgCam').attr('src',imageData).css({'background-size':  '100%', 'background-repeat': 'no-repeat'});
-  lastImageData = imageData[0];
+  lastImageData = imageData;
   // // Get image handle
   // //
   // var smallImage = document.getElementById('smallImage');
