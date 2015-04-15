@@ -1821,7 +1821,7 @@ input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
 }
 
 li.topcoat-list__item>div{
-  padding: 5px;
+  padding: 3px;
 }
 
 #divNewExp li:last-child{
