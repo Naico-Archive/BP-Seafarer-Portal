@@ -2435,11 +2435,6 @@ function expense_details (argument) {
 
     // FETCH AND SHOW EXISTING BILLS
     var url = prefilurl+"get_expense.php?email="+$.jStorage.get("username")+"&empid="+$.jStorage.get("empid");
-    var alerts_array = new Array(); 
-
-    setheadername(alerts_array, '<div><div class="png-bell2-black png-header pagename-icon"></div>  Alerts</div>');
-    var alertcount = 0;
-    //console.log(url);
     var req = $.ajax({
         url: url,
         datatype: 'text',
@@ -2448,25 +2443,38 @@ function expense_details (argument) {
         },
 
         success : function(data) {
-            var currency_codes = data.currencies;
-            var cost_codes = data.cost_codes;
+            var currency_codes = {};
+            for (var i=0; i< data.currencies.length; ++i) {
+                currency_codes[data.currencies[i]['ID']] = data.currencies[i]['label'];
+            }
+            var cost_codes = {};
+            for (var i=0; i< data.cost_codes.length; ++i) {
+                cost_codes[data.cost_codes[i]['ID']] = data.cost_codes[i]['label'];
+            }
             var expenses = data.expenses;
 
             // alerts_array.push('<div class = "hambrgrdetails">');
             results_array.push('<div class = "footer" style="margin-top: 5px; border:0px; text-align:center">');
+            // alert(expenses[0]['CurrencyId']);
+            // alert(currency_codes[expenses[0]['CurrencyId']]);
 
             for (var i = 0; i < expenses.length; i++) {
                 var cur_expense = expenses[i];
                 var amount = cur_expense['Amount'];
-                var cost_code = cost_codes[cur_expense['CostCodeId']]['label'];
-                var currency_code = currency_codes[cur_expense['CurrencyId']]['label'];
+                var cost_code = cost_codes[cur_expense['CostCodeId']];
+                var curr_code = currency_codes[cur_expense['CurrencyId']];
+                alert(curr_code);
+                
+                // var curr_code = currency_codes[cur_expense['CurrencyId']]['label'];
+                
                 var desc = cur_expense['Desc'];
                 var approval_status = cur_expense['ApprovedStatus'];
                 var paid_status = cur_expense['PaidStatus'];
                 var place = cur_expense['Place'];
-                results_array.push(cur_expense+' '+amount+cost_code+currency_code+desc+approval_status+paid_status+place);
+                results_array.push('<div>'+amount+cost_code+curr_code+desc+approval_status+paid_status+place+'</div>');
             }
             results_array.push('</div></br>');
+            $('#expense_details').html(results_array.join(""));
             
         },
         error: function (request, status, error) {
@@ -2474,9 +2482,7 @@ function expense_details (argument) {
         }
     });
 
-    $('#expense_details').html(results_array.join(""));
-
-    fillExpenseList();
+    // fillExpenseList();
 }
 
 function fillExpenseList (argument) {
@@ -2694,7 +2700,7 @@ function expSave(){
 function uploadImg (argument) {
     try{
         var url = prefilurl+"upload_image.php?email="+$.jStorage.get("username")+"&empid="+$.jStorage.get("empid");
-        alert('url ' + url);
+        alert('url ' + encodeURI(url));
         var params = {file: lastImageData};
 
         // send the data
@@ -2703,7 +2709,6 @@ function uploadImg (argument) {
         //      // Display the selected image on send complete
         //      // $('#imgCam').attr('src', 'data:image/jpeg;base64,' + params['file']);     
         // });
-        alert('url ' + url);
         alert('lastImageData '+ lastImageData);
         var imageURI = lastImageData;
         // $.post( url, {data: lastImageData}, function(data) {
@@ -2711,9 +2716,9 @@ function uploadImg (argument) {
         // });
 
         var path = lastImageData;
-        alert('path ' + path)
+        // alert('path ' + path)
         var name = 'testimage';
-        alert('name ' + name)
+        // alert('name ' + name)
         
         var options = new FileUploadOptions();
         options.fileKey = "file";
@@ -2730,11 +2735,11 @@ function uploadImg (argument) {
           Connection: "close"
         };
 
-        alert('options ' + options);
+        // alert('options ' + options);
 
         var ft = new FileTransfer();
 
-        alert('ft ' + ft);
+        // alert('ft ' + ft);
 
         ft.upload(imageURI, encodeURI(url), win, fail, options, true);
 
