@@ -78,9 +78,9 @@ function route(event) {
     }
 
     // SHOW ONLY MY CURRENT PAGE UNDER DEV
-    // hide_all();
-    // expense_details();
-    // return;
+    hide_all();
+    expense_details();
+    return;
 
     if (hash === "#plan") {
         show_plan_details();
@@ -2465,9 +2465,24 @@ function expense_details (argument) {
                 var curr_code = currency_codes[cur_expense['CurrencyId']];
                 var desc = cur_expense['Desc'];
                 var approval_status = cur_expense['ApprovedStatus'];
+                var date = cur_expense['IncidentalDate'];
                 var paid_status = cur_expense['PaidStatus'];
                 var place = cur_expense['Place'];
-                results_array.push('<div>'+amount+cost_code+curr_code+desc+approval_status+paid_status+place+'</div>');
+                alert("sadghusdg");
+                // results_array.push('<div class="footer">'+amount+cost_code+curr_code+desc+approval_status+paid_status+place+'</div>');
+                    results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
+                        results_array.push('<li class="topcoat-list__item" style="padding:0">');
+                            results_array.push('<div style="text-align:right;   background-color: #eee;">'+date+'</div>')
+                            results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
+                                results_array.push('<li class="topcoat-list__item" style="padding:0px">');
+                                     results_array.push('<div class="topcoat-icon png-header pagename-icon" style="margin-right: 10px;"/>' + ' ' + '<div style="font-size: larger; color:#50aa3b; margin-right:10px; display: inline-block">'+ amount +'</div>'
+                                                         + ' ' + '<div style="font-size: larger; margin-right:10px; display: inline-block">'+ cost_code + '</div>'
+                                                         + ' ' + '<div style="font-size: larger; margin-right:10px; display: inline-block">'+ curr_code + '</div>' + ' ' + '<div style="float:right; color:#63c2df; display: inline-block">'+ place + '</div>'
+                                                         + ' ' + '<div style="float:right; display: inline-block">' + desc + '</div>');
+                                results_array.push('</li>');
+                            results_array.push('</ul>');
+                        results_array.push('</li>');
+                    results_array.push('</ul>');
             }
             results_array.push('</div></br>');
             $('#expense_details').html(results_array.join(""));
@@ -2478,7 +2493,7 @@ function expense_details (argument) {
         }
     });
 
-    // fillExpenseList();
+    fillExpenseList();
 }
 
 function fillExpenseList (argument) {
