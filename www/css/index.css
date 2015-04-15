@@ -594,6 +594,14 @@ span.header {
   overflow: auto;*/
 }
 
+.footer b{
+  color: #004472;
+}
+
+#tile_icons{
+  background: #EAEAEA;
+}
+
 #content {
   top: 0px; 
   /*position: absolute;*/
@@ -653,12 +661,16 @@ body{
   /*position: relative;
   top: -34px;*/
   /*margin-left: 5px;*/
-  background-color: #eee;
   text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 5px;
+  margin-bottom: 5px;
 }
+
+.header_text>div{
+  color: #2584c4;
+  }
 
 #plan_details_header_menu{
   height: 38px;
@@ -776,9 +788,14 @@ body{
   right: -0.7rem;
 }
 
-.pagename-icon{
+.header_text:first-child .pagename-icon{
   /*position: relative;
   top: 2px;*/
+  display: inline-block;
+}
+
+.header_text:first-child{
+  background: #eee;
 }
 
 
@@ -1003,7 +1020,7 @@ div.scene.active {
 
 .dip_img {
   width:100%; 
-  height:150px;
+  height:300px;
   -webkit-box-shadow: 0 1px 5px #CDCFD1, inset 0 10px 20px #919292;
   -moz-box-shadow: 0 1px 5px #0061aa, inset 0 10px 20px #b6f9ff;
   box-shadow: 0 1px 5px #4E4E4E, inset 0 10px 20px #D5D5D5;
@@ -1169,9 +1186,10 @@ hr.style-four {
 
 .page_icon{
   display: inline-block;
-  background-size: 97%;
-  height: 100%;
+  background-size: 100%;
   background-repeat: no-repeat;
-  width: 20px;
-  height: 17px;
+  width: 27px;
+  float: left;
+  margin-right: 5px;
+  height: 25px;
 }

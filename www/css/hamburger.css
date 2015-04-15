@@ -119,6 +119,11 @@ nav li {
     border-top: 1px solid #444444;
     padding: 15px;
 }
+
+nav li:hover {
+    background:#242424;
+}
+
 nav li a {
     color: #fff;
     text-decoration: none;

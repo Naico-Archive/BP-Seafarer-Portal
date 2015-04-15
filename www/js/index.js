@@ -1056,7 +1056,7 @@ function show_training_details() {
 
     var url = prefilurl+"get_sf_training_details.php?email="+$.jStorage.get("username")+"&empid="+$.jStorage.get("empid");
     var training_res_array = new Array(); 
-    setheadername(training_res_array, ' <span class="page_icon training_black"></span>  Training', "pic");
+    setheadername(training_res_array, ' <span class="icon-briefcase pagename-icon"><span class="page_icon training_black"></span>  Training</span>', "pic");
     training_res_array.push("<div class='training_image'> <img src='img/simulator.jpg' class='dip_img'> </div>");
     //console.log(url);
     var req = $.ajax({
@@ -1226,7 +1226,7 @@ function show_flight_details() {
     var url = prefilurl+"get_sf_flight_details.php?email="+$.jStorage.get("username")+"&empid="+$.jStorage.get("empid");
     var results_array = new Array(); 
 
-    setheadername(results_array, '<div><span class="page_icon flight_black"></span>  Flight Details</div>', "pic");
+    setheadername(results_array, '<div><span class="icon-briefcase pagename-icon"><span class="page_icon flight_black"></span>  Flight Details</span></div>', "pic");
     // setheadername(results_array, '<span class="icon-airplane2  pagename-icon"></span>  Flight Details', "pic");
     results_array.push("<div> <img src='img/flight.jpg' class='dip_img'> </div>");
     //results_array.push('<button onclick="shoreback()" class="back-btn"><img src="img/arrow-back.png"></button>');
@@ -1295,7 +1295,7 @@ function allotment_details() {
     var url = prefilurl+"get_sf_allotment_details.php?email="+$.jStorage.get("username")+"&empid="+$.jStorage.get("empid");
     var results_array = new Array(); 
     
-    setheadername(results_array, '<div><span class="page_icon accounts_black"></span>  My Accounts</div>', "pic");
+    setheadername(results_array, '<div><span class="icon-briefcase pagename-icon"><span class="page_icon accounts_black"></span>  My Accounts</span></div>', "pic");
     // setheadername(results_array, '<span class="icon-banknote pagename-icon"></span>  My Accounts', "pic");
     results_array.push("<div> <img src='img/money.jpg' class='dip_img'> </div>");
     //console.log(url);
@@ -1404,7 +1404,7 @@ function show_correspondance (page) {
     var content = corr_content;
     var results_array = new Array(); 
 
-    setheadername(results_array, '<span class="page_icon chatwoffice_black"></span> Chat with office</div>', "name");
+    setheadername(results_array, '<span class="icon-briefcase pagename-icon"><span class="page_icon chatwoffice_black"></span> Chat with office</span>', "name");
     results_array.push('<div class = "hambrgrdetails">');
 
     results_array.push('<form onsubmit="return false" >');
@@ -1964,7 +1964,7 @@ function documentdetails(){
             
             var results_array_new = new Array();
             results_array_new.push('<div class = "hambrgrdetails">'); 
-            setheadername(results_array_new, '<div><span class="page_icon docs_black"></span>  My Documents</div>');            
+            setheadername(results_array_new, '<div><span class="icon-briefcase pagename-icon"><span class="page_icon docs_black"></span>  My Documents</span></div>');            
             results_array_new.push(expired_array.join(""))
             results_array_new.push(results_array.join(""));
             results_array_new.push('</div>');
