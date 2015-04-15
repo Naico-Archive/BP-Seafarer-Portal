@@ -2463,10 +2463,6 @@ function expense_details (argument) {
                 var amount = cur_expense['Amount'];
                 var cost_code = cost_codes[cur_expense['CostCodeId']];
                 var curr_code = currency_codes[cur_expense['CurrencyId']];
-                alert(curr_code);
-                
-                // var curr_code = currency_codes[cur_expense['CurrencyId']]['label'];
-                
                 var desc = cur_expense['Desc'];
                 var approval_status = cur_expense['ApprovedStatus'];
                 var paid_status = cur_expense['PaidStatus'];
