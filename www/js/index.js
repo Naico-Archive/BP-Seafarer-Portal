@@ -2475,20 +2475,37 @@ function expense_details (argument) {
                 var date = cur_expense['IncidentalDate'];
                 var paid_status = cur_expense['PaidStatus'];
                 var place = cur_expense['Place'];
-                alert("sadghusdg");
+                // alert("sadghusdg");
                 // results_array.push('<div class="footer">'+amount+cost_code+curr_code+desc+approval_status+paid_status+place+'</div>');
                     results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
-                        results_array.push('<li class="topcoat-list__item" style="padding:0">');
-                            results_array.push('<div style="text-align:right;   background-color: #eee;">'+date+'</div>')
-                            results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
-                                results_array.push('<li class="topcoat-list__item" style="padding:0px">');
-                                     results_array.push('<div class="topcoat-icon png-header pagename-icon" style="margin-right: 10px;"/>' + ' ' + '<div style="font-size: larger; color:#50aa3b; margin-right:10px; display: inline-block">'+ amount +'</div>'
-                                                         + ' ' + '<div style="font-size: larger; margin-right:10px; display: inline-block">'+ cost_code + '</div>'
-                                                         + ' ' + '<div style="font-size: larger; margin-right:10px; display: inline-block">'+ curr_code + '</div>' + ' ' + '<div style="float:right; color:#63c2df; display: inline-block">'+ place + '</div>'
-                                                         + ' ' + '<div style="float:right; display: inline-block">' + desc + '</div>');
-                                results_array.push('</li>');
-                            results_array.push('</ul>');
-                        results_array.push('</li>');
+                    results_array.push('<li class="topcoat-list__item" style="padding:0">');
+                    results_array.push('<div style="text-align:right;   background-color: #eee;">'+date+'</div>')
+                    results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
+                    results_array.push('<li class="topcoat-list__item" style="padding:0px">');
+                    results_array.push('<div class="topcoat-icon ');
+                    switch(cost_code) {
+                        case 'Food':
+                            results_array.push(' png-spoon-knife ');
+                            break;
+                        case 'Air fare':
+                            results_array.push(' png-airplane ');
+                            break;
+                        case 'Travel':
+                            results_array.push(' png-automobile ');
+                            break;
+                        case 'Other':
+                            results_array.push(' png-help ');
+                            break;
+                    }
+                    results_array.push('png-header pagename-icon" style="margin-right: 10px;"/>');
+                    
+                    results_array.push('<div style="display: inline-block; max-width:150px; text-overflow:ellipsis;">' + desc + '</div>'
+                         + ' ' + '<div style="color:#63c2df; display: inline-block">'+ place + '</div>'
+                         + ' ' + '<div style="font-size: larger; float:right; color:#50aa3b; margin-right:3px; display: inline-block">'+ amount +'</div>' +
+                          '<div style="font-size: larger; float:right; display: inline-block">'+ curr_code + '</div>' );
+                    results_array.push('</li>');
+                    results_array.push('</ul>');
+                    results_array.push('</li>');
                     results_array.push('</ul>');
             }
             results_array.push('</div></br>');

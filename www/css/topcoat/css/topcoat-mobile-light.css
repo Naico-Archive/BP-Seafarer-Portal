@@ -1587,9 +1587,8 @@ input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
 }
 
 .topcoat-list__item {
-  padding: 0.5rem;
+  padding: 5px !important;
   border-top: 1px solid #fff;
-  border-bottom: 1px solid #C7C7C7;
 }
 
 #btnExpSave .png-checkmark {
@@ -1826,6 +1825,9 @@ li.topcoat-list__item>div{
 
 #divNewExp li:last-child{
   border-bottom: 0;
+}
+.topcoat-list__container>li>ul>li{
+  border-bottom: 1px solid #C7C7C7;
 }
 
 /*
