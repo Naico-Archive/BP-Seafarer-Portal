@@ -77,9 +77,10 @@ function route(event) {
         return;
     }
 
-    // hide_all();
-    // expense_details();
-    // return;
+    // SHOW ONLY MY CURRENT PAGE UNDER DEV
+    hide_all();
+    expense_details();
+    return;
 
     if (hash === "#plan") {
         show_plan_details();
@@ -2447,21 +2448,26 @@ function expense_details (argument) {
         },
 
         success : function(data) {
-            var currencies = data.currencies;
-            var cost_code = data.cost_code;
+            var currency_codes = data.currencies;
+            var cost_codes = data.cost_codes;
             var expenses = data.expenses;
 
             // alerts_array.push('<div class = "hambrgrdetails">');
-            alerts_array.push('<ul class="topcoat-list__container">');
-            if(expenses[0] != null) {
-                for (var i = 0; i < expenses.length; i++) {
-                        alert(expenses[i]['Amount']);
-                        
-                }
-                
-            } else {
-                
+            results_array.push('<div class = "footer" style="margin-top: 5px; border:0px; text-align:center">');
+
+            for (var i = 0; i < expenses.length; i++) {
+                var cur_expense = expenses[i];
+                var amount = cur_expense['Amount'];
+                var cost_code = cost_codes[cur_expense['CostCodeId']]['label'];
+                var currency_code = currency_codes[cur_expense['CurrencyId']]['label'];
+                var desc = cur_expense['Desc'];
+                var approval_status = cur_expense['ApprovedStatus'];
+                var paid_status = cur_expense['PaidStatus'];
+                var place = cur_expense['Place'];
+                results_array.push(cur_expense+' '+amount+cost_code+currency_code+desc+approval_status+paid_status+place);
             }
+            results_array.push('</div></br>');
+            
         },
         error: function (request, status, error) {
             hide_spinner();
