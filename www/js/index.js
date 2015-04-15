@@ -78,9 +78,9 @@ function route(event) {
     }
 
     // SHOW ONLY MY CURRENT PAGE UNDER DEV
-    hide_all();
-    expense_details();
-    return;
+    // hide_all();
+    // expense_details();
+    // return;
 
     if (hash === "#plan") {
         show_plan_details();

@@ -155,13 +155,57 @@ h1 {
 }
 
 .login_title {
-    font-size: 22px;
-    margin-top: 50px;
+    font-size: 16px;
+    margin-bottom: 20px;
     /*font-family: 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;*/
     /*margin-top: 50px;
     margin-bottom: 50px;*/
-    /*padding: 50px;
-    text-align: center;*/
+    /*padding: 50px;*/
+    text-align: center;
+    color: #435687;
+    background: url("../img/seafarer_logo.png") no-repeat center top;
+    min-height: 270px;
+}
+
+.login_title h3{
+  position: relative;
+  top: 240px;
+}
+
+.login{
+    position: absolute; 
+    width: 100%;
+    height: 100%;
+    background: url("../img/bg.jpg") no-repeat !important;
+    background-size: cover !important; 
+}
+
+#login_form{
+  padding: 0 15px;
+}
+
+#login_form .topcoat-button--cta{
+  width: 40%;
+  background:#88a2da;
+  color: #fff;
+  border-radius: 30px;
+  border: 0; 
+  -webkit-box-shadow:inset 0 0 1px 1px #6d82ae;
+  box-shadow:inset 0 0 1px 1px #6d82ae;
+}
+
+#login_form .topcoat-button--cta:first-child{
+  float: left;
+}
+
+#login_form .topcoat-button--cta:last-child{
+  float: right;
+}
+
+#login_form input{
+  border-radius: 30px;
+  border: 0;
+  margin-bottom: 15px;
 }
 
 .ui-link {
@@ -610,7 +654,6 @@ span.header {
   right: 0px;
   padding: 0px;
   overflow-x: hidden;
-    
 }
 
 #bg {
