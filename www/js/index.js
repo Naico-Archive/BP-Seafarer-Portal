@@ -2430,7 +2430,43 @@ function expense_details (argument) {
     results_array.push('<div class = "footer" style="margin-top:5px; border:0px;" id="divExpList" >');
     results_array.push('</div></br>');
 
-    results_array.push('<form action="https://getvesseltracker.com/seafarer_dev_bp/upload_image.php" method="post" enctype="multipart/form-data">Select image to upload:<input type="file" name="fileToUpload" id="fileToUpload"><input type="submit" value="Upload Image" name="submit"></form>');
+    // results_array.push('<form action="https://getvesseltracker.com/seafarer_dev_bp/upload_image.php" method="post" enctype="multipart/form-data">Select image to upload:<input type="file" name="fileToUpload" id="fileToUpload"><input type="submit" value="Upload Image" name="submit"></form>');
+
+    // FETCH AND SHOW EXISTING BILLS
+    var url = prefilurl+"get_expense.php?email="+$.jStorage.get("username")+"&empid="+$.jStorage.get("empid");
+    var alerts_array = new Array(); 
+
+    setheadername(alerts_array, '<div><div class="png-bell2-black png-header pagename-icon"></div>  Alerts</div>');
+    var alertcount = 0;
+    //console.log(url);
+    var req = $.ajax({
+        url: url,
+        datatype: 'text',
+        beforeSend: function() {
+            show_spinner();
+        },
+
+        success : function(data) {
+            var currencies = data.currencies;
+            var cost_code = data.cost_code;
+            var expenses = data.expenses;
+
+            // alerts_array.push('<div class = "hambrgrdetails">');
+            alerts_array.push('<ul class="topcoat-list__container">');
+            if(expenses[0] != null) {
+                for (var i = 0; i < expenses.length; i++) {
+                        alert(expenses[i]['Amount']);
+                        
+                }
+                
+            } else {
+                
+            }
+        },
+        error: function (request, status, error) {
+            hide_spinner();
+        }
+    });
 
     $('#expense_details').html(results_array.join(""));
 
