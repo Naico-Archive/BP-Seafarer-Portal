@@ -2373,6 +2373,11 @@ function Convert_toDate(value){
     return pro_for;
 }
 
+var currency_codes = {};
+var cost_codes = {};
+var currency_codes_reverse_map = {};
+var cost_codes_reverse_map = {};
+
 function expense_details (argument) {
     index_page_call();
     hide_all();
@@ -2446,10 +2451,12 @@ function expense_details (argument) {
             var currency_codes = {};
             for (var i=0; i< data.currencies.length; ++i) {
                 currency_codes[data.currencies[i]['ID']] = data.currencies[i]['label'];
+                 currency_codes_reverse_map[data.currencies[i]['label']] = data.currencies[i]['ID'];
             }
             var cost_codes = {};
             for (var i=0; i< data.cost_codes.length; ++i) {
                 cost_codes[data.cost_codes[i]['ID']] = data.cost_codes[i]['label'];
+                 cost_codes_reverse_map[data.cost_codes[i]['label']] = data.cost_codes[i]['ID'];
             }
             var expenses = data.expenses;
 
@@ -2652,60 +2659,114 @@ function onFail(message) {
 }
 
 function expSave(){
-    var exp = $.jStorage.get("exp");
-    if (exp == null) {
-        exp = [];
-        var expPerDate =[];
-        var objExpPerDate = {   id : idGen.getId(),
-                                date : $('#expDate').val(),
-                                expType : $("#expType option:selected" ).text(),
-                                expDesc : $('#expDesc').val(),
-                                amount : $('#expAmount').val(),
-                                cur: $('#expCur').val(),
-                                image : lastImageData  };
-        expPerDate.push(objExpPerDate);
+    // var exp = $.jStorage.get("exp");
+    // if (exp == null) {
+    //     exp = [];
+    //     var expPerDate =[];
+    //     var objExpPerDate = {   id : idGen.getId(),
+    //                             date : $('#expDate').val(),
+    //                             expType : $("#expType option:selected" ).text(),
+    //                             expDesc : $('#expDesc').val(),
+    //                             amount : $('#expAmount').val(),
+    //                             cur: $('#expCur').val(),
+    //                             image : lastImageData  };
+    //     expPerDate.push(objExpPerDate);
 
-        var objExp = { date: $('#expDate').val(), expensePerDate : expPerDate};
-        exp.push(objExp);        
-    }else{
-        var datePresent = $.grep(exp, function(a) { 
-                                if (a.date==$('#expDate').val()) {
-                                var objExpPerDate = {   id : idGen.getId(),
-                                                        date : new Date($('#expDate').val()),
-                                                        expType : $( "#expType option:selected" ).text(),
-                                                        expDesc : $('#expDesc').val(),
-                                                        amount : $('#expAmount').val(),
-                                                        cur: $('#expCur').val(),
-                                                        image : lastImageData  };
+    //     var objExp = { date: $('#expDate').val(), expensePerDate : expPerDate};
+    //     exp.push(objExp);        
+    // }else{
+    //     var datePresent = $.grep(exp, function(a) { 
+    //                             if (a.date==$('#expDate').val()) {
+    //                             var objExpPerDate = {   id : idGen.getId(),
+    //                                                     date : new Date($('#expDate').val()),
+    //                                                     expType : $( "#expType option:selected" ).text(),
+    //                                                     expDesc : $('#expDesc').val(),
+    //                                                     amount : $('#expAmount').val(),
+    //                                                     cur: $('#expCur').val(),
+    //                                                     image : lastImageData  };
 
-                                a.expensePerDate.push(objExpPerDate);
-                                };
-                                return a.date==$('#expDate').val();
-                            });
-        if (datePresent.length==0) {
-            var expPerDate =[];
-            var objExpPerDate = {   id : idGen.getId(),
-                                    date : $('#expDate').val(),
-                                    expType : $( "#expType option:selected" ).text(),
-                                    expDesc : $('#expDesc').val(),
-                                    amount : $('#expAmount').val(),
-                                    cur: $('#expCur').val(),
-                                    image : lastImageData  };
-            expPerDate.push(objExpPerDate);
+    //                             a.expensePerDate.push(objExpPerDate);
+    //                             };
+    //                             return a.date==$('#expDate').val();
+    //                         });
+    //     if (datePresent.length==0) {
+    //         var expPerDate =[];
+    //         var objExpPerDate = {   id : idGen.getId(),
+    //                                 date : $('#expDate').val(),
+    //                                 expType : $( "#expType option:selected" ).text(),
+    //                                 expDesc : $('#expDesc').val(),
+    //                                 amount : $('#expAmount').val(),
+    //                                 cur: $('#expCur').val(),
+    //                                 image : lastImageData  };
+    //         expPerDate.push(objExpPerDate);
 
-            var objExp = { date: $('#expDate').val(), expensePerDate : expPerDate};
-            exp.push(objExp);
-        };
-    }    
-    exp.sort(function(a,b){
-      // Turn your strings into dates, and then subtract them
-      // to get a value that is either negative, positive, or zero.
-      return new Date(b.date) - new Date(a.date);
-    });
-    $.jStorage.set("exp", exp);
-    uploadImg();
-    fillExpenseList();
-    $('#divNewExp').hide();    
+    //         var objExp = { date: $('#expDate').val(), expensePerDate : expPerDate};
+    //         exp.push(objExp);
+    //     };
+    // }    
+    // exp.sort(function(a,b){
+    //   // Turn your strings into dates, and then subtract them
+    //   // to get a value that is either negative, positive, or zero.
+    //   return new Date(b.date) - new Date(a.date);
+    // });
+    // $.jStorage.set("exp", exp);
+    // uploadImg();
+    // fillExpenseList();
+    // $('#divNewExp').hide();  
+    var url = prefilurl+"sf_insert_incidence.php?email="+$.jStorage.get("username");
+  
+ var empid = $.jStorage.get("empid");
+    var incDate=$("#expDate").val();
+    var costCodeId = 1;
+    var description=$("#expDesc").val();
+    var amount=$("#expAmount").val();
+    var currencyId=currency_codes_reverse_map[$("#expCur").val()];
+    var place="place";
+if(incDate == null || incDate == '' || (Date.parse(incDate) > Date.parse(new Date()))){
+        alert("Please select a valid bill Date");
+        return ;
+}
+ else if(costCodeId== null || costCodeId == ''||costCodeId<=0){
+        alert("Please select cost type");
+        return ;
+    }
+    else if(description== null || description == ''){
+            alert("Pleae enter bill description!");
+            return ;
+        }
+        else if(amount== null || amount == ''|| amount<=0){
+                alert("Please enter expense amount!");
+                return ;
+            }
+            else if(currencyId== null || currencyId == ''|| currencyId<=0){
+                    alert("Select bill currency. ");
+                    return ;
+            }
+            else{
+                var form_data= {
+                      'empid': empid,
+                      'incDate':incDate,
+                      'costCodeId': costCodeId,
+                      'description':description,
+                      'amount': amount,
+                      'currencyId':currencyId,
+                      'place':place
+                    };
+                     var req = $.ajax({
+                            url: url,
+                            type: "post",
+                            data: form_data,
+                            beforeSend: function() {
+                                show_spinner();
+                            },
+
+                            success : function(data) {
+                                    hide_spinner();
+                            }
+                        });
+     $('#divNewExp').hide();    
+}
+  
 }
 
 function uploadImg (argument) {
