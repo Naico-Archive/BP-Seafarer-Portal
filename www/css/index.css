@@ -622,7 +622,7 @@ span.header {
   /*background: #E4E4E4;*/
   background: #FFF;
   overflow: auto;
-  border-radius: 10px;
+  /*border-radius: 10px;*/
   box-shadow: 0px 1px 3px 0px #cccccc;
   /*box-shadow: 1px 4px 14px 0px #A7A7A7;*/
   /*position: fixed;
@@ -652,12 +652,30 @@ span.header {
   display: none;
 }
 
+#payslip_details li.topcoat-list__item:not(:first-child){
+  border-top: 1px solid #D2DCF0;
+}
+
+#payslip_details li.topcoat-list__item:nth-child(2){
+  border-top: 3px solid #B1C6EE;
+}
+
+#payslip_details li.topcoat-list__item:first-child{
+  font-weight: bold;
+}
+
+#document_details li.topcoat-list__item:not(:first-child){
+  border-top: 1px solid #D2DCF0;
+}
+
+
+
 #show_plan_details hr{
   display: none;
 }
 
 #tile_icons{
-  background: #fff;
+  background: #3B5998;
   margin-bottom: 5px;
 }
 
@@ -833,11 +851,11 @@ body{
   /* top: 6px; */
   font-size: 15px;
   /* right: 15px; */
-  background-color: #eeeeee;
+  background-color: #ffffff;
   color: #3e3c3d;
   -webkit-border-radius: 20px 20px 20px 20px;
   border-radius: 7px;
-  opacity: 0.7;
+  opacity: 0.9;
   border: 1px solid;
   display: inline-block;
   margin: 10px;
