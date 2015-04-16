@@ -155,14 +155,14 @@ h1 {
 }
 
 .login_title {
-    font-size: 16px;
+    font-size: 14px;
     margin-bottom: 20px;
     /*font-family: 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;*/
     /*margin-top: 50px;
     margin-bottom: 50px;*/
     /*padding: 50px;*/
     text-align: center;
-    color: #435687;
+    color: #333333;
     background: url("../img/seafarer_logo.png") no-repeat center top;
     min-height: 270px;
 }
@@ -541,7 +541,7 @@ html, body {
 
 .topcoat-navigation-bar{
     height: 3.95rem;
-    background-color: #3e3c3d;
+    background-color: #3b5998;
 
 }
 
@@ -612,19 +612,18 @@ span.header {
 
 
 .footer {
-  margin: 3px;
-  padding: 5px;
+  margin: 9px !important;
+  padding: 10px;
   /* width: 100px; */
   /* height: 100px; */
   /*-webkit-box-shadow: 0 1px 5px #CDCFD1, inset 0 10px 20px #919292;
   -moz-box-shadow: 0 1px 5px #0061aa, inset 0 10px 20px #b6f9ff;
   box-shadow: 0 1px 5px #4E4E4E, inset 0 10px 20px #D5D5D5;*/
   /*background: #E4E4E4;*/
-  margin-top: 5px;
   background: #FFF;
   overflow: auto;
   border-radius: 10px;
-  border: solid 1px #A7A7A7;
+  box-shadow: 0px 1px 3px 0px #cccccc;
   /*box-shadow: 1px 4px 14px 0px #A7A7A7;*/
   /*position: fixed;
   bottom: 0;
@@ -642,8 +641,24 @@ span.header {
   color: #004472;
 }
 
+.footer>div>span{
+  display: block;
+  border-bottom: 1px solid #F1F1F1;
+  padding: 5px 0;
+  color: #666;
+}
+
+.footer br{
+  display: none;
+}
+
+#show_plan_details hr{
+  display: none;
+}
+
 #tile_icons{
-  background: #EAEAEA;
+  background: #fff;
+  margin-bottom: 5px;
 }
 
 #content {
@@ -668,7 +683,7 @@ span.header {
 }
 
 body{
-  background-color: #3e3c3d;
+  background-color: #21365C;
   /*background-image:url('images/paper.png');*/
   /*background-repeat:repeat;*/
 /*  background: #FFF;
@@ -700,7 +715,7 @@ body{
 }
 
 .header_text{
-  font-size: 20px;
+  font-size: 18px;
   /*position: relative;
   top: -34px;*/
   /*margin-left: 5px;*/
@@ -708,7 +723,7 @@ body{
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 5px;
-  margin-bottom: 5px;
+/*  margin-bottom: 5px;*/
 }
 
 .header_text>div{
@@ -769,6 +784,8 @@ body{
   top: 16px;
   font-size: 20px;
   left: 8px;
+  border-radius: 20px;
+  opacity: 1;
 /*  background-color: rgb(60, 36, 102);
   color: white;
   -webkit-border-radius: 20px 20px 20px 20px;
@@ -816,10 +833,11 @@ body{
   /* top: 6px; */
   font-size: 15px;
   /* right: 15px; */
-  background-color: white;
+  background-color: #eeeeee;
   color: #3e3c3d;
   -webkit-border-radius: 20px 20px 20px 20px;
-  border-radius: 20px 20px 20px 20px;
+  border-radius: 7px;
+  opacity: 0.7;
   border: 1px solid;
   display: inline-block;
   margin: 10px;
@@ -838,7 +856,7 @@ body{
 }
 
 .header_text:first-child{
-  background: #eee;
+  background: #D2DCF0;
 }
 
 
