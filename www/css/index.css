@@ -1277,3 +1277,15 @@ hr.style-four {
 #show_training_details span{
   display: block;
 }
+
+#show_flight_details span{
+   display: block;
+}
+
+#show_flight_details span{
+  display: block;
+}
+
+#allotment_details span{
+  display: block;
+}
