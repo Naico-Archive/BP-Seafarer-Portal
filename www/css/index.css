@@ -1274,18 +1274,18 @@ hr.style-four {
   height: 25px;
 }
 
-#show_training_details span{
+#show_training_details .footer span{
   display: block;
 }
 
-#show_flight_details span{
+#show_flight_details .footer span{
    display: block;
 }
 
-#show_flight_details span{
+#show_flight_details .footer span{
   display: block;
 }
 
-#allotment_details span{
+#allotment_details .footer span{
   display: block;
 }
