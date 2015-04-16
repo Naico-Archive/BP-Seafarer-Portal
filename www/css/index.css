@@ -1273,3 +1273,7 @@ hr.style-four {
   margin-right: 5px;
   height: 25px;
 }
+
+#show_training_details span{
+  display: block;
+}
