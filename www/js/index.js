@@ -2372,7 +2372,10 @@ function Convert_toDate(value){
     var pro_for= new Date(period_month[0],period_month[1]);
     return pro_for;
 }
-
+var currency_codes = {};
+var cost_codes = {};
+var currency_codes_reverse_map = {};
+var cost_codes_reverse_map = {};
 function expense_details (argument) {
     index_page_call();
     hide_all();
@@ -2443,13 +2446,15 @@ function expense_details (argument) {
         },
 
         success : function(data) {
-            var currency_codes = {};
+             currency_codes = {};
             for (var i=0; i< data.currencies.length; ++i) {
                 currency_codes[data.currencies[i]['ID']] = data.currencies[i]['label'];
+                 currency_codes_reverse_map[data.currencies[i]['label']] = data.currencies[i]['ID'];
             }
-            var cost_codes = {};
+             cost_codes = {};
             for (var i=0; i< data.cost_codes.length; ++i) {
                 cost_codes[data.cost_codes[i]['ID']] = data.cost_codes[i]['label'];
+                   cost_codes_reverse_map[data.cost_codes[i]['label']] = data.cost_codes[i]['ID'];
             }
             var expenses = data.expenses;
 
@@ -2669,60 +2674,116 @@ function onFail(message) {
 }
 
 function expSave(){
-    var exp = $.jStorage.get("exp");
-    if (exp == null) {
-        exp = [];
-        var expPerDate =[];
-        var objExpPerDate = {   id : idGen.getId(),
-                                date : $('#expDate').val(),
-                                expType : $("#expType option:selected" ).text(),
-                                expDesc : $('#expDesc').val(),
-                                amount : $('#expAmount').val(),
-                                cur: $('#expCur').val(),
-                                image : lastImageData  };
-        expPerDate.push(objExpPerDate);
+var url = prefilurl+"sf_insert_incidence.php?email="+$.jStorage.get("username");
+  
+ var empid = $.jStorage.get("empid");
+    var incDate=$("#expDate").val();
+    var costCodeId = 1;
+    var description=$("#expDesc").val();
+    var amount=$("#expAmount").val();
+    var currencyId=currency_codes_reverse_map[$("#expCur").val()];
+    var place="place";
+if(incDate == null || incDate == '' || (Date.parse(incDate) > Date.parse(new Date()))){
+        console.log(alert("Please select a valid bill Date"));
+        return ;
+}
+ else if(costCodeId== null || costCodeId == ''||costCodeId<=0){
+        console.log(alert("Please select cost type"));
+        return ;
+    }
+    else if(description== null || description == ''){
+            alert.log(alert("Pleae enter bill description!"));
+            return ;
+        }
+        else if(amount== null || amount == ''|| amount<=0){
+                console.log(alert("Please enter expense amount!"));
+                return ;
+            }
+            else if(currencyId== null || currencyId == ''|| currencyId<=0){
+                    console.log(alert("Select bill currency. "));
+                    return ;
+            }
+            else{
+                var form_data= {
+                      'empid': empid,
+                      'incDate':incDate,
+                      'costCodeId': costCodeId,
+                      'description':description,
+                      'amount': amount,
+                      'currencyId':currencyId,
+                      'place':place
+                    };
+                     var req = $.ajax({
+                            url: url,
+                            type: "post",
+                            data: form_data,
+                            beforeSend: function() {
+                                show_spinner();
+                            },
 
-        var objExp = { date: $('#expDate').val(), expensePerDate : expPerDate};
-        exp.push(objExp);        
-    }else{
-        var datePresent = $.grep(exp, function(a) { 
-                                if (a.date==$('#expDate').val()) {
-                                var objExpPerDate = {   id : idGen.getId(),
-                                                        date : new Date($('#expDate').val()),
-                                                        expType : $( "#expType option:selected" ).text(),
-                                                        expDesc : $('#expDesc').val(),
-                                                        amount : $('#expAmount').val(),
-                                                        cur: $('#expCur').val(),
-                                                        image : lastImageData  };
+                            success : function(data) {
+                                    //alert("s");
+                                    hide_spinner();
+                            }
+                        });
+     $('#divNewExp').hide();    
+}
 
-                                a.expensePerDate.push(objExpPerDate);
-                                };
-                                return a.date==$('#expDate').val();
-                            });
-        if (datePresent.length==0) {
-            var expPerDate =[];
-            var objExpPerDate = {   id : idGen.getId(),
-                                    date : $('#expDate').val(),
-                                    expType : $( "#expType option:selected" ).text(),
-                                    expDesc : $('#expDesc').val(),
-                                    amount : $('#expAmount').val(),
-                                    cur: $('#expCur').val(),
-                                    image : lastImageData  };
-            expPerDate.push(objExpPerDate);
 
-            var objExp = { date: $('#expDate').val(), expensePerDate : expPerDate};
-            exp.push(objExp);
-        };
-    }    
-    exp.sort(function(a,b){
-      // Turn your strings into dates, and then subtract them
-      // to get a value that is either negative, positive, or zero.
-      return new Date(b.date) - new Date(a.date);
-    });
-    $.jStorage.set("exp", exp);
-    uploadImg();
-    fillExpenseList();
-    $('#divNewExp').hide();    
+    // var exp = $.jStorage.get("exp");
+    // if (exp == null) {
+    //     exp = [];
+    //     var expPerDate =[];
+    //     var objExpPerDate = {   id : idGen.getId(),
+    //                             date : $('#expDate').val(),
+    //                             expType : $("#expType option:selected" ).text(),
+    //                             expDesc : $('#expDesc').val(),
+    //                             amount : $('#expAmount').val(),
+    //                             cur: $('#expCur').val(),
+    //                             image : lastImageData  };
+    //     expPerDate.push(objExpPerDate);
+
+    //     var objExp = { date: $('#expDate').val(), expensePerDate : expPerDate};
+    //     exp.push(objExp);        
+    // }else{
+    //     var datePresent = $.grep(exp, function(a) { 
+    //                             if (a.date==$('#expDate').val()) {
+    //                             var objExpPerDate = {   id : idGen.getId(),
+    //                                                     date : new Date($('#expDate').val()),
+    //                                                     expType : $( "#expType option:selected" ).text(),
+    //                                                     expDesc : $('#expDesc').val(),
+    //                                                     amount : $('#expAmount').val(),
+    //                                                     cur: $('#expCur').val(),
+    //                                                     image : lastImageData  };
+
+    //                             a.expensePerDate.push(objExpPerDate);
+    //                             };
+    //                             return a.date==$('#expDate').val();
+    //                         });
+    //     if (datePresent.length==0) {
+    //         var expPerDate =[];
+    //         var objExpPerDate = {   id : idGen.getId(),
+    //                                 date : $('#expDate').val(),
+    //                                 expType : $( "#expType option:selected" ).text(),
+    //                                 expDesc : $('#expDesc').val(),
+    //                                 amount : $('#expAmount').val(),
+    //                                 cur: $('#expCur').val(),
+    //                                 image : lastImageData  };
+    //         expPerDate.push(objExpPerDate);
+
+    //         var objExp = { date: $('#expDate').val(), expensePerDate : expPerDate};
+    //         exp.push(objExp);
+    //     };
+    // }    
+    // exp.sort(function(a,b){
+    //   // Turn your strings into dates, and then subtract them
+    //   // to get a value that is either negative, positive, or zero.
+    //   return new Date(b.date) - new Date(a.date);
+    // });
+    // $.jStorage.set("exp", exp);
+    // uploadImg();
+    // fillExpenseList();
+    // $('#divNewExp').hide();    
 }
 
 function uploadImg (argument) {
