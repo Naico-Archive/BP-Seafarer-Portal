@@ -1315,8 +1315,8 @@ function allotment_details() {
             results_array.push('<div class = "footer" style="margin-top: 0px;">');
             if(data[0] != null) {
                 var pro_date = new Date(data[0]['processed_on']);
-                results_array.push("<span> Payroll processed on <b>"+pro_date.getDate() +' '+capitalize(getMonthName(pro_date.getMonth())) +' '+pro_date.getFullYear() +"</b></span><br/>");
-                results_array.push("Balance in your account ");
+                results_array.push("<p> Payroll processed on <b>"+pro_date.getDate() +' '+capitalize(getMonthName(pro_date.getMonth())) +' '+pro_date.getFullYear() +"</b></p>");
+                results_array.push("<p>Balance in your account ");
                 var balamnt=0;
                 if(data[0] != null) {
                     for (var i = 0; i < data.length; i++) {
@@ -1330,7 +1330,9 @@ function allotment_details() {
                 //converting string value to number and then to Date .
                 period_date=Number(period);
                 period_month=Convert_toDate(period_date);
-                results_array.push('<b>'+prsflt(balamnt)+"</b> as of <b>"+getMonthName(period_month.getMonth()) +' '+period_month.getFullYear()+'</b>');
+                if(balamnt<0)
+                    balamnt=balamnt*(-1);
+                results_array.push(' as of <b>'+getMonthName(period_month.getMonth()) +' '+period_month.getFullYear()+'</b> is <b>USD '+ prsflt(balamnt)+'</b> </p>');
 
                 if(alllalerts.indexOf("ALLOTMENT") > -1){
                     update_alert_seen("ALLOTMENT");
@@ -1341,7 +1343,7 @@ function allotment_details() {
             allotted_details(period, results_array);
         },
         error: function (request, status, error) {
-           results_array.push("<span> No data to display </span><br/>");
+           results_array.push("<p> No data to display </p><br/>");
            $('#allotment_details').html(results_array.join(""));
            // fixCapitalsNode (document.body);
            hide_spinner();
@@ -1368,12 +1370,12 @@ function allotted_details(period, results_array) {
             if(data[0] != null) {
                 for (var i = 0; i < data.length; i++) {
                     if(i == 0){
-                        results_array.push("<br> Allotments:- ");
+                        results_array.push("<p> Allotments:- </p>");
                     }
-                    results_array.push("<br>&nbsp;&nbsp;"+fixCapitalsText (data[i]['beneficiary_name'])+": "+data[i]['amount']+"("+data[i]['currency']+")");
+                    results_array.push("<p>&nbsp;&nbsp;"+fixCapitalsText (data[i]['beneficiary_name'])+": "+data[i]['currency']+" "+data[i]['amount']+"</p>");
                 }
             } else {
-                results_array.push("<br>You have not set any allotments.")
+                results_array.push("<p>You have not set any allotments.</p>")
             }
             hide_spinner();
             $('#allotment_details').html(results_array.join(""));
@@ -2438,8 +2440,8 @@ function expense_details (isrefresh) {
     results_array.push('</ul></div>');
     results_array.push('</div>');
 
-    results_array.push('<div class = "footer" style="margin-top:5px; border:0px;" id="divExpList" >');
-    results_array.push('</div></br>');
+    //results_array.push('<div class = "footer" style="margin-top:5px; border:0px;" id="divExpList" >');
+    //results_array.push('</div></br>');
 
     // results_array.push('<form action="https://getvesseltracker.com/seafarer_dev_bp/upload_image.php" method="post" enctype="multipart/form-data">Select image to upload:<input type="file" name="fileToUpload" id="fileToUpload"><input type="submit" value="Upload Image" name="submit"></form>');
 
@@ -2525,7 +2527,7 @@ function expense_details (isrefresh) {
         }
     });
 
-    fillExpenseList(); 
+    //fillExpenseList(); 
 }
 
 function fillExpenseList (argument) { 
