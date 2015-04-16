@@ -2008,6 +2008,8 @@ function dateformat(dat, format) {
         //console.log(d.getDate()+"-"+d.getMonth()+"-"+d.getYear());
         if(format == "dd-mon-yyyy")
             dat = ("0" + d.getDate()).slice(-2)+"-"+getMonthName(d.getMonth())+"-"+d.getFullYear();
+        else if(format == "mon yyyy")
+            dat = (getMonthName(d.getMonth())+" "+d.getFullYear());
     } else {
         dat = '';
     }
@@ -2462,7 +2464,7 @@ function expense_details (argument) {
             results_array.push('<div class = "footer" style="margin-top: 5px; border:0px; text-align:center">');
             // alert(expenses[0]['CurrencyId']);
             // alert(currency_codes[expenses[0]['CurrencyId']]);
-
+            var date = "";
             for (var i = 0; i < expenses.length; i++) {
                 var cur_expense = expenses[i];
                 var amount = cur_expense['Amount'];
@@ -2470,52 +2472,55 @@ function expense_details (argument) {
                 var curr_code = currency_codes[cur_expense['CurrencyId']];
                 var desc = cur_expense['Desc'];
                 var approval_status = cur_expense['ApprovedStatus'];
-                var date = cur_expense['IncidentalDate'];
+               
                 var paid_status = cur_expense['PaidStatus'];
                 var place = cur_expense['Place'];
                 // alert("sadghusdg");
                 // results_array.push('<div class="footer">'+amount+cost_code+curr_code+desc+approval_status+paid_status+place+'</div>');
-                    results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
-                    results_array.push('<li class="topcoat-list__item" style="padding:0">');
-                    results_array.push('<div style="text-align:right;   background-color: #eee;">'+date+'</div>')
-                    results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
-                    results_array.push('<li class="topcoat-list__item" style="padding:0px">');
-                    results_array.push('<div class="topcoat-icon ');
-                    switch(cost_code) {
-                        case 'Food':
-                            results_array.push(' png-spoon-knife ');
-                            break;
-                        case 'Air fare':
-                            results_array.push(' png-airplane ');
-                            break;
-                        case 'Travel':
-                            results_array.push(' png-automobile ');
-                            break;
-                        case 'Other':
-                            results_array.push(' png-help ');
-                            break;
-                    }
-                    results_array.push('png-header pagename-icon" style="margin-right: 10px;"/>');
-                    
-                    results_array.push('<div style="display: inline-block; max-width:150px; text-overflow:ellipsis;">' + desc + '</div>'
-                         + ' ' + '<div style="color:#63c2df; display: inline-block">'+ place + '</div>'
-                         + ' ' + '<div style="font-size: larger; float:right; color:#50aa3b; margin-right:3px; display: inline-block">'+ amount +'</div>' +
-                          '<div style="font-size: larger; float:right; display: inline-block">'+ curr_code + '</div>' );
-                    results_array.push('</li>');
-                    results_array.push('</ul>');
-                    results_array.push('</li>');
-                    results_array.push('</ul>');
+                results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
+                results_array.push('<li class="topcoat-list__item" style="padding:0">');
+                if (date =="" || (new Date(date).getYear()!=new Date(cur_expense['IncidentalDate']).getYear() && new Date(date).getMonth()!=new Date(cur_expense['IncidentalDate']).getMonth())) {
+                    date=cur_expense['IncidentalDate'];
+                    results_array.push('<div style="text-align:center;   background-color: #eee;">'+dateformat(date, "mon yyyy")+'</div>')
+                };             
+                results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
+                results_array.push('<li class="topcoat-list__item" style="padding:0px">');
+                results_array.push('<div class="topcoat-icon ');
+                switch(cost_code) {
+                    case 'Food':
+                        results_array.push(' png-spoon-knife ');
+                        break;
+                    case 'Air fare':
+                        results_array.push(' png-airplane ');
+                        break;
+                    case 'Travel':
+                        results_array.push(' png-automobile ');
+                        break;
+                    case 'Other':
+                        results_array.push(' png-help ');
+                        break;
+                }
+                results_array.push('png-header pagename-icon" style="margin-right: 10px;"/>');
+                
+                results_array.push('<div style="display: inline-block; max-width:150px; text-overflow:ellipsis;">' + desc + '</div>'
+                     + ' '// + '<div style="color:#63c2df; display: inline-block">'+ place + '</div>'
+                     + ' ' + '<div style="font-size: larger; float:right; color:#50aa3b; margin-right:3px; display: inline-block">'+ amount +'</div>' +
+                      '<div style="font-size: larger; float:right; display: inline-block">'+ curr_code + '</div>' );
+                results_array.push('</li>');
+                results_array.push('</ul>');
+                results_array.push('</li>');
+                results_array.push('</ul>');
             }
             results_array.push('</div></br>');
-            $('#expense_details').html(results_array.join(""));
-            
+            $('#expense_details').html(results_array.join(""));           
+            hide_spinner(); 
         },
         error: function (request, status, error) {
             hide_spinner();
         }
     });
 
-    fillExpenseList();
+    fillExpenseList(); 
 }
 
 function fillExpenseList (argument) {
