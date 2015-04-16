@@ -1314,14 +1314,9 @@ function allotment_details() {
             var period_date;
             results_array.push('<div class = "footer" style="margin-top: 0px;">');
             if(data[0] != null) {
-                var pro_date = new Date(data[0]['processed_on']);
-<<<<<<< HEAD
+                var pro_date = new Date(data[0]['processed_on']); 
                 results_array.push("<p> Payroll processed on <b>"+pro_date.getDate() +' '+capitalize(getMonthName(pro_date.getMonth())) +' '+pro_date.getFullYear() +"</b></p>");
-                results_array.push("<p>Balance in your account ");
-=======
-                results_array.push("<span> Amount is processed on <b>"+pro_date.getDate() +", "+capitalize(getMonthName(pro_date.getMonth())) +", "+pro_date.getFullYear() +"</b></span><br/>");
-                results_array.push("Balance amount is ");
->>>>>>> origin/master
+                results_array.push("<p>Balance in your account "); 
                 var balamnt=0;
                 if(data[0] != null) {
                     for (var i = 0; i < data.length; i++) {
@@ -1335,15 +1330,10 @@ function allotment_details() {
                 //period value will be string ie.. "201408"
                 //converting string value to number and then to Date .
                 period_date=Number(period);
-                period_month=Convert_toDate(period_date);
-<<<<<<< HEAD
+                period_month=Convert_toDate(period_date); 
                 if(balamnt<0)
                     balamnt=balamnt*(-1);
                 results_array.push(' as of <b>'+getMonthName(period_month.getMonth()) +' '+period_month.getFullYear()+'</b> is <b>USD '+ prsflt(balamnt)+'</b> </p>');
-=======
-                results_array.push('<b>'+prsflt(balamnt)+'</b>. for the month <b>'+getMonthName(period_month.getMonth()) +', '+period_month.getFullYear()+'</b>');
->>>>>>> origin/master
-
                 if(alllalerts.indexOf("ALLOTMENT") > -1){
                     update_alert_seen("ALLOTMENT");
                     alllalerts.replace('ALLOTMENT','');
