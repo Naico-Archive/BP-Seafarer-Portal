@@ -1315,28 +1315,28 @@ function allotment_details() {
             results_array.push('<div class = "footer" style="margin-top: 0px;">');
             if(data[0] != null) {
                 var pro_date = new Date(data[0]['processed_on']);
-                results_array.push("<span> Amount is processed on <b>"+pro_date.getDate() +", "+capitalize(getMonthName(pro_date.getMonth())) +", "+pro_date.getFullYear() +"</b></span><br/>");
-                results_array.push("Balance amount is ");
+                results_array.push("<span> Payroll processed on <b>"+pro_date.getDate() +' '+capitalize(getMonthName(pro_date.getMonth())) +' '+pro_date.getFullYear() +"</b></span><br/>");
+                results_array.push("Balance in your account ");
                 var balamnt=0;
                 if(data[0] != null) {
                     for (var i = 0; i < data.length; i++) {
                         //console.log(data[i]['bf_bal_sf_cur']);
                         balamnt=parseFloat(balamnt)+parseFloat(data[i]['bf_bal_sf_cur']);
                         //results_array.push("&nbsp;&nbsp;<span><b>"+data[i]['name']+" :</b> "+data[i]['bf_bal_sf_cur']+"</span><br/>");
-                        period = data[i]['max_period'];
-                        hide_spinner();
+                        period = data[i]['max_period']; 
                     }
                 }
                 //period value will be string ie.. "201408"
                 //converting string value to number and then to Date .
                 period_date=Number(period);
                 period_month=Convert_toDate(period_date);
-                results_array.push('<b>'+prsflt(balamnt)+'</b>. for the month <b>'+getMonthName(period_month.getMonth()) +', '+period_month.getFullYear()+'</b>');
+                results_array.push('<b>'+prsflt(balamnt)+"</b> as of <b>"+getMonthName(period_month.getMonth()) +' '+period_month.getFullYear()+'</b>');
 
                 if(alllalerts.indexOf("ALLOTMENT") > -1){
                     update_alert_seen("ALLOTMENT");
                     alllalerts.replace('ALLOTMENT','');
                 }
+                //  hide_spinner();
             }
             allotted_details(period, results_array);
         },
@@ -1368,9 +1368,9 @@ function allotted_details(period, results_array) {
             if(data[0] != null) {
                 for (var i = 0; i < data.length; i++) {
                     if(i == 0){
-                        results_array.push("<br> Amount allotted to ");
+                        results_array.push("<br> Allotments:- ");
                     }
-                    results_array.push("<br>&nbsp;&nbsp;"+data[i]['beneficiary_name']+": "+data[i]['amount']+"("+data[i]['currency']+")");
+                    results_array.push("<br>&nbsp;&nbsp;"+fixCapitalsText (data[i]['beneficiary_name'])+": "+data[i]['amount']+"("+data[i]['currency']+")");
                 }
             } else {
                 results_array.push("<br>You have not set any allotments.")
@@ -1378,9 +1378,10 @@ function allotted_details(period, results_array) {
             hide_spinner();
             $('#allotment_details').html(results_array.join(""));
             results_array.push('</div>');
-            fixCapitalsNode ($('#allotment_details')[0]);
+           // fixCapitalsNode ($('#allotment_details')[0]);
         },
         error: function (request, status, error) {
+             hide_spinner();
             $('#allotment_details').html(results_array.join(""));
             results_array.push('</div>');
             // fixCapitalsNode (document.body);
@@ -2378,13 +2379,17 @@ var currency_codes = {};
 var cost_codes = {};
 var currency_codes_reverse_map = {};
 var cost_codes_reverse_map = {};
-function expense_details (argument) {
+function expense_details (isrefresh) {
+    if(isrefresh ==null || isrefresh==true)
+    {
     index_page_call();
     hide_all();
     $("#index_content").show();
 
     $('#expense_details').html("");
     $('#expense_details').show();
+    }    
+    
 
     var results_array = new Array();
     results_array.push('<div class = "footer" style="margin-top: 5px; border:0px; text-align:center">');
@@ -2479,7 +2484,7 @@ function expense_details (argument) {
                 // results_array.push('<div class="footer">'+amount+cost_code+curr_code+desc+approval_status+paid_status+place+'</div>');
                 results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
                 results_array.push('<li class="topcoat-list__item" style="padding:0">');
-                if (date =="" || (new Date(date).getYear()!=new Date(cur_expense['IncidentalDate']).getYear() && new Date(date).getMonth()!=new Date(cur_expense['IncidentalDate']).getMonth())) {
+                if (date =="" || (dateformat(date, "mon yyyy")!=dateformat(cur_expense['IncidentalDate'], "mon yyyy"))) {
                     date=cur_expense['IncidentalDate'];
                     results_array.push('<div style="text-align:center;   background-color: #eee;">'+dateformat(date, "mon yyyy")+'</div>')
                 };             
@@ -2523,7 +2528,7 @@ function expense_details (argument) {
     fillExpenseList(); 
 }
 
-function fillExpenseList (argument) {
+function fillExpenseList (argument) { 
     $('#divExpList').html("");
     var results_array = new Array();
     var exp = $.jStorage.get("exp");
@@ -2566,7 +2571,7 @@ function fillExpenseList (argument) {
         };        
     };
 
-    $('#divExpList').html(results_array.join(""));
+    $('#divExpList').html(results_array.join("")); 
 }
 
 function showExpEdit (id) {
@@ -2729,6 +2734,7 @@ if(incDate == null || incDate == '' || (Date.parse(incDate) > Date.parse(new Dat
                             success : function(data) {
                                     //alert("s");
                                     hide_spinner();
+                                    expense_details(false);
                             }
                         });
      $('#divNewExp').hide();    
