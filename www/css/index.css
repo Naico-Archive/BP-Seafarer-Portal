@@ -627,7 +627,6 @@ span.header {
   /*box-shadow: 1px 4px 14px 0px #A7A7A7;*/
   /*position: fixed;
   bottom: 0;
-  border-radius: 10px;
   border: solid 0px #A7A7A7;
   box-shadow: 0px 0px 0px 0px #A7A7A7;
   margin-bottom: 10px;
@@ -635,6 +634,7 @@ span.header {
   width: 100%;
   top: 70%;
   overflow: auto;*/
+  border-radius: 10px;
 }
 
 .footer b{
@@ -675,7 +675,7 @@ span.header {
 }
 
 #tile_icons{
-  background: #3B5998;
+  background: #fff;
   margin-bottom: 5px;
 }
 
@@ -856,7 +856,7 @@ body{
   -webkit-border-radius: 20px 20px 20px 20px;
   border-radius: 7px;
   opacity: 0.9;
-  border: 1px solid;
+  border: 1px solid #1D3C7E;
   display: inline-block;
   margin: 10px;
 }
