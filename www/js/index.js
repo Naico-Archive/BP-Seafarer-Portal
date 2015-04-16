@@ -1369,15 +1369,10 @@ function allotted_details(period, results_array) {
             if(data[0] != null) {
                 for (var i = 0; i < data.length; i++) {
                     if(i == 0){
-<<<<<<< HEAD
                         results_array.push("<p> Allotments:- </p>");
                     }
                     results_array.push("<p>&nbsp;&nbsp;"+fixCapitalsText (data[i]['beneficiary_name'])+": "+data[i]['currency']+" "+data[i]['amount']+"</p>");
-=======
-                        results_array.push("<br> Amount allotted to ");
-                    }
-                    results_array.push("<br>&nbsp;&nbsp;"+data[i]['beneficiary_name']+": "+data[i]['amount']+"("+data[i]['currency']+")");
->>>>>>> origin/master
+
                 }
             } else {
                 results_array.push("<p>You have not set any allotments.</p>")
@@ -1385,7 +1380,7 @@ function allotted_details(period, results_array) {
             hide_spinner();
             $('#allotment_details').html(results_array.join(""));
             results_array.push('</div>');
-            fixCapitalsNode ($('#allotment_details')[0]);
+           // fixCapitalsNode ($('#allotment_details')[0]);
         },
         error: function (request, status, error) {
             $('#allotment_details').html(results_array.join(""));
