@@ -2481,7 +2481,7 @@ function expense_details (argument) {
                 // results_array.push('<div class="footer">'+amount+cost_code+curr_code+desc+approval_status+paid_status+place+'</div>');
                 results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
                 results_array.push('<li class="topcoat-list__item" style="padding:0">');
-                if (date =="" || (new Date(date).getYear()!=new Date(cur_expense['IncidentalDate']).getYear() && new Date(date).getMonth()!=new Date(cur_expense['IncidentalDate']).getMonth())) {
+                if (date =="" || (dateformat(date, "mon yyyy")!=dateformat(cur_expense['IncidentalDate'], "mon yyyy"))) {
                     date=cur_expense['IncidentalDate'];
                     results_array.push('<div style="text-align:center;   background-color: #eee;">'+dateformat(date, "mon yyyy")+'</div>')
                 };             
