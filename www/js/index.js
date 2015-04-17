@@ -2436,11 +2436,11 @@ function expense_details (isrefresh) {
             results_array.push('<li class="topcoat-list__item">Description<input size="15" type="text" class="topcoat-text-input" id="expDesc"> </li>');
             results_array.push('<li class="topcoat-list__item">Currency<select id="expCur" class="topcoat-select" >');
               
-            for (var i=0; i< expCur.length; ++i) {
-                currency_codes[expCur[i]['cur']] = expCur[i]['cur'];
-                currency_codes_reverse_map[expCur[i]['cur']] = expCur[i]['cur'];
+            for (var i=0; i< data.currencies.length; ++i) {
+                currency_codes[data.currencies[i]['ID']] = data.currencies[i]['label'];
+                currency_codes_reverse_map[data.currencies[i]['label']] = data.currencies[i]['ID'];
                 // cost_codes_reverse_map[data.cost_codes[i]['label']] = data.cost_codes[i]['ID'];
-                results_array.push('<option value="'+expCur[i]['cur']+'">'+expCur[i]['cur']+'</option>'); 
+                results_array.push('<option value="'+data.currencies[i]['ID']+'">'+data.currencies[i]['label']+'</option>'); 
             }
             //  for (var i=0; i< data.currencies.length; ++i) {
             //     currency_codes[data.currencies[i]['ID']] = data.currencies[i]['label'];
@@ -2531,14 +2531,14 @@ function expense_details (isrefresh) {
                 results_array.push('</ul>');
                 results_array.push('</li>');
                 results_array.push('</ul>');
-                }
-              
+                }               
             }
            else{
             results_array.push("<span> No bills submitted.</span><br/>");
            }
              results_array.push('</div></br>');  
-            $('#expense_details').html(results_array.join(""));           
+            $('#expense_details').html(results_array.join("")); 
+            $('body').scrollTop(0);          
             hide_spinner(); 
         },
         error: function (request, status, error) {
@@ -2712,7 +2712,7 @@ var url = prefilurl+"sf_insert_incidence.php?email="+$.jStorage.get("username");
     var costCodeId = 1;
     var description=$("#expDesc").val();
     var amount=$("#expAmount").val();
-    var currencyId=currency_codes_reverse_map[$("#expCur").val()];//$("#expCur").val();
+    var currencyId=$("#expCur").val();//$("#expCur").val();
     var place="place";
 if(incDate == null || incDate == '' || (Date.parse(incDate) > Date.parse(new Date()))){
         console.log(alert("Please select a valid bill Date"));
@@ -2754,7 +2754,7 @@ if(incDate == null || incDate == '' || (Date.parse(incDate) > Date.parse(new Dat
 
                             success : function(data) {
                                     //alert("s");
-                                    hide_spinner();
+                                    hide_spinner(); 
                                     expense_details(false);
                             }
                         });
