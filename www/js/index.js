@@ -1250,12 +1250,12 @@ function show_flight_details() {
                     var departure = data[i]['departure'];
                     var arrival = data[i]['arrival'];
                     var flight_content = departure+", "+arrival;
-                    results_array.push("<span> Departure : "+departure+"</span><br/>");
-                    results_array.push("<span> Departure Date :  "+dateformat(data[i]['departure_date'], "dd-mon-yyyy")+"</span><br/>");
-                    results_array.push("<span> Arrival : "+arrival+"</span><br/>");
-                    results_array.push("<span> Arrival Date : "+dateformat(data[i]['arrival_date'], "dd-mon-yyyy")+"</span><br/>");
-                    results_array.push("<span> Travel Route : "+nullcheck(data[i]['travel_route'])+"</span><br/>");
-                    results_array.push("<span> Remarks : "+nullcheck(data[i]['remarks'])+"</span><br/>");
+                    results_array.push("<p> Departure : "+departure+"</p>");
+                    results_array.push("<p> Departure Date :  "+dateformat(data[i]['departure_date'], "dd-mon-yyyy")+"</p>");
+                    results_array.push("<p> Arrival : "+arrival+"</p>");
+                    results_array.push("<p> Arrival Date : "+dateformat(data[i]['arrival_date'], "dd-mon-yyyy")+"</p>");
+                    results_array.push("<p> Travel Route : "+nullcheck(data[i]['travel_route'])+"</p>");
+                    results_array.push("<p> Remarks : "+nullcheck(data[i]['remarks'])+"</p>");
 
                     results_array.push("<a class='footer-button' onclick=\"correspondance('"+flight_content+"','FLIGHT')\"  style='margin: 3px;'><div class='png-bubbles button-icon'></div></a>");
                     results_array.push('</div>');
@@ -1263,7 +1263,7 @@ function show_flight_details() {
                 }                
      
         } else {
-                results_array.push("<span> No details updated. </span><br/>");
+                results_array.push("<p> No details updated. </p>");
                 hide_spinner();
             }
             
@@ -1276,7 +1276,7 @@ function show_flight_details() {
             }
         },
         error: function (request, status, error) {
-            results_array.push("<span> No data avilable. </span><br/>");
+            results_array.push("<p> No data avilable. </p>");
             results_array.push('</div>');
             $('#show_flight_details').html(results_array.join(""));
             // fixCapitalsNode (document.body);
@@ -2379,62 +2379,19 @@ function Convert_toDate(value){
 var currency_codes = {};
 var cost_codes = {};
 var currency_codes_reverse_map = {};
-var cost_codes_reverse_map = {};
-function expense_details (argument) {
-    index_page_call();
-    hide_all();
-    $("#index_content").show();
+// var cost_codes_reverse_map = {};
+function expense_details (isrefresh) {
+    if(isrefresh ==null || isrefresh==true)
+    {
+        index_page_call();
+        hide_all();
+        $("#index_content").show();
 
-    $('#expense_details').html("");
-    $('#expense_details').show();
-
+        $('#expense_details').html("");
+        $('#expense_details').show();
+     }
     var results_array = new Array();
-    results_array.push('<div class = "footer" style="margin-top: 5px; border:0px; text-align:center">');
-    // results_array.push('<button class="topcoat-button" id="btnCamera" onclick="openCamera()" ">Open Camera</button> ');
-    // results_array.push('<img id="imgCam" height="50" width="50"/>');
-    // results_array.push('<button class="topcoat-button" id="btnUploadImg" onclick="uploadImg()" ">Upload Image</button> ');    
-
-    results_array.push('<button class="topcoat-button" id="btnAddNew" onclick="addNewExp()" ">' +
-        '<span class="topcoat-icon png-plus png-header pagename-icon"/>Submit New Bill</button> ');
-    results_array.push('<div class = "footer" style="margin-top:5px; display:none" id="divNewExp" >');
-    results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
-    
-    results_array.push('<li class="topcoat-list__item">Date<input size="15" type="date" class="topcoat-text-input" id="expDate"> </li>');
-    
-    results_array.push('<li class="topcoat-list__item">Expense Type<select id="expType" class="topcoat-select" >'+
-                        '<option value="Food">Food</option>)' +
-                        '<option value="Air fare">Air fare</option>)' +
-                        '<option value="Transport">Transport</option>)' +
-                        '<option value="Other">Other</option>)' +
-                        '</select> </li>');
-
-    results_array.push('<li class="topcoat-list__item">Description<input size="15" type="text" class="topcoat-text-input" id="expDesc"> </li>');
-    results_array.push('<li class="topcoat-list__item">Currency<select id="expCur" class="topcoat-select" >');
-    for (var i = 0; i < expCur.length; i++) {
-         results_array.push('<option value="'+expCur[i].cur+'">'+expCur[i].cur+'</option>)');
-    };
-    results_array.push('</select> </li>');
-    
-    results_array.push('<li class="topcoat-list__item">Amount<input size="15" type="text" class="topcoat-text-input" id="expAmount"> </li>');
-
-    results_array.push('<li class="topcoat-list__item">Reciept</br>');
-    results_array.push('<button class="topcoat-button" id="btnCamera" onclick="openCamera(1)" style="display:inline-block" ">' +
-        '<span class="topcoat-icon png-camera png-header pagename-icon"></button>')
-    results_array.push('<button class="topcoat-button" id="btnGallery" onclick="openCamera(0)" style="display:inline-block; float:right; margin-right:0" ">' +
-        '<span class="topcoat-icon png-gallery png-header pagename-icon"></button>')
-    results_array.push('</br><div style="text-align:center"><img id="imgCam" height="300" width="300" style="margin:5px; display:inline-block"/></div>');
-    results_array.push('</li>');
-
-    results_array.push('<li class="topcoat-list__item">');
-    results_array.push('<button class="topcoat-button" id="btnExpSave" onclick="expSave()" style="display:inline-block" ">' +
-        '<span class="topcoat-icon png-checkmark png-header pagename-icon"/>Save</button>')
-    results_array.push('<button class="topcoat-button" id="btnExpCancel" onclick="expDiscard()" style="display:inline-block; float:right; margin-right:0" ">' +
-        '<span class="topcoat-icon png-cancel png-header pagename-icon"/>Discard</button>')
-    results_array.push('</li>');
-
-    results_array.push('</ul></div>');
-    results_array.push('</div>');
-
+  
     //results_array.push('<div class = "footer" style="margin-top:5px; border:0px;" id="divExpList" >');
     //results_array.push('</div></br>');
 
@@ -2451,15 +2408,75 @@ function expense_details (argument) {
 
         success : function(data) {
              currency_codes = {};
-            for (var i=0; i< data.currencies.length; ++i) {
-                currency_codes[data.currencies[i]['ID']] = data.currencies[i]['label'];
-                 currency_codes_reverse_map[data.currencies[i]['label']] = data.currencies[i]['ID'];
-            }
-             cost_codes = {};
+            results_array.push('<div class = "footer" style="margin-top: 5px; border:0px; text-align:center">');
+            // results_array.push('<button class="topcoat-button" id="btnCamera" onclick="openCamera()" ">Open Camera</button> ');
+            // results_array.push('<img id="imgCam" height="50" width="50"/>');
+            // results_array.push('<button class="topcoat-button" id="btnUploadImg" onclick="uploadImg()" ">Upload Image</button> ');    
+
+            results_array.push('<button class="topcoat-button" id="btnAddNew" onclick="addNewExp()" ">' +
+                '<span class="topcoat-icon png-plus png-header pagename-icon"/>Submit New Bill</button> ');
+            results_array.push('<div class = "footer" style="margin-top:5px; display:none" id="divNewExp" >');
+            results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
+            
+            results_array.push('<li class="topcoat-list__item">Date<input size="15" type="date" class="topcoat-text-input" id="expDate"> </li>');
+            
+            results_array.push('<li class="topcoat-list__item">Expense Type<select id="expType" class="topcoat-select" >'+
+                                '<option value="Food">Food</option>)' +
+                                '<option value="Air fare">Air fare</option>)' +
+                                '<option value="Transport">Transport</option>)' +
+                                '<option value="Other">Other</option>)' );
+             cost_codes = {};                   
             for (var i=0; i< data.cost_codes.length; ++i) {
                 cost_codes[data.cost_codes[i]['ID']] = data.cost_codes[i]['label'];
-                   cost_codes_reverse_map[data.cost_codes[i]['label']] = data.cost_codes[i]['ID'];
+                //cost_codes_reverse_map[data.cost_codes[i]['label']] = data.cost_codes[i]['ID'];
+                // results_array.push('<option value="'+data.cost_codes[i]['ID']+'">'+data.cost_codes[i]['label']+'</option>)');
+            };
+            results_array.push('</select> </li>');
+
+            results_array.push('<li class="topcoat-list__item">Description<input size="15" type="text" class="topcoat-text-input" id="expDesc"> </li>');
+            results_array.push('<li class="topcoat-list__item">Currency<select id="expCur" class="topcoat-select" >');
+              
+            for (var i=0; i< expCur.length; ++i) {
+                currency_codes[expCur[i]['cur']] = expCur[i]['cur'];
+                currency_codes_reverse_map[expCur[i]['cur']] = expCur[i]['cur'];
+                // cost_codes_reverse_map[data.cost_codes[i]['label']] = data.cost_codes[i]['ID'];
+                results_array.push('<option value="'+expCur[i]['cur']+'">'+expCur[i]['cur']+'</option>'); 
             }
+            //  for (var i=0; i< data.currencies.length; ++i) {
+            //     currency_codes[data.currencies[i]['ID']] = data.currencies[i]['label'];
+            //     results_array.push('<option value="'+data.currencies[i]['ID']+'">'+data.currencies[i]['label']+'</option>'); 
+            //     currency_codes_reverse_map[data.currencies[i]['label']] = data.currencies[i]['ID'];
+            // }
+            results_array.push('</select> </li>');
+            
+            results_array.push('<li class="topcoat-list__item">Amount<input size="15" type="text" class="topcoat-text-input" id="expAmount"> </li>');
+
+            results_array.push('<li class="topcoat-list__item">Reciept</br>');
+            results_array.push('<button class="topcoat-button" id="btnCamera" onclick="openCamera(1)" style="display:inline-block" ">' +
+                '<span class="topcoat-icon png-camera png-header pagename-icon"></button>')
+            results_array.push('<button class="topcoat-button" id="btnGallery" onclick="openCamera(0)" style="display:inline-block; float:right; margin-right:0" ">' +
+                '<span class="topcoat-icon png-gallery png-header pagename-icon"></button>')
+            results_array.push('</br><div style="text-align:center"><img id="imgCam" height="300" width="300" style="margin:5px; display:inline-block"/></div>');
+            results_array.push('</li>');
+
+            results_array.push('<li class="topcoat-list__item">');
+            results_array.push('<button class="topcoat-button" id="btnExpSave" onclick="expSave()" style="display:inline-block" ">' +
+                '<span class="topcoat-icon png-checkmark png-header pagename-icon"/>Save</button>')
+            results_array.push('<button class="topcoat-button" id="btnExpCancel" onclick="expDiscard()" style="display:inline-block; float:right; margin-right:0" ">' +
+                '<span class="topcoat-icon png-cancel png-header pagename-icon"/>Discard</button>')
+            results_array.push('</li>');
+
+            results_array.push('</ul></div>');
+            results_array.push('</div>');
+
+
+            
+            //  cost_codes = {};
+            // for (var i=0; i< data.cost_codes.length; ++i) {
+            //     cost_codes[data.cost_codes[i]['ID']] = data.cost_codes[i]['label'];
+            //        cost_codes_reverse_map[data.cost_codes[i]['label']] = data.cost_codes[i]['ID'];
+
+            // }
             var expenses = data.expenses;
 
             // alerts_array.push('<div class = "hambrgrdetails">');
@@ -2467,7 +2484,9 @@ function expense_details (argument) {
             // alert(expenses[0]['CurrencyId']);
             // alert(currency_codes[expenses[0]['CurrencyId']]);
             var date = "";
-            for (var i = 0; i < expenses.length; i++) {
+            if(expenses!=null)
+            {
+               for (var i = 0; i < expenses.length; i++) {
                 var cur_expense = expenses[i];
                 var amount = cur_expense['Amount'];
                 var cost_code = cost_codes[cur_expense['CostCodeId']];
@@ -2512,8 +2531,13 @@ function expense_details (argument) {
                 results_array.push('</ul>');
                 results_array.push('</li>');
                 results_array.push('</ul>');
+                }
+              
             }
-            results_array.push('</div></br>');
+           else{
+            results_array.push("<span> No bills submitted.</span><br/>");
+           }
+             results_array.push('</div></br>');  
             $('#expense_details').html(results_array.join(""));           
             hide_spinner(); 
         },
@@ -2688,7 +2712,7 @@ var url = prefilurl+"sf_insert_incidence.php?email="+$.jStorage.get("username");
     var costCodeId = 1;
     var description=$("#expDesc").val();
     var amount=$("#expAmount").val();
-    var currencyId=currency_codes_reverse_map[$("#expCur").val()];
+    var currencyId=currency_codes_reverse_map[$("#expCur").val()];//$("#expCur").val();
     var place="place";
 if(incDate == null || incDate == '' || (Date.parse(incDate) > Date.parse(new Date()))){
         console.log(alert("Please select a valid bill Date"));
@@ -2731,6 +2755,7 @@ if(incDate == null || incDate == '' || (Date.parse(incDate) > Date.parse(new Dat
                             success : function(data) {
                                     //alert("s");
                                     hide_spinner();
+                                    expense_details(false);
                             }
                         });
      $('#divNewExp').hide();    
