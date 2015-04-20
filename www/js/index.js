@@ -1381,7 +1381,6 @@ function allotted_details(period, results_array) {
                         results_array.push("<p> Remitted to bank:</p>");
                     }
                     results_array.push("<p>&nbsp;&nbsp;"+fixCapitalsText (data[i]['beneficiary_name'])+": "+data[i]['currency']+" "+ parseFloat(data[i]['amount']).formatMoney() +" on 05-Apr-2015</p>");
-
                 }
             } else {
                 results_array.push("<p>You have not set any allotments.</p>")
@@ -2506,7 +2505,7 @@ function expense_details (isrefresh) {
                 results_array.push('<li class="topcoat-list__item" style="padding:0">');
                 if (date =="" || (dateformat(date, "mon yyyy")!=dateformat(cur_expense['IncidentalDate'], "mon yyyy"))) {
                     date=cur_expense['IncidentalDate'];
-                    results_array.push('<div style="text-align:center;   background-color: #eee;">'+dateformat(date, "mon yyyy")+'</div>')
+                    results_array.push('<div class="expense_date" style="text-align:center;   background-color: #8799BF; color:#fff;">'+dateformat(date, "mon yyyy")+'</div>')
                 };             
                 results_array.push('<ul class="topcoat-list__container" style="text-align:left">');
                 results_array.push('<li class="topcoat-list__item" style="padding:0px">');
@@ -2527,7 +2526,7 @@ function expense_details (isrefresh) {
                 }
                 results_array.push('png-header pagename-icon" style="margin-right: 10px;"/>');
                 
-                results_array.push('<div style="display: inline-block; max-width:150px; text-overflow:ellipsis;">' + desc + '</div>'
+                results_array.push('<div style="display: inline-block; max-width:150px; text-overflow:ellipsis; font-weight:bold;">' + desc + '</div>'
                      + ' '// + '<div style="color:#63c2df; display: inline-block">'+ place + '</div>'
                      + ' ' + '<div style="font-size: larger; float:right; color:#50aa3b; margin-right:3px; display: inline-block">'+ amount +'</div>' +
                       '<div style="font-size: larger; float:right; display: inline-block">'+ curr_code + '</div>' );
