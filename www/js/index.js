@@ -26,12 +26,11 @@ var contentlayer;
 
 // ALERT JAVASCRIPT ERRORS
 window.onerror = function(msg, url, linenumber) {
-    alert('Error message: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
+    // alert('Error message: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
     return true;
 }
 
 // var slider = new PageSlider($("#container"));
-
 
 $(window).on('hashchange', route);
 $(window).on('load', route_to_dashboard);
@@ -204,6 +203,13 @@ function capitalize(str) {
     if (str)
         return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
+
+
+$('#hamburger-btn').hide();
+$('#top_icons').hide(); 
+$('#alert-btn').hide(); 
+$('#alert_count_btn').hide(); 
+$('#btnBack').hide(); 
 
 var app = {
     // Application Constructor
@@ -1335,7 +1341,7 @@ function allotment_details() {
                 period_month=Convert_toDate(period_date); 
                 if(balamnt<0)
                     balamnt=balamnt*(-1);
-                results_array.push(' as of <b>'+getMonthName(period_month.getMonth()) +' '+period_month.getFullYear()+'</b> is <b>'+data[0]['currency']+' '+ prsflt(balamnt)+'</b> </p>');
+                results_array.push(' as of <b>'+getMonthName(period_month.getMonth()) +' '+period_month.getFullYear()+'</b> is <b>'+data[0]['currency']+' '+ parseFloat(balamnt).formatMoney()+'</b> </p>');
                 if(alllalerts.indexOf("ALLOTMENT") > -1){
                     update_alert_seen("ALLOTMENT");
                     alllalerts.replace('ALLOTMENT','');
@@ -1372,10 +1378,9 @@ function allotted_details(period, results_array) {
             if(data[0] != null) {
                 for (var i = 0; i < data.length; i++) {
                     if(i == 0){
-                        results_array.push("<p><b> Allotments:-</b> </p>");
+                        results_array.push("<p> Remitted to bank:</p>");
                     }
-                    results_array.push("<p>&nbsp;&nbsp;"+fixCapitalsText (data[i]['beneficiary_name'])+":<b> "+data[i]['currency']+" "+data[i]['amount']+"</b></p>");
-
+                    results_array.push("<p>&nbsp;&nbsp;"+fixCapitalsText (data[i]['beneficiary_name'])+": "+data[i]['currency']+" "+ parseFloat(data[i]['amount']).formatMoney() +" on 05-Apr-2015</p>");
                 }
             } else {
                 results_array.push("<p>You have not set any allotments.</p>")
@@ -2627,7 +2632,7 @@ function showExpEdit (id) {
         $('#divNewExp').show();
     }   
     catch(err){
-        alert(err);
+        // alert(err);
     }
 }
 
@@ -2692,7 +2697,7 @@ function onPhotoDataSuccess(imageData) {
         // });
     }
     catch(err){
-        alert('ERR' + err);
+        // alert('ERR' + err);
     }
 }
 
@@ -2819,7 +2824,7 @@ if(incDate == null || incDate == '' || (Date.parse(incDate) > Date.parse(new Dat
 function uploadImg (argument) {
     try{
         var url = prefilurl+"upload_image.php?email="+$.jStorage.get("username")+"&empid="+$.jStorage.get("empid");
-        alert('url ' + encodeURI(url));
+        // alert('url ' + encodeURI(url));
         var params = {file: lastImageData};
 
         // send the data
@@ -2828,7 +2833,7 @@ function uploadImg (argument) {
         //      // Display the selected image on send complete
         //      // $('#imgCam').attr('src', 'data:image/jpeg;base64,' + params['file']);     
         // });
-        alert('lastImageData '+ lastImageData);
+        // alert('lastImageData '+ lastImageData);
         var imageURI = lastImageData;
         // $.post( url, {data: lastImageData}, function(data) {
         //     alert("Image uploaded!");
@@ -2862,7 +2867,7 @@ function uploadImg (argument) {
 
         ft.upload(imageURI, encodeURI(url), win, fail, options, true);
 
-        alert("end");
+        // alert("end");
 
         // var params = {image: lastImageData};
 
@@ -2874,23 +2879,23 @@ function uploadImg (argument) {
         // });
     }
     catch(err){
-        alert('Error: ' + err);
+        // alert('Error: ' + err);
     }
 }
 
 function win(r) {
-    alert("win");
-    alert(r);
+    // alert("win");
+    // alert(r);
     console.log("Code = " + r.responseCode);
     console.log("Response = " + r.response);
     console.log("Sent = " + r.bytesSent);
-    alert(r.response);
+    // alert(r.response);
 }
 
 function fail(error) {
-    alert("fail");
-    alert(error);
-    alert("An error has occurred: Code = " + error.code);
+    // alert("fail");
+    // alert(error);
+    // alert("An error has occurred: Code = " + error.code);
 }
 
 function Generator() {};
@@ -2950,7 +2955,7 @@ payslipData.push({item:'2013 SBM Bonus', value:'0'});
 payslipData.push({item:'Reimbursed expenses', value:'0'});
 payslipData.push({item:'Cashed in leave', value:'0'});
 payslipData.push({item:'Sick pay', value:'0'});
-payslipData.push({item:'<b>Total earnings</b>', value:'<b>6,103</b>'});
+payslipData.push({item:'<b>Total earnings</b>', value:'<b>USD 6,103</b>'});
 
 payslipData.push({item:'', value:''});
 
@@ -2962,7 +2967,7 @@ payslipData.push({item:'Special allotment', value:'0'});
 payslipData.push({item:'Miscellaneous', value:'0'});
 payslipData.push({item:'<b>Total deductions</b>', value:'<b>33.97</b>'});
 
-payslipData.push({item:'<b>Salary paid</b>', value:'<b>6,447</b>'});
+payslipData.push({item:'<b>Salary paid</b>', value:'<b>USD 6,447</b>'});
 
 // payslipData.push({item:'', value:''});
 // payslipData.push({item:'Notes', value:''});
