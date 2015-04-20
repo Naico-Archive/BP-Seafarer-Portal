@@ -1303,3 +1303,17 @@ hr.style-four {
   background-color: #E2E9FA;
   border: 1px solid #89AAF1;
 };
+
+#document_details .expired{
+  padding-left: 30px;
+}
+
+#document_details .expired:before{
+  background: #f00;
+  color: #fff;
+  border-radius: 50%;
+  content: '!';
+  position: relative;
+  padding: 1px 9px;
+  margin-right: 10px;
+}

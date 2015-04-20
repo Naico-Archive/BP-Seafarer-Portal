@@ -1998,6 +1998,7 @@ function documentdetails(){
     });
 }
 
+
 function visible_expired_docs() {
     if ($("#exp_docs").is(':hidden')==true) {
         $("#exp_docs").show();
@@ -2511,15 +2512,28 @@ function expense_details (isrefresh) {
                 results_array.push('<li class="topcoat-list__item" style="padding:0px">');
                 results_array.push('<div class="topcoat-icon ');
                 switch(cost_code) {
+                    case 'TR':
+                        results_array.push(' png-automobile ');
+                        break;
+                    case 'AC':
+                        results_array.push(' png-bed ');
+                        break;
+                    case 'CR':
+                        results_array.push(' png-course ');
+                        break;
                     case 'ML':
                         results_array.push(' png-spoon-knife ');
+                        break;
+                    case 'MD':
+                        results_array.push(' png-medical ');
+                        break;
+                    case 'MS':
+                        results_array.push(' png-help ');
                         break;
                     // case 'Air fare':
                     //     results_array.push(' png-airplane ');
                     //     break;
-                    case 'TR':
-                        results_array.push(' png-automobile ');
-                        break;
+                    
                     default:
                         results_array.push(' png-help ');
                         break;

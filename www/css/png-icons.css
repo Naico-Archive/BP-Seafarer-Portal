@@ -155,6 +155,27 @@
 	background-repeat: no-repeat;
 }
 
+.png-bed{	
+	background-image: url("png/bed.png");
+	background-size: 67% !important;
+	height: 100%;
+	background-repeat: no-repeat;
+}
+
+.png-course{	
+	background-image: url("png/course.png");
+	background-size: 67% !important;
+	height: 100%;
+	background-repeat: no-repeat;
+}
+
+.png-medical{	
+	background-image: url("png/medical.png");
+	background-size: 67% !important;
+	height: 100%;
+	background-repeat: no-repeat;
+}
+
 #expense_details .footer div.pagename-icon{
 	background-size: 70% !important;
 	top: 0px !important;
