@@ -1919,7 +1919,17 @@ function documentdetails(){
                     }
                     /*if(tep_docname != data[i]['name']) {
                         tep_docname = data[i]['name'];*/
-                    results_array.push("<li class='topcoat-list__item'>");
+                    results_array.push("<li class='topcoat-list__item");
+                    if(data[i]['expiry_date']!=null && data[i]['expiry_date']!='' ) {
+                        var d = new Date(data[i]['expiry_date']);
+                        var timeDiff = (new Date().getTime() - d.getTime());
+                        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                        console.log(' '+ data[i]['expiry_date'] + ' '+ diffDays);
+                        if (diffDays<90) {
+                            results_array.push(' expired');
+                        };
+                    }
+                    results_array.push("'>");
 
                     if((Date.parse(data[i]['expiry_date'])) < Date.parse(new Date())) {
                         results_array.push("<span style='color:red'>"+capitalize(data[i]['name']));
@@ -1934,8 +1944,9 @@ function documentdetails(){
                       if(data[i]['country']!=null && data[i]['country']!='' ) 
                         results_array.push(" ("+data[i]['country']+")");
 
-                    if(data[i]['expiry_date']!=null && data[i]['expiry_date']!='' ) 
+                    if(data[i]['expiry_date']!=null && data[i]['expiry_date']!='' ) {
                         results_array.push(" - "+dateformat(data[i]['expiry_date'], "dd-mon-yyyy"));
+                    }
                     results_array.push("</span><br/>");
                     results_array.push("</li>");
                     results_array.push("</li>");
