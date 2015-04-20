@@ -1924,7 +1924,6 @@ function documentdetails(){
                         var d = new Date(data[i]['expiry_date']);
                         var timeDiff = (new Date().getTime() - d.getTime());
                         var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-                        console.log(' '+ data[i]['expiry_date'] + ' '+ diffDays);
                         if (diffDays<90) {
                             results_array.push(' expired');
                         };
