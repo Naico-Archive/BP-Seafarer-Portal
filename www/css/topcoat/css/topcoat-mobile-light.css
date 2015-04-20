@@ -1608,7 +1608,6 @@ input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
 
 .topcoat-list__item {
   padding: 5px !important;
-  border-top: 1px solid #fff;
 }
 
 #btnExpSave .png-checkmark {
@@ -1841,14 +1840,18 @@ input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
 
 li.topcoat-list__item>div{
   padding: 3px;
+  margin-bottom: 2px;
 }
 
 #divNewExp li:last-child{
   border-bottom: 0;
 }
-.topcoat-list__container>li>ul>li{
-  border-bottom: 1px solid #C7C7C7;
+
+.topcoat-list__container:not(:last-child) {
+  border-bottom: 1px solid #E4E4E4;
 }
+
+
 
 /*
 Copyright 2012 Adobe Systems Inc.;
