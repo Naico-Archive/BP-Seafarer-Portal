@@ -2709,63 +2709,60 @@ function onFail(message) {
 }
 
 function expSave(){
-var url = prefilurl+"sf_insert_incidence.php?email="+$.jStorage.get("username");
-  
- var empid = $.jStorage.get("empid");
+    var url = prefilurl+"sf_insert_incidence.php?email="+$.jStorage.get("username");
+
+    var empid = $.jStorage.get("empid");
     var incDate=$("#expDate").val();
     var costCodeId = $("#expType").val();
     var description=$("#expDesc").val();
     var amount=$("#expAmount").val();
     var currencyId=$("#expCur").val();//$("#expCur").val();
     var place="place";
-if(incDate == null || incDate == '' || (Date.parse(incDate) > Date.parse(new Date()))){
-        console.log(alert("Please select a valid bill Date"));
+    if(incDate == null || incDate == '' || (Date.parse(incDate) > Date.parse(new Date()))){
+        alert("Please select a valid bill Date");
         return ;
-}
- else if(costCodeId== null || costCodeId == ''||costCodeId<=0){
-        console.log(alert("Please select cost type"));
+    }
+    else if(costCodeId== null || costCodeId == ''||costCodeId<=0){
+        alert("Please select cost type");
         return ;
     }
     else if(description== null || description == ''){
-            alert.log(alert("Pleae enter bill description!"));
-            return ;
-        }
-        else if(amount== null || amount == ''|| amount<=0){
-                console.log(alert("Please enter expense amount!"));
-                return ;
-            }
-            else if(currencyId== null || currencyId == ''|| currencyId<=0){
-                    console.log(alert("Select bill currency. "));
-                    return ;
-            }
-            else{
-                var form_data= {
-                      'empid': empid,
-                      'incDate':incDate,
-                      'costCodeId': costCodeId,
-                      'description':description,
-                      'amount': amount,
-                      'currencyId':currencyId,
-                      'place':place
-                    };
-                     var req = $.ajax({
-                            url: url,
-                            type: "post",
-                            data: form_data,
-                            beforeSend: function() {
-                                show_spinner();
-                            },
-
-                            success : function(data) {
-                                    //alert("s");
-                                    hide_spinner(); 
-                                    expense_details(false);
-                            }
-                        });
-     $('#divNewExp').hide();    
-}
-
-
+        alert("Pleae enter bill description!");
+        return ;
+    }
+    else if(amount== null || amount == ''|| amount<=0){
+        alert("Please enter expense amount!");
+        return ;
+    }
+    else if(currencyId== null || currencyId == ''|| currencyId<=0){
+        alert("Select bill currency. ");
+        return ;
+    }
+    else{
+        var form_data= {
+            'empid': empid,
+            'incDate':incDate,
+            'costCodeId': costCodeId,
+            'description':description,
+            'amount': amount,
+            'currencyId':currencyId,
+            'place':place
+        };
+        var req = $.ajax({
+            url: url,
+            type: "post",
+            data: form_data,
+            beforeSend: function() {
+            show_spinner();
+            },
+            success : function(data) {
+            //alert("s");
+                hide_spinner(); 
+                expense_details(false);
+                }
+            });
+        $('#divNewExp').hide();    
+    }
     // var exp = $.jStorage.get("exp");
     // if (exp == null) {
     //     exp = [];
