@@ -1420,9 +1420,9 @@ function show_correspondance (page) {
 
     results_array.push('<form onsubmit="return false" >');
     if(content != null && content != "")
-        results_array.push("<textarea class='topcoat-text-input--large' id='message' style='width: 100%; height: 250px;line-height: 1.5rem;'>Reg:"+content+":-</textarea></br>");
+        results_array.push("<textarea class='topcoat-text-input--large' id='message' style='width: 100%; height: 150px;line-height: 1.5rem;'>Reg:"+content+":-</textarea></br>");
     else
-        results_array.push('<textarea class="topcoat-text-input--large" id="message" style="width: 100%; height: 250px;line-height: 1.5rem;"></textarea></br>');
+        results_array.push('<textarea class="topcoat-text-input--large" id="message" style="width: 100%; height: 150px;line-height: 1.5rem;"></textarea></br>');
     results_array.push('<span id="error_corrspondance" style="color:red"></span><br>');
     results_array.push('<div>');
     results_array.push('<button class="topcoat-button" onclick="correspondancesend()" ">Send</button>');
@@ -1746,9 +1746,9 @@ function doaAdd(status, page, content) {
         /*doa_array.push("<span>Date:</span><br><input class='topcoat-text-input' type='date' value="+new Date()+" id='doadate'>");*/
         doa_array.push("<span>Date:</span><br><input size='15' type='date' class='topcoat-text-input' id='doadate'>");
         if(content != null && content != "")
-            doa_array.push("<br><span>Remark:</span><br><textarea class='topcoat-text-input--large' id='coaremark' style='width: 100%;height: 250px;line-height: 1.5rem;'>Reg:"+content+":-</textarea></br>");
+            doa_array.push("<br><span>Remark:</span><br><textarea class='topcoat-text-input--large' id='coaremark' style='width: 100%;height: 120px;line-height: 1.5rem;'>Reg:"+content+":-</textarea></br>");
         else
-            doa_array.push("<br><span>Remark:</span><br><textarea class='topcoat-text-input--large' id='coaremark' style='width: 100%;height: 250px;line-height: 1.5rem;'></textarea></br>");
+            doa_array.push("<br><span>Remark:</span><br><textarea class='topcoat-text-input--large' id='coaremark' style='width: 100%;height: 120px;line-height: 1.5rem;'></textarea></br>");
         doa_array.push("<span id='error_doa' style='color:red'></span><br>");
         doa_array.push("<button class='topcoat-button' onclick=\"savedoa('"+page+"')\" >Save DoA</button>");
         doa_array.push("<button class='topcoat-button' onclick=\"backdoa('"+page+"')\" >Cancel</button>");
