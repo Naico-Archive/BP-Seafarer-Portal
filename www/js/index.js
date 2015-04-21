@@ -42,6 +42,7 @@ function route_to_dashboard (event) {
 
 // Basic page routing
 function route(event) {
+    // console.log('route');
     var page,
         hash = window.location.hash.split('/')[0];
 
@@ -116,6 +117,7 @@ function route(event) {
     } else if (hash === "#alert") {
         hide_all();
         alllalerts="";
+        console.log('route alerts');
         alerts();
     } else if (hash === "#changepwd"){
         hide_all();
@@ -126,7 +128,7 @@ function route(event) {
     } else {
         if($.jStorage.get("empid") != null){
             getempdetails($.jStorage.get("empid"), '');
-            before_route("#plan");
+            before_route("#plan/"+Math.floor(Math.random()*100));
         }
         // page = show_owners();
     }
@@ -141,6 +143,7 @@ function route(event) {
 
 function before_route (hash) {
     var curhash = window.location.hash.split('/')[0];
+    // console.log("curhash " + curhash + " hash " + hash)
     if (hash == curhash) {
         if($("#container").hasClass( "opened" )) {
             var containr = $('#container');
