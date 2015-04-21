@@ -277,7 +277,8 @@ var app = {
 };
 
 
-function fixCapitalsText (text){
+function fixCapitalsText (text)
+{
   var result = "";
 
   var sentenceStart = true;
@@ -306,7 +307,8 @@ function fixCapitalsText (text){
   return result;
 }
 
-function fixCapitalsNode (node){
+function fixCapitalsNode (node)
+{
   if (node.nodeType == 3 || node.nodeType == 4) // Text or CDATA
   {
     node.textContent = fixCapitalsText (node.textContent);
@@ -981,7 +983,6 @@ function show_plan_details() {
 
             bottm_buttons("P" ,results_array);
             results_array.push('<hr><div id="doa_content"></div>');
-            results_array.push('<div id="doa_content_details"></div>');
             $('#show_plan_details').html(results_array.join(""));
             var arr = [];
             arr.push(results[0].doa);
@@ -1412,7 +1413,6 @@ function show_correspondance (page) {
     $('#correspondance_content').html(""); 
     $('#correspondance_content').show(); 
     var content = corr_content;
-    corr_content = "";
     var results_array = new Array(); 
 
     setheadername(results_array, '<span class="icon-briefcase pagename-icon"><span class="page_icon chatwoffice_black"></span> Chat with office</span>', "name");
@@ -1560,6 +1560,7 @@ function doadetails_display(data){
     var results_array = new Array(); 
     
     var d = new Date();
+    $('#doa_content').show();
     var add = 'adddoa';
     var cancel = 'canceldoa';
     var from_tab = 'DOA';
@@ -1593,6 +1594,7 @@ function doadetails_display(data){
     results_array.push('</div>');
     $('#doa_content').html(results_array.join(""));
     // fixCapitalsNode ($('#doa_content')[0]);
+    
 }
 
 function doadetails(){
@@ -1735,8 +1737,7 @@ function changepwd () {
 function doaAdd(status, page, content) {
     if(status.indexOf('adddoa')>-1) {
         var doa_array = new Array(); 
-        $('#doa_content').hide();
-        $('#doa_content_details').html("");
+        $('#doa_content').html("");
         $('#adddoa').show();
         //doa_array.push('<button onclick="doadetails()" class="back-btn"><img src="img/arrow-back.png"></button>');
         doa_array.push("<div class='adddoa'>");
@@ -1755,8 +1756,7 @@ function doaAdd(status, page, content) {
         doa_array.push('</form>');
         doa_array.push('</div>');
         doa_array.push('</div>');
-        $('#doa_content_details').show();
-        $('#doa_content_details').html(doa_array.join(""));
+        $('#doa_content').html(doa_array.join(""));
         // fixCapitalsNode ($('#doa_content')[0]);
         // new datepickr('doadate', {
         //     'dateFormat': 'd-M-Y'
@@ -1862,12 +1862,9 @@ function canceldoa() {
 }
 
 function backdoa(page) {
-    if(page == "DOA"){
+    if(page == "DOA")
         // doadetails();
-        // show_plan_details();
-        $('#doa_content').show();
-        $('#doa_content_details').hide();
-    }
+        show_plan_details();
     else if(page == "OPEN_POSITION"){
         hide_all();
         $('#index_content').show(); 
@@ -2013,6 +2010,7 @@ function documentdetails(){
         }
     });
 }
+
 
 function visible_expired_docs() {
     if ($("#exp_docs").is(':hidden')==true) {
@@ -2966,6 +2964,7 @@ function payslip_details (argument) {
     results_array.push('</div>');
 
     $('#payslip_details').html(results_array.join(""));
+
 }
 
 var payslipData = new Array();
