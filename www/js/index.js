@@ -967,7 +967,7 @@ function show_plan_details() {
                     results_array.push("<span><b> Rank :</b> "+toTitleCase(data['rank_name'])+"</span><br/>");
                     results_array.push("<span><b> Manager :</b> "+data['emp_sdc_name'].toUpperCase()+"</span><br/>");
                     results_array.push("<span><b> Exp. Joining Date :</b> "+dateformat(data['from_date'], "dd-mon-yyyy")+"</span><br/>");
-                    results_array.push("<span><b> Exp. Join Port :</b> "+toTitleCase(port)+"</span><br/>");
+                    results_array.push("<span><b> Exp. Joining Port :</b> "+toTitleCase(port)+"</span><br/>");
                     results_array.push('</div>');
                     results_array.push('</div>');
                     results_array.push('&nbsp;');
@@ -1523,9 +1523,10 @@ function correspondancesend() {
                     //$('#correspondance_content').hide();
                     //showdashbord();
                     hide_spinner();
-                    results_array.push('</span> Correspondence sent.</span>');
-                    results_array.push("</div>");
-                    $('#correspondance_content').html(results_array.join(""));
+                    show_correspondance();
+                    // results_array.push('</span> Correspondence sent.</span>');
+                    // results_array.push("</div>");
+                    // $('#correspondance_content').html(results_array.join(""));
                     
                 } else {
                     hide_spinner();
@@ -1922,8 +1923,9 @@ function documentdetails(){
                     results_array.push("<li class='topcoat-list__item");
                     if(data[i]['expiry_date']!=null && data[i]['expiry_date']!='' ) {
                         var d = new Date(data[i]['expiry_date']);
-                        var timeDiff = (new Date().getTime() - d.getTime());
+                        var timeDiff = Math.abs(new Date().getTime() - d.getTime());
                         var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                        // console.log(d + ' ' + diffDays);
                         if (diffDays<90) {
                             results_array.push(' expired');
                         };
@@ -1993,6 +1995,7 @@ function documentdetails(){
             setheadername(results_array_new, '<div><span class="icon-briefcase pagename-icon"><span class="page_icon docs_black"></span>  My Documents</span></div>');            
             results_array_new.push(expired_array.join(""))
             results_array_new.push(results_array.join(""));
+            results_array_new.push('<div class="expired">Expiring in 3 months</div>')
             results_array_new.push('</div>');
 
             $('#document_details').html(results_array_new.join(""));
