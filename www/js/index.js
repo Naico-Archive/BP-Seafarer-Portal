@@ -2983,7 +2983,7 @@ payslipData.push({item:'2013 SBM Bonus', value:'0'});
 payslipData.push({item:'Reimbursed expenses', value:'0'});
 payslipData.push({item:'Cashed in leave', value:'0'});
 payslipData.push({item:'Sick pay', value:'0'});
-payslipData.push({item:'<b>Total earnings</b>', value:'<b>USD 6,103</b>'});
+payslipData.push({item:'<b>Total earnings</b>', value:'<b>USD 6,360</b>'});
 
 payslipData.push({item:'', value:''});
 
@@ -2995,7 +2995,7 @@ payslipData.push({item:'Special allotment', value:'0'});
 payslipData.push({item:'Miscellaneous', value:'0'});
 payslipData.push({item:'<b>Total deductions</b>', value:'<b>USD 33.97</b>'});
 
-payslipData.push({item:'<b>Salary paid</b>', value:'<b>USD 6,447</b>'});
+payslipData.push({item:'<b>Salary paid</b>', value:'<b>USD 6,326.03</b>'});
 
 // payslipData.push({item:'', value:''});
 // payslipData.push({item:'Notes', value:''});
