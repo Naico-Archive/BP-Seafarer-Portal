@@ -680,6 +680,11 @@ span.header {
   display: none;
 }
 
+#show_plan_details .header_text{
+  font-weight: bold;
+  font-size: 20px;
+}
+
 #tile_icons{
   background: #fff;
   margin-bottom: 5px;
@@ -1290,6 +1295,10 @@ hr.style-four {
   display: block;
   border-bottom: 1px solid #eee;
   padding: 5px 0;
+}
+
+#show_flight_details .footer p{
+  margin:5px 0;
 }
 
 
