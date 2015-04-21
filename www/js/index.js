@@ -2986,7 +2986,7 @@ payslipData.push({item:'Slop chest', value:'9.87'});
 payslipData.push({item:'Cash advance', value:'24.1'});
 payslipData.push({item:'Special allotment', value:'0'});
 payslipData.push({item:'Miscellaneous', value:'0'});
-payslipData.push({item:'<b>Total deductions</b>', value:'<b>33.97</b>'});
+payslipData.push({item:'<b>Total deductions</b>', value:'<b>USD 33.97</b>'});
 
 payslipData.push({item:'<b>Salary paid</b>', value:'<b>USD 6,447</b>'});
 
