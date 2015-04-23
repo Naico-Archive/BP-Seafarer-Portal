@@ -54,7 +54,7 @@
 }
 .png-banknote{	
 	background-image: url("png/icon-banknote.png");
-	background-size: 100%;
+	background-size: 50%;
 	background-repeat: no-repeat;
 }
 .png-megaphone2{	
@@ -75,13 +75,13 @@
 }
 .png-users{	
 	background-image: url("png/icon-users.png");
-	background-size: 100%;
+	background-size: 50%;
 	background-repeat: no-repeat;
 }
 .png-alerts{
 	display: inline-block;
-	height: 25px;
-	width: 25px;
+  	height: 9px;
+  	width: 25px;
 }
 .png-plus{	
 	background-image: url("png/plus_white.png");

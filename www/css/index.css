@@ -208,6 +208,10 @@ h1 {
   float: right;
 }
 
+#document_details .topcoat-list__container li:nth-child(even){
+  background: rgba(210, 220, 240, 0.42);
+}
+
 #login_form input{
   border-radius: 30px;
   border: 0;
@@ -731,6 +735,10 @@ body{
   right:0px;
 }
 
+#alert_content .topcoat-list__container li:not(:last-child){
+  border-bottom: 1px solid #E4ECFB;
+}
+
 #plan_details_header{
   font-size: 14px;
   height: 45px;
@@ -826,9 +834,10 @@ body{
 }
 
 #alert_count { 
-  margin-left: 10px;
+  display: inline-block;
+  margin-left: 9px;
+  margin-top: 1px;
   color: #FFF;
-
 }
 
 
