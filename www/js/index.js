@@ -538,7 +538,7 @@ $(document).ready(function() {
     }
 });
 
-var prefilurl = "https://getVesselTracker.com/seafarer_dev_bp/";
+var prefilurl = "https://getVesselTracker.com/seafarer_democustomer/";
 /*$.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
     options.url = 'https://getVesselTracker.com/seafarer_dev/'+ options.url ;//+ options.url + "&pal_user_email=" + $.jStorage.get("pal_user_name");
 });
