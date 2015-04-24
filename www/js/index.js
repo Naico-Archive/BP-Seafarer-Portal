@@ -2972,7 +2972,7 @@ function payslip_details (argument) {
 }
 
 var payslipData = new Array();
-payslipData.push({item:'Vessel', value:'Fpso Serpentina'});
+payslipData.push({item:'Vessel', value:'Alpha'});
 payslipData.push({item:'Basic Salary(31 days)', value:'6,103'});
 payslipData.push({item:'Balance brought forward ', value:'0'}); //from previous month
 
